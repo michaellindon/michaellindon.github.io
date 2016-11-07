@@ -12,8 +12,9 @@ tags:
 ---
 
 
-# Generic Julia Implementation
-The Metropolis Adjusted Langevin Algorithm is a more general purpose markov chain monte carlo algorithm for sampling from a differentiable target density. Here is an implementation in Julia using an optional preconditioning matrix. The function arguments are a function to evaluate the target logdensity, a function to evaluate the gradient, a step size h, a preconditioning matrix M (use an Identity matrix if preconditioning is not desired), number of iterations and an initial parameter value.
+The Metropolis Adjusted Langevin Algorithm is a more general purpose markov chain monte carlo algorithm for sampling from a differentiable target density. 
+{% include toc title="MALA" %}
+Here is an implementation in Julia using an optional preconditioning matrix. The function arguments are a function to evaluate the target logdensity, a function to evaluate the gradient, a step size h, a preconditioning matrix M (use an Identity matrix if preconditioning is not desired), number of iterations and an initial parameter value.
 
 
 ```julia
@@ -103,9 +104,11 @@ julia> library(coda)
 R> library(coda)
 
 R> min(effectiveSize($(draws')))
+
 [1] 22.02418
 
 R> min(effectiveSize($(pdraws')))
+
 [1] 50.85163
 
 I didn’t tune the step size h in this example at all (you should).

@@ -2,8 +2,6 @@
 title: A Functional Implementation of Slice Sampling in Julia
 date: 2016-11-05T13:07:09+00:00
 author: admin
-layout: single
-author_profile: true 
 categories:
   - julia
 tags:
@@ -13,7 +11,10 @@ tags:
 ---
 
 
-I've been using Clojure and Scala most recently for algorithmic work but I needed to return to Julia momentarily in order to finish a project. Julia is not the most natural language in which to perform functional programming; it does not support tail call elimination, no native support for immutable data structures, currying interferes with its multiple dispatch model and it seems most of the design choices favoured imperativeness. Most functional functionality is provided by the third-party Lazy, FunctionalCollections and Match packages which provide lazy lists, functional data structures and pattern matching respectively.
+I've been using Clojure and Scala most recently for algorithmic work but I needed to return to Julia momentarily in order to finish a project. 
+{% include toc title="Slice Sampling" %}
+Julia is not the most natural language in which to perform functional programming; it does not support tail call elimination, no native support for immutable data structures, currying interferes with its multiple dispatch model and it seems most of the design choices favoured imperativeness. Most functional functionality is provided by the third-party Lazy, FunctionalCollections and Match packages which provide lazy lists, functional data structures and pattern matching respectively.
+
 
 ## "Stepping Out" Slice Sampling
 No variables were mutated in the making of this code
