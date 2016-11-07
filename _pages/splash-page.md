@@ -1,17 +1,18 @@
 ---
-title: "Homepage"
+title: "λ > Michael Lindon_"
 layout: splash
+permalink: /splash-page/
 date: 2016-03-23T11:48:41-04:00
 header:
   overlay_color: "#000"
   overlay_filter: "0.5"
   overlay_image: /assets/images/codesplash.jpg
   cta_label: "About"
-  cta_url: "/about/"
-  caption: # "Photo credit: [**Unsplash**](https://unsplash.com)"
+  cta_url: "https://github.com/mmistakes/minimal-mistakes/"
+  caption: 
 excerpt: "Statistics/Functional Programming/Data Science"
 intro: 
-  - excerpt: "Recently, I've been thinking about..."
+  - excerpt: "I've recently been thinking about..."
 feature_row:
   - image_path: assets/images/unsplash-gallery-image-1-th.jpg
     alt: "placeholder image 1"
