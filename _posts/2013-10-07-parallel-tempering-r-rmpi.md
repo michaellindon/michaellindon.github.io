@@ -1,7 +1,6 @@
 ---
 title: Parallel Tempering in R with Rmpi
 date: 2013-10-07T01:00:54+00:00
-image: /assets/images/parallel_tempering_mixing.jpeg
 categories:
   - R
 tags:
@@ -10,7 +9,7 @@ tags:
   - R
 ---
 My office computer recently got a really nice upgrade and now I have 8 cores on my desktop to play with. I also at the same time received some code for a Gibbs sampler written in R from my adviser. I wanted to try a metropolis-coupled markov chain monte carlo, <img src="//s0.wp.com/latex.php?latex=MC%5E%7B3%7D&#038;bg=ffffff&#038;fg=000&#038;s=0" alt="MC^{3}" title="MC^{3}" class="latex" />, algorithm on it to try and improve the mixing but the problem was that it was written in R and I&#8217;m used to writing parallel code in C/C++ with OpenMP or MPI.
-{% include toc title="Slice Sampling" %}
+{% include toc title="Parallel Tempering" %}
 Previously I wrote about a parallel tempering algorithm with an implementation in C++ using OpenMP and so I thought I would try and code up the same sort of thing in R as a warm-up exercise before I started with the full  <img src="//s0.wp.com/latex.php?latex=MC%5E%7B3%7D&#038;bg=ffffff&#038;fg=000&#038;s=0" alt="MC^{3}" title="MC^{3}" class="latex" />algorithm. Sadly I don&#8217;t think there is any facility in R for OpenMP style parallelism. There are packages such as _snow_ and _multicore_ but these are very high level packages and don&#8217;t really allow one to control the finer details. There is, however, Rmpi. It is a little bit different from regular C/Fortran MPI implementations and I once had a very bad experience getting some Rmpi code to work for a project deadline, it wasn&#8217;t pretty, so I was a little reluctant to reconsider this package but if you look at the changelogs it is still being actively maintained and in the end I&#8217;m very happy with the outcome of this experiment. I tried to write the below code as generally as possible, so that it is easily adapted by myself, or others, in the future.
 
 ## Target Density
