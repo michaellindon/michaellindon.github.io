@@ -2,6 +2,7 @@
 title: A Functional Implementation of Slice Sampling in Julia
 date: 2016-11-05T13:07:09+00:00
 author: admin
+image: /assets/image/slicesampling.png
 categories:
   - julia
 tags:
