@@ -1,20 +1,11 @@
 ---
-id: 910
 title: Stochastic Optimization in R by Parallel Tempering
 date: 2013-10-12T17:24:04+00:00
-author: admin
-layout: post
-guid: http://www.lindonslog.com/?p=910
-permalink: /programming/stochastic-optimization-r-rmpi-parallel-tempering/
 categories:
-  - Programming
   - R
-  - Statistics
 tags:
   - optimization
   - parallel
-  - stochastic
-  - tempering
 ---
 
   
