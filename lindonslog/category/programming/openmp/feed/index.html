@@ -1,0 +1,630 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>OpenMP &#8211; Lindons Log</title>
+	<atom:link href="http://www.lindonslog.com/category/programming/openmp/feed/" rel="self" type="application/rss+xml" />
+	<link>http://www.lindonslog.com</link>
+	<description></description>
+	<lastBuildDate>Thu, 03 Nov 2016 17:07:09 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=4.6.1</generator>
+
+<image>
+	<url>http://www.lindonslog.com/wp-content/uploads/2015/09/cropped-L-32x32.png</url>
+	<title>OpenMP &#8211; Lindons Log</title>
+	<link>http://www.lindonslog.com</link>
+	<width>32</width>
+	<height>32</height>
+</image> 
+	<item>
+		<title>Compile R and OpenBLAS from Source Guide</title>
+		<link>http://www.lindonslog.com/linux-unix/compile-r-openblas-source-guide/</link>
+		<comments>http://www.lindonslog.com/linux-unix/compile-r-openblas-source-guide/#comments</comments>
+		<pubDate>Wed, 16 Jul 2014 20:54:15 +0000</pubDate>
+		<dc:creator><![CDATA[admin]]></dc:creator>
+				<category><![CDATA[Linear Algebra]]></category>
+		<category><![CDATA[Linux/Unix]]></category>
+		<category><![CDATA[OpenMP]]></category>
+		<category><![CDATA[Programming]]></category>
+		<category><![CDATA[R]]></category>
+		<category><![CDATA[Statistics]]></category>
+
+		<guid isPermaLink="false">http://www.lindonslog.com/?p=995</guid>
+		<description><![CDATA[<p>1. Get OpenBLAS 2.1 Get R 2.2 Specific Instructions for DSS Users 3. Validation 4. Benchmark This guide is intended to aid any R and Linux user who desires a threaded version of BLAS. In particular I hope this will allow other grad students, who like me do not have many user privileges on their [&#8230;]</p>
+<p>The post <a rel="nofollow" href="http://www.lindonslog.com/linux-unix/compile-r-openblas-source-guide/">Compile R and OpenBLAS from Source Guide</a> appeared first on <a rel="nofollow" href="http://www.lindonslog.com">Lindons Log</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p><a href="#openblas">1. Get OpenBLAS</a><br />
+<a href="#R">2.1 Get R</a><br />
+<a href="#duke">2.2 Specific Instructions for DSS Users</a><br />
+<a href="#validation">3. Validation</a><br />
+<a href="#benchmark">4. Benchmark</a></p>
+<p>This guide is intended to aid any R and Linux user who desires a threaded version of BLAS. In particular I hope this will allow other grad students, who like me do not have many user privileges on their office computer, to follow suit and exploit multiple cores to speed up their linear algebra computations within R. The following will be performed on <strong>Scientific Linux 6.4</strong> but has should be completely general. If you are a <strong>Ubuntu</strong> user, then there is an elegant and streamlined process for changing BLAS libraries and a recommended post about it <a href="http://www.stat.cmu.edu/~nmv/2013/07/09/for-faster-r-use-openblas-instead-better-than-atlas-trivial-to-switch-to-on-ubuntu/" title="ubuntu blas">here</a>. I use <strong>Fedora</strong> on my laptop, and the following has also been tested thereupon. </p>
+<p>My office computer has a quadcore processor with two threads per core but I also have access to a departmental computer with 4 sockets and 12 cores per socket (1 thread per core), so it really makes sense to use a threaded version of BLAS. If you are curious about the hardware on your own computer you can run the command &#8220;cat /proc/cpuinfo&#8221; or &#8220;lscpu&#8221;.</p>
+<p>Unfortunately my office computer is part of a network upon which I do not have permissions to change &#8216;/usr/lib64/R/lib/libRblas.so&#8217;. Moreover R appears to be running serially: if you start up R and get the PID (process ID) from &#8216;top&#8217; or &#8216;ps aux | grep R&#8217; or something and then execute &#8216;cat /proc/PID/status | grep Threads&#8217; you can see there is only one thread available.</p>
+<pre class="brush: bash; title: ; notranslate">
+[msl33@cabbage ~]$ cat /proc/13605/status | grep Threads
+Threads:	1
+
+</pre>
+<p>(where 13605 was the process ID of my R process. That is using the default R on the network. One could appeal to the network administrator to change things for you but they probably won&#8217;t because a parallel BLAS implementation may cause problems for other users who require a serial BLAS, such as those that use the multicore environment to perform inherently parallel algorithms such as parallel tempering instead of using idle cores to speed up the linear algebra. There are also some known conflicts with the multicore package in R. There is, however, nothing stopping the user from compiling one&#8217;s own custom R build in one&#8217;s home directory and just changing the executable path thereto. In addition, you then have the power and freedom customize R to your needs &#8211; at the moment I have some very large matrices which would benefit from a threaded BLAS but at some point I may want to revert to a tuned serial BLAS such at ATLAS for certain parallel algorithms. </p>
+<p>Firstly, go ahead and create a directory in which to keep all your custom software.</p>
+<pre class="brush: bash; title: ; notranslate">
+[msl33@cabbage ~]$ pwd
+/home/grad/msl33
+[msl33@cabbage ~]$ mkdir software
+
+</pre>
+<p><a name="openblas"></a><br />
+<h1>Download OpenBLAS</h1>
+<p>Make a directory &#8220;openblas&#8221; in the &#8220;software directory.</p>
+<pre class="brush: bash; title: ; notranslate">
+[msl33@cabbage ~]$ cd software/
+[msl33@cabbage software]$ mkdir openblas
+
+</pre>
+<p>Next, grab the tarball from the <a href="http://www.openblas.net/" title="openblas homepage">OpenBLAS homepage</a>. Change directory into where you downloaded the tarball and extract the files from it.</p>
+<pre class="brush: bash; title: ; notranslate">
+[msl33@cabbage ~]$ cd Downloads/
+[msl33@cabbage Downloads]$ tar -xvf xianyi-OpenBLAS-v0.2.9-0-gf773f49.tar.gz 
+
+</pre>
+<p>While this is running, fill a kettle with some water and turn it on, this stage is very important.</p>
+<p>Change directory into where you extracted the files and verify that NO_AFFINITY=1 is uncommented in the Makefile.rule. If so proceed and run make.</p>
+<pre class="brush: bash; title: ; notranslate">
+[msl33@cabbage ~/Downloads]$ cd xianyi-OpenBLAS-347dded/
+[msl33@cabbage xianyi-OpenBLAS-347dded]$ cat Makefile.rule | grep NO_AFFINITY
+NO_AFFINITY = 1
+[msl33@cabbage xianyi-OpenBLAS-347dded]$ make
+
+</pre>
+<p>Now is a good time to &#8220;make&#8221; some tea with the water prepared earlier. When done successfully one will see<br />
+<a href="http://www.lindonslog.com/wp-content/uploads/2014/07/openblas_complete.png"><img src="http://www.lindonslog.com/wp-content/uploads/2014/07/openblas_complete.png" alt="openblas confirmation" width="656" height="255" class="size-full wp-image-1002" srcset="http://www.lindonslog.com/wp-content/uploads/2014/07/openblas_complete.png 656w, http://www.lindonslog.com/wp-content/uploads/2014/07/openblas_complete-300x116.png 300w" sizes="(max-width: 656px) 100vw, 656px" /></a><br />
+Now, as instructed above, install to the &#8220;software&#8221; directory made earlier.</p>
+<pre class="brush: bash; title: ; notranslate">
+[msl33@cabbage xianyi-OpenBLAS-347dded]$ make PREFIX=/home/grad/msl33/software/openblas install
+...
+Install OK!
+</pre>
+<p>In  openblas/lib there will be a file &#8220;libopenblas.so&#8221;, needed for later. That&#8217;s it for openblas, next we will do R.</p>
+<p><a name="R"></a><br />
+<h1>Download R</h1>
+<p>Let&#8217;s create an R directory in software. Go onto the R homepage, then download, then choose a <a href="http://mirrors.ebi.ac.uk/CRAN/">mirror</a> and grab the tarball of the latest version. Download it to your &#8220;software&#8221; directory and extract it as before with &#8220;tar -xvf R-3.1.1.tar.gz&#8221;. Once extracted, remove the tarball and change directory into R-3.1.1. Before running the configure script one might bring some customizations into consideration in the name of efficiency. One might consider upping the optimization level from 2 to 3 and adding march or mtune by editing &#8220;config.site&#8221; and changing &#8220;## CFLAGS=&#8221; on line 53 to &#8220;CFLAGS=&#8217;-O3 -march=native'&#8221; and making similar changes for FFLAGS and CXXFLAGS. It is noted in the <a href="http://cran.r-project.org/doc/manuals/r-release/R-admin.html#Compilation-flags">R Installation and Administration</a> documentation that these can produce worthwhile speedups but come with a warning that the build will be less reliable, with segfaults and numerical errors creeping in. It is safest to leave things <a href="http://www.youtube.com/watch?v=aYBkDxao3wg&#038;t=2m28s">regular</a> (reccommended link) but I&#8217;ll take the risk. Now, if you are not using a computer on the duke statistical science network, run the configure script, otherwise see the additional instructions before running configure.</p>
+<pre class="brush: bash; title: ; notranslate">
+[msl33@cabbage R-3.1.1]$ ./configure --prefix=/home/grad/msl33/software/R --enable-R-shlib --enable-BLAS-shlib --enable-memory-profiling --with-tcltk=no
+
+</pre>
+<p><a name="duke"></a><br />
+<h3>BEGIN ADDITIONAL INSTRUCTIONS FOR DUKE STATISTICAL SCIENCE STUDENTS</h3>
+<p>[On the DSS computers some further instructions are required to locate headers and libraries. The first time I tried to make on my office computer I encountered this <a href="http://stackoverflow.com/questions/17570586/unable-to-compile-jni-program-rjava">error</a>. &#8220;jni.h&#8221; could not be found. The error was resolved by locating it and then export the environment variable JAVA_HOME.</p>
+<pre class="brush: bash; title: ; notranslate">
+[msl33@cabbage software]$ locate jni.h
+/usr/lib/jvm/java-1.7.0-sun-1.7.0.11/include/jni.h
+[msl33@cabbage software]$ export JAVA_HOME=/usr/lib/jvm/java-1.7.0-sun-1.7.0.11/
+
+</pre>
+<p>In addition, when running the configure script the readline headers/libs could not be found. We&#8217;ll just borrow them from some other software. Add to CFLAGS, FFLAGS, CXXFLAGS &#8220;-I/opt/EPD_Free/include -L/opt/EPD_Free/lib&#8221; in addition to any other flags that you have set. Also make a lib directory and copy them in.</p>
+<pre class="brush: bash; title: ; notranslate">
+[msl33@cabbage R-3.1.1]$ mkdir lib
+[msl33@cabbage R-3.1.1]$ cp /opt/EPD_Free/lib/libreadline.* lib/
+[msl33@cabbage R-3.1.1]$ cp /opt/EPD_Free/lib/libncurses* lib/
+</pre>
+<p> Now run the configure line above.]</p>
+<h3>END ADDITIONAL INSTRUCTIONS FOR DUKE STATISTICAL SCIENCE STUDENTS</h3>
+<p>Once the configure has completed, you&#8217;ll see a summary below like<br />
+<a href="http://www.lindonslog.com/wp-content/uploads/2014/07/configure.png"><img src="http://www.lindonslog.com/wp-content/uploads/2014/07/configure-1024x383.png" alt="openblas configure" width="640" height="239" class="aligncenter size-large wp-image-1013" srcset="http://www.lindonslog.com/wp-content/uploads/2014/07/configure-1024x383.png 1024w, http://www.lindonslog.com/wp-content/uploads/2014/07/configure-300x112.png 300w, http://www.lindonslog.com/wp-content/uploads/2014/07/configure.png 1026w" sizes="(max-width: 640px) 100vw, 640px" /></a><br />
+Now issue the command &#8220;make&#8221;, it will take some time. Once make has finished, you can execute &#8220;make install&#8221; to populate the software/R directory created earlier but you don&#8217;t need to. Change directories to lib and make a backup of libRblas.so and create a symbolic link to the openblas library that was made earlier.</p>
+<pre class="brush: bash; title: ; notranslate">
+[msl33@cabbage ~]$ cd software/R-3.1.1/lib
+[msl33@cabbage lib]$ pwd
+/home/grad/msl33/software/R-3.1.1/lib
+[msl33@cabbage lib]$ mv libRblas.so libRblas.so.keep
+[msl33@cabbage lib]$ ln -s /home/grad/msl33/software/openblas/lib/libopenblas.so libRblas.so
+
+</pre>
+<p>That was the last step. </p>
+<p><a name="validation"></a><br />
+<h2>Setup Validation</h2>
+<p>The R executable in the bin directory should now use openblas. Note this is the R executable you now need to run in order to use the custom built R with openblas. Just typing R in terminal will load the old /usr/lib64&#8230; which we students didn&#8217;t have the permissions to alter. You can, however, create an alias in your .bashrc file by inserting the line &#8216;alias R=&#8221;/home/grad/msl33/software/R-3.1.1/bin/./R&#8221;&#8216;. Now when you type R in a terminal it will load the new R and not the old one.  One can check that R executable depends on the correct linked shared blas library with the &#8220;ldd&#8221; command.</p>
+<pre class="brush: bash; title: ; notranslate">
+[msl33@cabbage bin]$ pwd
+/home/grad/msl33/software/R-3.1.1/bin
+[msl33@cabbage bin]$ ./R CMD ldd exec/./R | grep blas
+	libRblas.so =&gt; /home/grad/msl33/software/R-3.1.1/lib/libRblas.so (0x00007f62e3fb7000)
+[msl33@cabbage bin]$ ls -lt ../lib | grep openblas
+lrwxrwxrwx  1 msl33 grad      53 Jul 16 15:35 libRblas.so -&gt; /home/grad/msl33/software/openblas/lib/libopenblas.so
+
+</pre>
+<p>In addition, execute &#8220;./R&#8221; from the &#8220;bin&#8221; directory  (or just R if you set up the alias) and grab the process id. </p>
+<pre class="brush: bash; title: ; notranslate">
+[msl33@cabbage bin]$ ps aux | grep R | grep software | awk '{print $2}'
+2412
+[msl33@cabbage bin]$ cat /proc/`ps aux | grep R | grep software | awk '{print $2}'`/status | grep Threads
+Threads:	8
+[msl33@cabbage bin]$ 
+
+</pre>
+<p>Evidently the R session now has 8 threads available. Finally, lets perform an eigen-decomposition and look at the cpu usage using top. You&#8217;ll see it light up all of your cores.<br />
+<a href="http://www.lindonslog.com/wp-content/uploads/2014/07/openblas_cpu.png"><img src="http://www.lindonslog.com/wp-content/uploads/2014/07/openblas_cpu-1024x358.png" alt="openblas cpu usage" width="640" height="223" class="aligncenter size-large wp-image-1012" srcset="http://www.lindonslog.com/wp-content/uploads/2014/07/openblas_cpu-1024x358.png 1024w, http://www.lindonslog.com/wp-content/uploads/2014/07/openblas_cpu-300x105.png 300w, http://www.lindonslog.com/wp-content/uploads/2014/07/openblas_cpu.png 1321w" sizes="(max-width: 640px) 100vw, 640px" /></a></p>
+<p><a name="benchmark"></a><br />
+<h2>Benchmark</h2>
+<p>Using this <a href="http://r.research.att.com/benchmarks/R-benchmark-25.R">benchmark</a> the reference BLAS took 32.1 seconds whilst openBLAS took 7.1 seconds.</p>
+<p>The post <a rel="nofollow" href="http://www.lindonslog.com/linux-unix/compile-r-openblas-source-guide/">Compile R and OpenBLAS from Source Guide</a> appeared first on <a rel="nofollow" href="http://www.lindonslog.com">Lindons Log</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://www.lindonslog.com/linux-unix/compile-r-openblas-source-guide/feed/</wfw:commentRss>
+		<slash:comments>3</slash:comments>
+		</item>
+		<item>
+		<title>Parallel Tempering Algorithm with OpenMP / C++</title>
+		<link>http://www.lindonslog.com/programming/openmp/parallel-tempering-algorithm-c/</link>
+		<comments>http://www.lindonslog.com/programming/openmp/parallel-tempering-algorithm-c/#comments</comments>
+		<pubDate>Sun, 14 Jul 2013 21:00:35 +0000</pubDate>
+		<dc:creator><![CDATA[admin]]></dc:creator>
+				<category><![CDATA[OpenMP]]></category>
+		<category><![CDATA[Programming]]></category>
+		<category><![CDATA[Statistics]]></category>
+		<category><![CDATA[c]]></category>
+		<category><![CDATA[mcmc]]></category>
+		<category><![CDATA[openmp]]></category>
+		<category><![CDATA[parallel tempering]]></category>
+
+		<guid isPermaLink="false">http://www.lindonslog.com/?p=605</guid>
+		<description><![CDATA[<p>1.1. Parallel Tempering Theory 1.2. Physics Origins 2.1 Intra-Thread Metropolis Move 2.2. Inter-Thread Parallel Tempering 2.3. OpenMP Parallelization 3. Full Code 4. Simulation Study 5. On the Future use of Parallel Tempering with OpenMP Parallel tempering is one of my favourite sampling algorithms to improve MCMC mixing times. This algorithm seems to be used exclusively [&#8230;]</p>
+<p>The post <a rel="nofollow" href="http://www.lindonslog.com/programming/openmp/parallel-tempering-algorithm-c/">Parallel Tempering Algorithm with OpenMP / C++</a> appeared first on <a rel="nofollow" href="http://www.lindonslog.com">Lindons Log</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p><a href="#theory">1.1. Parallel Tempering Theory</a><br />
+<a href="#physics">1.2. Physics Origins</a><br />
+<a href="#intra">2.1 Intra-Thread Metropolis Move</a><br />
+<a href="#inter">2.2. Inter-Thread Parallel Tempering</a><br />
+<a href="#openmp">2.3. OpenMP Parallelization</a><br />
+<a href="#fullcode">3. Full Code</a><br />
+<a href="#simstudy">4. Simulation Study<br />
+<a href="#futureuse">5. On the Future use of Parallel Tempering with OpenMP</a></p>
+<p>Parallel tempering is one of my favourite sampling algorithms to improve MCMC mixing times. This algorithm seems to be used <em>exclusively</em> on distributed memory architectures using MPI and remains unexploited on shared memory architectures such as our office computers, which have up to eight cores. I&#8217;ve written parallel tempering algorithms in MPI and Rmpi but never in OpenMP. It turns out that the latter has substantial advantages. I guess when people think of parallel tempering they think of processors communicating with each other via MPI and swapping parameters directly.  If you are on a shared memory device, however, you can have processor A simply write to a shared array and have processor B read therefrom, which really saves a lot of aggro fiddling around with message numbers, blocking/non-blocking calls and deadlocks etc. Moreover, with OpenMP you can spawn more threads than you have processors, which translates to more parallel MCMC chains in the present context, whereas this becomes troublesome with MPI due to the danger of deadlocks. OpenMP is also much easier to use than MPI, with one line you can fork a serial thread into a desired and hardware-independent  number of parallel threads. The code looks as follows:</p>
+<p><a name="theory"></a><br />
+<h2>Parallel Tempering Theory</h2>
+<p>Each thread simulates an MCMC trajectory from the posterior raised to a fractional power, B. When B=1, the MCMC draws are from the posterior from which we wish to sample. When B=0, the MCMC trajectory is just a realization of a Brownian motion random walk. To see this, consider the acceptance probability of the metropolis move. The density evaluated at the proposed parameters over the density evaluated at the current parameters all raised to the power of zero is unity, whatever the densities are, so the moves always get accepted. Similarly if B is close to zero, then the acceptance probability is near unity and the distribution from which this MCMC is sampling is quite uniform over the parameter space, so the trajectory explores a relatively larger part of the parameter space. As B is increased toward one, the features of the distribution from which we wish to sample start to become more prominent. In the other direction from B=1 to 0 one commonly says that the posterior is &#8220;melted down&#8221; and spreading out its mass. The terminology has remained from its origins in statistical physics where one would simulated particles at a hotter temperature, so that they would jostle around more and escape wells in the potential energy. The key to parallel tempering is to use the more diffuse, hotter or melted down MCMC chains as proposal distributions for the actual cold distribution we wish to sample from. One proceeds by performing a Metropolis-Hastings move because the proposal distributions are not symmetric. For illustration, thread j uses the hotter thread j+1 as its partner and as proposal distribution. Let theta j+1 be the proposed new position for thread j, being the current position of thread j+1.<br />
+<img src="//s0.wp.com/latex.php?latex=%5Calpha%3Dmin%281%2C%5Cfrac%7B++p_%7Bj%7D+%28%5Ctheta_%7Bj%2B1%7D+%29%7D++%7B+++p_%7Bj%7D%28%5Ctheta_%7Bj%7D+%29+%7D++%5Cfrac%7B++p_%7Bj%2B1%7D+%28%5Ctheta_%7Bj%7D+%29%7D++%7B+++p_%7Bj%2B1%7D%28%5Ctheta_%7Bj%2B1%7D+%29+%7D++++%29++&#038;bg=ffffff&#038;fg=000&#038;s=0" alt="&#92;alpha=min(1,&#92;frac{  p_{j} (&#92;theta_{j+1} )}  {   p_{j}(&#92;theta_{j} ) }  &#92;frac{  p_{j+1} (&#92;theta_{j} )}  {   p_{j+1}(&#92;theta_{j+1} ) }    )  " title="&#92;alpha=min(1,&#92;frac{  p_{j} (&#92;theta_{j+1} )}  {   p_{j}(&#92;theta_{j} ) }  &#92;frac{  p_{j+1} (&#92;theta_{j} )}  {   p_{j+1}(&#92;theta_{j+1} ) }    )  " class="latex" /><br />
+The second fraction is the Hastings addition to the Metropolis algorithm and is required to satisfy detailed balance for an unsymmetrical proposal distribution. Now realise that<br />
+<img src="//s0.wp.com/latex.php?latex=p_%7Bj%7D%3D%5Cpi%28%5Ctheta%7CY%29%5E%7BB_%7Bj%7D%7D%5C%5C++p_%7Bj%2B1%7D%3D%5Cpi%28%5Ctheta%7CY%29%5E%7BB_%7Bj%2B1%7D%7D++&#038;bg=ffffff&#038;fg=000&#038;s=0" alt="p_{j}=&#92;pi(&#92;theta|Y)^{B_{j}}&#92;&#92;  p_{j+1}=&#92;pi(&#92;theta|Y)^{B_{j+1}}  " title="p_{j}=&#92;pi(&#92;theta|Y)^{B_{j}}&#92;&#92;  p_{j+1}=&#92;pi(&#92;theta|Y)^{B_{j+1}}  " class="latex" /><br />
+i.e. they are the same distribution raised to different fractional powers. Working now on the log scale, it can be shown that<br />
+<img src="//s0.wp.com/latex.php?latex=log+%5Cleft%28+%5Cfrac%7B++p_%7Bj%7D+%28%5Ctheta_%7Bj%2B1%7D+%29%7D++%7B+++p_%7Bj%7D%28%5Ctheta_%7Bj%7D+%29+%7D++%5Cfrac%7B++p_%7Bj%2B1%7D+%28%5Ctheta_%7Bj%7D+%29%7D++%7B+++p_%7Bj%2B1%7D%28%5Ctheta_%7Bj%2B1%7D+%29+%7D++++%5Cright%29+%3D++%28B_%7Bj%7D-B_%7Bj%2B1%7D%29+%5Cleft%28+log%28%5Cpi%5B%5Ctheta_%7Bj%2B1%7D%7CY%5D%29+-+log%28%5Cpi%5B%5Ctheta_%7Bj%7D%7CY%5D%29+%5Cright%29++&#038;bg=ffffff&#038;fg=000&#038;s=0" alt="log &#92;left( &#92;frac{  p_{j} (&#92;theta_{j+1} )}  {   p_{j}(&#92;theta_{j} ) }  &#92;frac{  p_{j+1} (&#92;theta_{j} )}  {   p_{j+1}(&#92;theta_{j+1} ) }    &#92;right) =  (B_{j}-B_{j+1}) &#92;left( log(&#92;pi[&#92;theta_{j+1}|Y]) - log(&#92;pi[&#92;theta_{j}|Y]) &#92;right)  " title="log &#92;left( &#92;frac{  p_{j} (&#92;theta_{j+1} )}  {   p_{j}(&#92;theta_{j} ) }  &#92;frac{  p_{j+1} (&#92;theta_{j} )}  {   p_{j+1}(&#92;theta_{j+1} ) }    &#92;right) =  (B_{j}-B_{j+1}) &#92;left( log(&#92;pi[&#92;theta_{j+1}|Y]) - log(&#92;pi[&#92;theta_{j}|Y]) &#92;right)  " class="latex" /><br />
+<a name="physics"></a><br />
+<h3>Physics Origins</h3>
+<p>It is at this point where sometimes, in order to make things correspond to the earlier physics literature, one defines the &#8220;Energy&#8221; as<br />
+ <img src="//s0.wp.com/latex.php?latex=E_%7Bj%7D%3D-log%28%5Cpi%5B%5Ctheta_%7Bj%7D%7CY%5D%29.&#038;bg=ffffff&#038;fg=000&#038;s=0" alt="E_{j}=-log(&#92;pi[&#92;theta_{j}|Y])." title="E_{j}=-log(&#92;pi[&#92;theta_{j}|Y])." class="latex" /><br />
+So that the acceptance probability becomes<br />
+<img src="//s0.wp.com/latex.php?latex=%5Calpha%3Dmin%281%2Ce%5E%7B-%28B_%7Bj%7D-B_%7Bj%2B1%7D%29%28E_%7Bj%2B1%7D+-+E_%7Bj%7D%29++%7D%29.++&#038;bg=ffffff&#038;fg=000&#038;s=0" alt="&#92;alpha=min(1,e^{-(B_{j}-B_{j+1})(E_{j+1} - E_{j})  }).  " title="&#92;alpha=min(1,e^{-(B_{j}-B_{j+1})(E_{j+1} - E_{j})  }).  " class="latex" /><br />
+It&#8217;s not necessary to define this energy, it only defines an equivalence mapping between statistics and physics. In physics particles get stuck in the local minima of the energy landscape and in statistics the MCMC gets stuck in the local peaks of the posterior. The reason for this is that in a canonical ensemble lower energy states are more probable (recall that nature tries to minimize the potential energy and that force is the negative gradient of the potential energy), so regions of the parameter space with low potential energy, physically, correspond to regions of high probability density, statistically. To be more precise, a result from statistical physics is that the distribution of energy is exponential with scale parameter kT, where k is Boltzmann&#8217;s constant and T is temperature (this condition holds only for a canonical ensemble). An exponential distribution with this scale parameter is called the Boltzmann distribution by physicists. As the temperature increases, higher energy states become more probable and the particle jumps out of the minima more. If you are a statistician you don&#8217;t need to worry about this, but sometimes this notation crops up in the literature. Its also the same acceptance probability now as in physics when sampling energies from a Boltzmann distribution. I have decided not to adopt the physics notation for this post.</p>
+<p><a name="intra"></a><br />
+<h2>Intra-Thread Metropolis Move</h2>
+<p>Each thread, within itself, performs a normal vanilla metropolis move:</p>
+<pre class="brush: cpp; title: ; notranslate">
+//Propose Candidate Position//
+			t1new=t1[rank*nmc+i-1] + normal(stream[rank]);
+			t2new=t2[rank*nmc+i-1] + normal(stream[rank]);
+
+			//Calculate log-Density at Newly-Proposed and Current Position//
+			lpost_new[rank]=lLikelihood(t1new,t2new) + lprior(t1new,t2new);
+			lpost[rank]=lLikelihood(t1[rank*nmc+i-1],t2[rank*nmc+i-1]) + lprior(t1[rank*nmc+i-1],t2[rank*nmc+i-1]);
+
+			//Melt Density and Calculate log-Acceptance Probability//
+			lalpha=B[rank]*(lpost_new[rank]-lpost[rank]);
+
+			//Perform Metropolis Accept-Reject Step//
+			if( log(u(stream[rank])) &lt; lalpha ){
+				//Accept
+				//Proposed as Current Position
+				t1[rank*nmc+i]=t1new;
+				t2[rank*nmc+i]=t2new;
+			}else{
+				//Do not Accept
+				//Propogate Current Position
+				t1[rank*nmc+i]=t1[rank*nmc+i-1];
+				t2[rank*nmc+i]=t2[rank*nmc+i-1];
+			}
+</pre>
+<p>A few comments about the variables. &#8220;nmc&#8221; is the number of mcmc draws I wish to generate. I have two parameters which I have denoted t1 and t2, because t is closest to theta. Moreover, each processor stores its <em>nmc</em> draws of t1 and t2 in a contiguous array in the memory of length nmc times number of threads. &#8220;Rank&#8221; Identifies the thread and &#8220;lpost&#8221; and &#8220;B&#8221; are arrays of length equal to the number of threads in which to store the log posterior density at the current position and the fractional melting power. All of these variables are defined at the top of the code.</p>
+<p><a name="inter"></a><br />
+<h2>Inter-Thread Metropolis-Hastings Move</h2>
+<pre class="brush: cpp; title: ; notranslate">
+
+				if(u(stream[rank]) &lt; 0.5){
+					rank_partner=rank+1;
+					if(rank_partner &lt; size){
+						//Inter-Thread Metropolis-Hastings Part
+						lalpha = (B[rank]-B[rank_partner])*(lpost[rank_partner]-lpost[rank]);
+						if(log(u(stream[rank])) &lt; lalpha){
+							//accept swap
+							swap(t1[rank*nmc+i],t1[rank_partner*nmc+i]);
+							swap(t2[rank*nmc+i],t2[rank_partner*nmc+i]);
+						}
+
+					}
+				}
+</pre>
+<p>The only additional thing to add is that each chain attempts a swap with its neighbour at each iteration with probability 1/2. There is nothing special about 1/2, you could choose what you like, but there are pros and cons. How this made parallel in OpenMP is shown below.</p>
+<p><a name="openmp"></a><br />
+<h2>OpenMP Parallelization</h2>
+<p>The OpenMP parallel implementation of the above algorithm is very simple!</p>
+<pre class="brush: plain; title: ; notranslate">
+#pragma omp parallel private(i,t1new,t2new,rank,lalpha,rank_partner) shared(B, lpost, lpost_new,t1,t2,swapt1,swapt2)
+	{
+		//Identify Each Thread
+		rank=omp_get_thread_num();
+
+		for (i = 1; i &lt; nmc; ++i)
+		{
+
+                 //***Intra-Thread Metropolis Part***//
+	
+#pragma omp barrier      //Synchronise Threads
+#pragma omp critical     //Executed Critical Code Block Oney Thread at a Time. 
+			{
+
+                 //***Inter-Thread Parallel Tempering Part***//
+
+			}
+#pragma omp barrier   //Synchronise Threads
+		}
+	}
+</pre>
+<p>The first parallel pragma simply forks the master thread into a number of threads whereby each thread executes the following code block independently i.e. a number of independent parallel mcmcs. Specifying variables as private means that each thread gets a copy of that variable in its own seperate location in the memory. Shared is the opposite, although I think variables are shared by default. The barrier pragma means that each thread halts until all threads have reached this point. The critical pragma means the following code block is executed by one thread at a time only. This prevents thread j swapping with thread j+1 whilst thread j+1 is attempting a swap with thread j+2, nasty things such as race conditions can occur. The last pragma barrier waits for all threads to have reached the end and then the next iteration of the for loop proceeds.</p>
+<p><a name="fullcode"></a><br />
+<h2>Full code</h2>
+<p>The full code can be found <a href="http://www.lindonslog.com/example_code/tempering.cpp">here</a>. It depends on <a href="http://www.lindonslog.com/category/programming/openmp/">OpenMP</a> and the <a href="http://www.lindonslog.com/programming/parallel-random-number-generation-trng/" title="Parallel Random Number Generation using TRNG">TRNG</a> library in order to generate multiple independent streams of random numbers. It takes the number of mcmc draws as a command-line argument.</p>
+<pre class="brush: bash; title: ; notranslate">
+[michael@michael tempering]$ wget http://www.lindonslog.com/example_code/tempering.cpp
+[michael@michael tempering]$ g++ tempering.cpp -fopenmp -o tempering  -ltrng4 -lm
+[michael@michael tempering]$ ./tempering 10000
+Thread 0 has fractional power 1
+Thread 1 has fractional power 0.469117
+Thread 2 has fractional power 0.220071
+Thread 3 has fractional power 0.103239
+Thread 4 has fractional power 0.0484313
+Thread 5 has fractional power 0.0227199
+Thread 6 has fractional power 0.0106583
+Thread 7 has fractional power 0.005
+[michael@michael tempering]$
+</pre>
+<p><a name="simstudy"></a><br />
+<h2>Simulation Study</h2>
+<p>I chose the likelihood to be 5 sharply peaked normal distributions located at the corners of a sort-of unit square plus one at the origin with variances of 0.001. The prior was a normal of variance 1000 centered at the origin. The parallel tempering algorithm was run with 8 threads. The posterior draws and mixing results are below:<br />
+<div id="attachment_632" style="width: 490px" class="wp-caption aligncenter"><a href="http://www.lindonslog.com/wp-content/uploads/2013/07/partempdraws.png"><img src="http://www.lindonslog.com/wp-content/uploads/2013/07/partempdraws.png" alt="Posterior Draws" width="480" height="480" class="size-full wp-image-632" srcset="http://www.lindonslog.com/wp-content/uploads/2013/07/partempdraws.png 480w, http://www.lindonslog.com/wp-content/uploads/2013/07/partempdraws-150x150.png 150w, http://www.lindonslog.com/wp-content/uploads/2013/07/partempdraws-300x300.png 300w" sizes="(max-width: 480px) 100vw, 480px" /></a><p class="wp-caption-text">Posterior Draws from Parallel Tempering</p></div><br />
+<div id="attachment_630" style="width: 610px" class="wp-caption aligncenter"><a href="http://www.lindonslog.com/wp-content/uploads/2013/07/parallel_tempering.png"><img src="http://www.lindonslog.com/wp-content/uploads/2013/07/parallel_tempering.png" alt="parallel tempering mixing" width="600" height="900" class="size-full wp-image-630" srcset="http://www.lindonslog.com/wp-content/uploads/2013/07/parallel_tempering.png 600w, http://www.lindonslog.com/wp-content/uploads/2013/07/parallel_tempering-200x300.png 200w" sizes="(max-width: 600px) 100vw, 600px" /></a><p class="wp-caption-text">Mixing of parallel tempering algorithm</p></div></p>
+<p><a name="futureuse"></a><br />
+<h2>On the Future use of Parallel Tempering with OpenMP</h2>
+<p>I hope the code exemplifies how easy it is to run parallel MCMC chains with OpenMP. I would argue that the metropolis moves are the hardest part. If you can write them for a single serial chain, then it is only a few extra steps to run parallel chains and imlement that parallel tempering algorithm. My laptop has four cores and my office computer has eight. Given the trajectory of technology that shared memory devices have an ever increasing number of cores, it seems to me that parallel tempering is becoming an ever-more valuable algorithm to improve mixing times of MCMC runs. Afterall, had I not used the extra 3 cores on my laptop, they would have remained idle. If you have extra cores, why not use them! Moreover with OpenMP you can spawn as many parallel MCMCs as you desire, avoiding the pitalls of MPI.</p>
+<p><span class="Z3988" title="ctx_ver=Z39.88-2004&#038;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Ajournal&#038;rft_id=info%3Adoi%2F10.1039%2Fb509983h&#038;rft.atitle=Parallel+tempering%3A+Theory%2C+applications%2C+and+new+perspectives&#038;rft.jtitle=Physical+Chemistry+Chemical+Physics&#038;rft.artnum=http%3A%2F%2Fxlink.rsc.org%2F%3FDOI%3Db509983h&#038;rft.volume=7&#038;rft.issue=23&#038;rft.issn=1463-9076&#038;rft.spage=3910&#038;rft.date=2005&#038;rfr_id=info%3Asid%2Fscienceseeker.org&#038;rft.au=Earl+David+J.&#038;rft.aulast=Earl&#038;rft.aufirst=David+J.&#038;rft.au=Deem+Michael+W.&#038;rft.aulast=Deem&#038;rft.aufirst=Michael+W.&#038;rfs_dat=ss.included=1&#038;rfe_dat=bpr3.included=1;bpr3.tags=Chemistry%2CComputer+Science+%2F+Engineering%2CMathematics%2CPhysics">Earl D.J. &#038; Deem M.W. (2005). Parallel tempering: Theory, applications, and new perspectives, <span style="font-style:italic;">Physical Chemistry Chemical Physics, 7</span> (23) 3910. DOI: <a rel="author" href="http://dx.doi.org/10.1039%2Fb509983h">10.1039/b509983h</a></span></p>
+<p>The post <a rel="nofollow" href="http://www.lindonslog.com/programming/openmp/parallel-tempering-algorithm-c/">Parallel Tempering Algorithm with OpenMP / C++</a> appeared first on <a rel="nofollow" href="http://www.lindonslog.com">Lindons Log</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://www.lindonslog.com/programming/openmp/parallel-tempering-algorithm-c/feed/</wfw:commentRss>
+		<slash:comments>2</slash:comments>
+		</item>
+		<item>
+		<title>OpenMP Tutorial &#8211; firstprivate and lastprivate</title>
+		<link>http://www.lindonslog.com/programming/openmp/openmp-tutorial-firstprivate-and-lastprivate/</link>
+		<comments>http://www.lindonslog.com/programming/openmp/openmp-tutorial-firstprivate-and-lastprivate/#comments</comments>
+		<pubDate>Sat, 19 Jan 2013 23:39:18 +0000</pubDate>
+		<dc:creator><![CDATA[admin]]></dc:creator>
+				<category><![CDATA[OpenMP]]></category>
+
+		<guid isPermaLink="false">http://www.lindonslog.com/?p=87</guid>
+		<description><![CDATA[<p>Here I will consider firstprivate and lastprivate. Recall one of the earlier entries about private variables. When a variable is declared as private, each thread gets a unique memory address of where to store values for that variable while in the parallel region. When the parallel region ends, the memory is freed and these variables [&#8230;]</p>
+<p>The post <a rel="nofollow" href="http://www.lindonslog.com/programming/openmp/openmp-tutorial-firstprivate-and-lastprivate/">OpenMP Tutorial &#8211; firstprivate and lastprivate</a> appeared first on <a rel="nofollow" href="http://www.lindonslog.com">Lindons Log</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p>Here I will consider firstprivate and lastprivate. Recall one of the earlier entries about private variables. When a variable is declared as private, each thread gets a unique memory address of where to store values for that variable while in the parallel region. When the parallel region ends, the memory is freed and these variables no longer exist. Consider the following bit of code as an example:</p>
+<pre class="brush: cpp; title: ; notranslate">
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;omp.h&gt;
+
+
+int main(void){
+int i;
+int x;
+x=44;
+#pragma omp parallel for private(x) 
+for(i=0;i&lt;=10;i++){
+x=i;
+printf(&quot;Thread number: %d     x: %d\n&quot;,omp_get_thread_num(),x);
+}
+printf(&quot;x is %d\n&quot;, x);
+
+
+}
+</pre>
+<p>Yields&#8230;</p>
+<pre class="brush: bash; title: ; notranslate">
+Thread number: 0     x: 0
+Thread number: 0     x: 1
+Thread number: 0     x: 2
+Thread number: 3     x: 9
+Thread number: 3     x: 10
+Thread number: 2     x: 6
+Thread number: 2     x: 7
+Thread number: 2     x: 8
+Thread number: 1     x: 3
+Thread number: 1     x: 4
+Thread number: 1     x: 5
+x is 44
+</pre>
+<p>You&#8217;ll notice that x is exactly the value it was before the parallel region.</p>
+<p>Suppose we wanted to keep the last value of x after the parallel region. This can be achieved with lastprivate. Replace private(x) with lastprivate(x) and this is the result:</p>
+<pre class="brush: bash; title: ; notranslate">
+Thread number: 3     x: 9
+Thread number: 3     x: 10
+Thread number: 1     x: 3
+Thread number: 1     x: 4
+Thread number: 1     x: 5
+Thread number: 0     x: 0
+Thread number: 0     x: 1
+Thread number: 0     x: 2
+Thread number: 2     x: 6
+Thread number: 2     x: 7
+Thread number: 2     x: 8
+x is 10
+</pre>
+<p>Notice that it is 10 and not 8. That is to say, it is the last iteration which is kept, not the last operation. Now what if we replace lastprivate(x) with firstprivate(x). What do you think it will do? This:</p>
+<pre class="brush: bash; title: ; notranslate">
+Thread number: 3     x: 9
+Thread number: 3     x: 10
+Thread number: 1     x: 3
+Thread number: 1     x: 4
+Thread number: 1     x: 5
+Thread number: 0     x: 0
+Thread number: 0     x: 1
+Thread number: 0     x: 2
+Thread number: 2     x: 6
+Thread number: 2     x: 7
+Thread number: 2     x: 8
+x is 44
+</pre>
+<p>If you were like me, you were expecting to get the value 0 i.e. the value of x on the first iteration. <strong>NO</strong> </p>
+<blockquote><p>firstprivate Specifies that each thread should have its own instance of a variable, and that the variable should be initialized with the value of the variable, because it exists before the parallel construct.</p></blockquote>
+<p>That is, every thread gets its own instance of x and that instance equals 44.</p>
+<p>The post <a rel="nofollow" href="http://www.lindonslog.com/programming/openmp/openmp-tutorial-firstprivate-and-lastprivate/">OpenMP Tutorial &#8211; firstprivate and lastprivate</a> appeared first on <a rel="nofollow" href="http://www.lindonslog.com">Lindons Log</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://www.lindonslog.com/programming/openmp/openmp-tutorial-firstprivate-and-lastprivate/feed/</wfw:commentRss>
+		<slash:comments>2</slash:comments>
+		</item>
+		<item>
+		<title>OpenMP Tutorial &#8211; Critical, Atomic and Reduction</title>
+		<link>http://www.lindonslog.com/programming/openmp/openmp-tutorial-critical-atomic-and-reduction/</link>
+		<comments>http://www.lindonslog.com/programming/openmp/openmp-tutorial-critical-atomic-and-reduction/#comments</comments>
+		<pubDate>Sun, 23 Oct 2011 09:32:04 +0000</pubDate>
+		<dc:creator><![CDATA[admin]]></dc:creator>
+				<category><![CDATA[OpenMP]]></category>
+		<category><![CDATA[Programming]]></category>
+
+		<guid isPermaLink="false">http://www.lindonslog.com/?p=78</guid>
+		<description><![CDATA[<p>Atomic and Critical critical: the enclosed code block will be executed by only one thread at a time, and not simultaneously executed by multiple threads. It is often used to protect shared data fromrace conditions. atomic: the memory update (write, or read-modify-write) in the next instruction will be performed atomically. It does not make the [&#8230;]</p>
+<p>The post <a rel="nofollow" href="http://www.lindonslog.com/programming/openmp/openmp-tutorial-critical-atomic-and-reduction/">OpenMP Tutorial &#8211; Critical, Atomic and Reduction</a> appeared first on <a rel="nofollow" href="http://www.lindonslog.com">Lindons Log</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<h2> Atomic and Critical</h2>
+<blockquote>
+<ul>
+<li><em>critical</em>: the enclosed code block will be executed by only one thread at a time, and not simultaneously executed by multiple threads. It is often used to protect shared data fromrace conditions.</li>
+<li><em>atomic</em>: the memory update (write, or read-modify-write) in the next instruction will be performed atomically. It does not make the entire statement atomic; only the memory update is atomic. A compiler might use special hardware instructions for better performance than when using <em>critical</em>.</li>
+</ul>
+</blockquote>
+<p>Consider this code which numerically approximates pi:</p>
+<pre class="brush: cpp; title: ; notranslate">
+
+int main(void){
+double pi,x;
+int i,N;
+pi=0.0;
+N=1000;
+#pragma omp parallel for
+for(i=0;i x=(double)i/N;
+pi+=4/(1+x*x);
+}
+pi=pi/N;
+printf(&quot;Pi is %f\n&quot;,pi);
+}
+</pre>
+<p>We compile this with gcc main.c -o test, ignoring the -fopenmp options, this means that the #pragma omp parallel for will be interpreted as a comment i.e. ignored. We run it and this is the result:<br />
+<
+Now compile with the -fopenmp option and run:
+
+Oh dear... Let's examine what went wrong. Well, by default and as we have not specified it as private, the variable x is shared. This means all threads have the same memory address of the variable x. Therefore, thread i will compute some value at x and store it at memory address &amp;x, thread j will then compute its value of x and store it at &amp;x <strong>BEFORE</strong> thread i has used its value to make its contribution to pi. The threads are all over writing each others values of x because they all have the same memory address for x. Our first correction is that x must be made private:<br />
+<code>#pragma omp parallel for private(x)</code></p>
+<p>Secondly, we have a <strong>&#8220;Race Condition&#8221;</strong> for pi. Let me illustrate this with a simple example. Here is what would ideally happen:</p>
+<p>&nbsp;</p>
+<ul>
+<li>Thread 1 reads the current value of pi : 0</li>
+<li>Thread 1 increments the value of pi : 1</li>
+<li>Thread 1 stores the new value of pi: 1</li>
+<li>Thread 2 reads the current value of pi: 1</li>
+<li>Thread 2 increments the value of pi: 2</li>
+<li>Thread 2 stores the value of pi: 2</li>
+</ul>
+<p>What is actually happening is more like this:</p>
+<ul>
+<li>Thread 1 reads the current value of pi: 0</li>
+<li>Thread 2 reads the current value of pi: 0</li>
+<li>Thread 1 increments pi: 1</li>
+<li>Thread 2 increments pi: 1</li>
+<li>Thread 1 stores its value of pi: 1</li>
+<li>Thread 2 stores its value of pi: 1</li>
+</ul>
+<p>The way to correct this is to tell the code to execute the read/write of pi only one thread at a time. This can be achieved with critical or atomic. Add<br />
+<code>#pragma omp atomic</code> Just before pi get&#8217;s updated and you&#8217;ll see that it works.</p>
+<p>This scenario crops up time and time again where you are updating some value inside a parallel loop so in the end it had its own clause made for it. All the above can be achieved by simply making pi a<strong> reduction variable</strong>. </p>
+<h2>Reduction</h2>
+<p>To make pi a reduction variable the code is changed as follows:</p>
+<p>&nbsp;</p>
+<pre class="brush: cpp; title: ; notranslate">
+int main(void){
+double pi,x;
+int i,N;
+pi=0.0;
+N=1000;
+#pragma omp parallel for private(x) reduction(+:pi)
+for(i=0;i&amp;lt;N;i++){
+x=(double)i/N;
+pi+=4/(1+x*x);
+}
+pi=pi/N;
+printf(&quot;Pi is %f\n&quot;,pi);
+}
+</pre>
+<p>This is simply the quick and neat way of achieving all what we did above.</p>
+<p>The post <a rel="nofollow" href="http://www.lindonslog.com/programming/openmp/openmp-tutorial-critical-atomic-and-reduction/">OpenMP Tutorial &#8211; Critical, Atomic and Reduction</a> appeared first on <a rel="nofollow" href="http://www.lindonslog.com">Lindons Log</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://www.lindonslog.com/programming/openmp/openmp-tutorial-critical-atomic-and-reduction/feed/</wfw:commentRss>
+		<slash:comments>2</slash:comments>
+		</item>
+		<item>
+		<title>OpenMP Parallel For</title>
+		<link>http://www.lindonslog.com/programming/openmp/openmp-tutorial-work-sharing/</link>
+		<comments>http://www.lindonslog.com/programming/openmp/openmp-tutorial-work-sharing/#respond</comments>
+		<pubDate>Sat, 22 Oct 2011 20:41:12 +0000</pubDate>
+		<dc:creator><![CDATA[admin]]></dc:creator>
+				<category><![CDATA[OpenMP]]></category>
+
+		<guid isPermaLink="false">http://www.lindonslog.com/?p=65</guid>
+		<description><![CDATA[<p>The parallel directive #pragma omp parallel makes the code parallel, that is, it forks the master thread into a number of parallel threads, but it doesn&#8217;t actually share out the work. What we are really after is the parallel for directive, which we call a work-sharing construct. Consider The for directive applies to the for [&#8230;]</p>
+<p>The post <a rel="nofollow" href="http://www.lindonslog.com/programming/openmp/openmp-tutorial-work-sharing/">OpenMP Parallel For</a> appeared first on <a rel="nofollow" href="http://www.lindonslog.com">Lindons Log</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p>The parallel directive <code>#pragma omp parallel</code> makes the code parallel, that is, it forks the master thread into a number of parallel threads, but it doesn&#8217;t actually share out the work.<br />
+What we are really after is the parallel for directive, which we call a <strong>work-sharing</strong> construct. Consider</p>
+<pre class="brush: cpp; title: ; notranslate">
+#include &lt;iostream&gt;
+#include &lt;omp.h&gt;
+
+using namespace std;
+main (void)
+{
+	int i;
+	int foo;
+#pragma omp parallel for
+  for(i=1;i&lt;10;i++){
+#pragma omp critical
+{
+foo=omp_get_thread_num();
+	  cout &lt;&lt; &quot;Loop number: &quot;&lt;&lt; i &lt;&lt; &quot; &quot; &lt;&lt; &quot;Thread number: &quot; &lt;&lt; foo &lt;&lt; endl;
+}
+}
+}
+</pre>
+<p>The for directive applies to the for loop immediately preceding it. Notice how we don&#8217;t have to outline a parallel region with curly braces {} following this directive in contrast to before. This program yields:</p>
+<pre class="brush: bash; title: ; notranslate">
+[michael@michael lindonslog]$ ./openmp 
+Loop number: 1 Thread number: 0
+Loop number: 8 Thread number: 3
+Loop number: 2 Thread number: 0
+Loop number: 3 Thread number: 0
+Loop number: 9 Thread number: 3
+Loop number: 6 Thread number: 2
+Loop number: 4 Thread number: 1
+Loop number: 7 Thread number: 2
+Loop number: 5 Thread number: 1
+[michael@michael lindonslog]$ 
+</pre>
+<p>Notice what I said about the order. By default, the loop index i.e. &#8220;i&#8221; in this context, is made private by the for directive.</p>
+<p>At the end of the parallel for loop, there is an implicit barrier where all threads wait until they have all finished. There are however some rules for the parallel for directive</p>
+<ol>
+<li>The loop index, i, is incremented by a fixed amount each iteration e.g. i++ or i+=step.</li>
+<li>The start and end values must not change during the loop.</li>
+<li>There must be no &#8220;breaks&#8221; in the loop where the code steps out of that code block. Functions are, however, permitted and run as you would expect.</li>
+<li>The comparison operators may be &lt; &lt;= =&gt; &gt;</li>
+</ol>
+<p>There may be times when you want to perform some operation in the order of the iterations. This can be achieved with an ordered directive and an ordered clause. Each thread will wait until the previous iteration has finished it&#8217;s ordered section before proceeding with its own.</p>
+<pre class="brush: cpp; title: ; notranslate">
+int main(void){
+int i,a[10];
+#pragma omp parallel for ordered 
+for(i=0;i&lt;10;i++){
+a[i]=expensive_function(i);
+#pragma omp ordered
+printf(&quot;Thread ID: %d    Hello World %d\n&quot;,omp_get_thread_num(),i);
+}
+}
+</pre>
+<p>Will now print out the Hello Worlds in order. N.B. There is a penalty for this. The threads have to wait until the preceding iteration has finished with its ordered section of code. Only if the expensive_function() in this case were expensive, would this be worthwhile.</p>
+<p>The post <a rel="nofollow" href="http://www.lindonslog.com/programming/openmp/openmp-tutorial-work-sharing/">OpenMP Parallel For</a> appeared first on <a rel="nofollow" href="http://www.lindonslog.com">Lindons Log</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://www.lindonslog.com/programming/openmp/openmp-tutorial-work-sharing/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>Parallel Programming in C with OpenMP</title>
+		<link>http://www.lindonslog.com/programming/openmp/openmp-tutorial-thinking-parallel/</link>
+		<comments>http://www.lindonslog.com/programming/openmp/openmp-tutorial-thinking-parallel/#respond</comments>
+		<pubDate>Sat, 22 Oct 2011 19:56:12 +0000</pubDate>
+		<dc:creator><![CDATA[admin]]></dc:creator>
+				<category><![CDATA[OpenMP]]></category>
+		<category><![CDATA[c]]></category>
+		<category><![CDATA[openmp]]></category>
+		<category><![CDATA[parallel]]></category>
+		<category><![CDATA[programming]]></category>
+
+		<guid isPermaLink="false">http://www.lindonslog.com/?p=56</guid>
+		<description><![CDATA[<p>OpenMP &#8211; Open Specifications for Multi Processing The central theme of parallel code is that of threads. A serial code starts off as one thread. As soon as the first parallel directive(Fortran)/pragma(C) is encountered, the master thread forks into a number of threads. The proceeding code is then executed in parallel in a manner which [&#8230;]</p>
+<p>The post <a rel="nofollow" href="http://www.lindonslog.com/programming/openmp/openmp-tutorial-thinking-parallel/">Parallel Programming in C with OpenMP</a> appeared first on <a rel="nofollow" href="http://www.lindonslog.com">Lindons Log</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<h2>OpenMP &#8211; Open Specifications for Multi Processing</h2>
+<p>The central theme of parallel code is that of threads. A serial code starts off as one thread. As soon as the first parallel directive(Fortran)/pragma(C) is encountered, the master thread forks into a number of threads. The proceeding code is then executed in parallel in a manner which can be adjusted using certain options.</p>
+<p>To get started with OpenMP. You will need to include the omp header file with<br />
+ <code>#include &lt;omp.h&gt;</code><br />
+ and you will need to add the -fopenmp option when compiling.</p>
+<p>To fork the master thread into a number of parallel threads, one writes the following line of code:<br />
+<code>#pragma omp parallel</code><br />
+This directive will apply to the following block of code, {&#8230;}, only and must be structured as such. By default, all variables previously declared are shared i.e. all threads have the same memory address of a shared variable. This can, however, be declared explicitly by adding <code>shared(var_name)</code>. Conversely, you may want to make variables private, that is, each thread gets allocated a unique location in the memory to store this variable. Private variables are only accessed by the threads they are in and all the additional copies of the variable created for parallisation are destroyed when the threads merge. There are also reduction variables. More on that later&#8230;</p>
+<p>Lets try an example. When you execute your code, it will inherit the OMP_NUM_THREADS environment variable of your terminal. Suppose we want to set the number of threads to 4. We write</p>
+<pre class="brush: bash; title: ; notranslate">
+prog@michael-laptop:~$ export OMP_NUM_THREADS=4
+prog@michael-laptop:~$ echo $OMP_NUM_THREADS
+4
+prog@michael-laptop:~$ 
+</pre>
+<p>You can also specify the number of threads during run time with the omp_set_num_threads() function defined in omp.h</p>
+<p>Good. Now here&#8217;s our sample code:</p>
+<pre class="brush: cpp; title: ; notranslate">
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;omp.h&gt;
+
+int main(void){
+printf(&quot;Number of threads before parallisation: %d\n&quot;,omp_get_num_threads());
+#pragma omp parallel 
+{
+printf(&quot;Current thread number: %d\n&quot;,omp_get_thread_num());
+if(omp_get_thread_num()==0)
+{
+printf(&quot;Number of threads after parallisation: %d\n&quot;,omp_get_num_threads());
+}
+}
+printf(&quot;Number of threads after merging threads %d\n&quot;,omp_get_num_threads());
+}
+</pre>
+<p>compile and run:</p>
+<pre class="brush: bash; title: ; notranslate">
+prog@michael-laptop:~$ g++ openmp.cpp -o test -fopenmp
+prog@michael-laptop:~$ ./test
+Number of threads before parallisation: 1
+Current thread number: 3
+Current thread number: 1
+Current thread number: 0
+Number of threads after parallisation: 4
+Current thread number: 2
+Number of threads after merging threads 1
+</pre>
+<p>Next I&#8217;ll talk about work sharing&#8230;</p>
+<p>The post <a rel="nofollow" href="http://www.lindonslog.com/programming/openmp/openmp-tutorial-thinking-parallel/">Parallel Programming in C with OpenMP</a> appeared first on <a rel="nofollow" href="http://www.lindonslog.com">Lindons Log</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://www.lindonslog.com/programming/openmp/openmp-tutorial-thinking-parallel/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+	</channel>
+</rss>

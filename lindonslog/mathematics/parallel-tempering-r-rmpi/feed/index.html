@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	
+	>
+<channel>
+	<title>Comments on: Parallel Tempering in R with Rmpi</title>
+	<atom:link href="http://www.lindonslog.com/mathematics/parallel-tempering-r-rmpi/feed/" rel="self" type="application/rss+xml" />
+	<link>http://www.lindonslog.com/mathematics/parallel-tempering-r-rmpi/</link>
+	<description></description>
+	<lastBuildDate>Sun, 27 Nov 2016 15:23:00 +0000</lastBuildDate>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=4.6.1</generator>
+	<item>
+		<title>By: admin</title>
+		<link>http://www.lindonslog.com/mathematics/parallel-tempering-r-rmpi/#comment-683</link>
+		<dc:creator><![CDATA[admin]]></dc:creator>
+		<pubDate>Wed, 22 Oct 2014 16:42:51 +0000</pubDate>
+		<guid isPermaLink="false">http://www.lindonslog.com/?p=883#comment-683</guid>
+		<description><![CDATA[A good rule of thumb is to use a geometric temperature ladder between your desired maximum and minimum temperature. The more processors you have the finer you can make this discrete temperature ladder, if you only have a few processors, then the difference in temperature between processors can be too large to get a good acceptance ratio. I recall a paper saying that for best results you should attempt to swap at each iteration... I&#039;m not sure, attempting swaps requires communication and can be a computational burden. For the metropolis hastings within a single processor acceptance ratio should be around 40%, for the metropolis hastings between processors that is anothing thing - some people measure the performance of parallel tempering by the time it takes to get from the bottom temperature to the top temperature and back down again. If you have a lot of processors/temperatures the acceptance ratio is high but then there are more temperatures to traverse through... finding a good balance is key. There are adaptive ways but it requires a lot of effort.]]></description>
+		<content:encoded><![CDATA[<p>A good rule of thumb is to use a geometric temperature ladder between your desired maximum and minimum temperature. The more processors you have the finer you can make this discrete temperature ladder, if you only have a few processors, then the difference in temperature between processors can be too large to get a good acceptance ratio. I recall a paper saying that for best results you should attempt to swap at each iteration&#8230; I&#8217;m not sure, attempting swaps requires communication and can be a computational burden. For the metropolis hastings within a single processor acceptance ratio should be around 40%, for the metropolis hastings between processors that is anothing thing &#8211; some people measure the performance of parallel tempering by the time it takes to get from the bottom temperature to the top temperature and back down again. If you have a lot of processors/temperatures the acceptance ratio is high but then there are more temperatures to traverse through&#8230; finding a good balance is key. There are adaptive ways but it requires a lot of effort.</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Yuriy</title>
+		<link>http://www.lindonslog.com/mathematics/parallel-tempering-r-rmpi/#comment-680</link>
+		<dc:creator><![CDATA[Yuriy]]></dc:creator>
+		<pubDate>Mon, 20 Oct 2014 06:02:58 +0000</pubDate>
+		<guid isPermaLink="false">http://www.lindonslog.com/?p=883#comment-680</guid>
+		<description><![CDATA[Hi Michael,
+thanks for this tutorial. Could you please share your thoughts on how to choose the number of temperatures (chains), and how to choose swap.interval? Is there an adaptive way to do it, e.g., matching the swap acceptance rate to some target values?]]></description>
+		<content:encoded><![CDATA[<p>Hi Michael,<br />
+thanks for this tutorial. Could you please share your thoughts on how to choose the number of temperatures (chains), and how to choose swap.interval? Is there an adaptive way to do it, e.g., matching the swap acceptance rate to some target values?</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Manuela</title>
+		<link>http://www.lindonslog.com/mathematics/parallel-tempering-r-rmpi/#comment-126</link>
+		<dc:creator><![CDATA[Manuela]]></dc:creator>
+		<pubDate>Thu, 21 Nov 2013 14:50:42 +0000</pubDate>
+		<guid isPermaLink="false">http://www.lindonslog.com/?p=883#comment-126</guid>
+		<description><![CDATA[Right - the same thing seems to have happened with the code in my comment. Weird! 
+
+It should read &quot;prop[ c ]&quot; rather than &quot;prop&quot; (i.e. access only the c-th element of the vector prop), but WordPress has somehow removed the &quot;[ c ]&quot;.]]></description>
+		<content:encoded><![CDATA[<p>Right &#8211; the same thing seems to have happened with the code in my comment. Weird! </p>
+<p>It should read &#8220;prop[ c ]&#8221; rather than &#8220;prop&#8221; (i.e. access only the c-th element of the vector prop), but WordPress has somehow removed the &#8220;[ c ]&#8221;.</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: admin</title>
+		<link>http://www.lindonslog.com/mathematics/parallel-tempering-r-rmpi/#comment-125</link>
+		<dc:creator><![CDATA[admin]]></dc:creator>
+		<pubDate>Thu, 21 Nov 2013 13:50:49 +0000</pubDate>
+		<guid isPermaLink="false">http://www.lindonslog.com/?p=883#comment-125</guid>
+		<description><![CDATA[Manuela,
+vielen Dank für die Bemerkung! Sie haben recht, da sollte kein &quot;1&quot; stehen. Bitte schau Ihnen mal dieses Bildschirmfoto an:
+http://www.lindonslog.com/wp-content/uploads/2013/11/Screenshot-from-2013-11-21-080616.png
+so sollte der Quelltext aussehen und komischerweise so steht es auch in meinem Editor :/ Anscheinend verwandelt Wordpress das &quot;c&quot; zu einem &quot;1&quot;.
+Ich suche nach eine Lösung :)]]></description>
+		<content:encoded><![CDATA[<p>Manuela,<br />
+vielen Dank für die Bemerkung! Sie haben recht, da sollte kein &#8220;1&#8221; stehen. Bitte schau Ihnen mal dieses Bildschirmfoto an:<br />
+<a href="http://www.lindonslog.com/wp-content/uploads/2013/11/Screenshot-from-2013-11-21-080616.png" rel="nofollow">http://www.lindonslog.com/wp-content/uploads/2013/11/Screenshot-from-2013-11-21-080616.png</a><br />
+so sollte der Quelltext aussehen und komischerweise so steht es auch in meinem Editor :/ Anscheinend verwandelt WordPress das &#8220;c&#8221; zu einem &#8220;1&#8221;.<br />
+Ich suche nach eine Lösung 🙂</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Manuela</title>
+		<link>http://www.lindonslog.com/mathematics/parallel-tempering-r-rmpi/#comment-124</link>
+		<dc:creator><![CDATA[Manuela]]></dc:creator>
+		<pubDate>Wed, 20 Nov 2013 23:37:19 +0000</pubDate>
+		<guid isPermaLink="false">http://www.lindonslog.com/?p=883#comment-124</guid>
+		<description><![CDATA[Dear Michael, thanks for this great tutorial! Very nice intro to parallel tempering with Rmpi.
+
+The code for the temper() function seems to have a tiny typo though: in line 22 it should read
+for(c in 1:length(prop))  prop[c][/c]=theta[t-1,c]+rnorm(1,0,0.1);
+rather than 
+for(c in 1:length(prop))  prop1=theta[t-1,c]+rnorm(1,0,0.1);
+
+After changing this, the example code worked beautifully! Keep up the good work! :-)]]></description>
+		<content:encoded><![CDATA[<p>Dear Michael, thanks for this great tutorial! Very nice intro to parallel tempering with Rmpi.</p>
+<p>The code for the temper() function seems to have a tiny typo though: in line 22 it should read<br />
+for(c in 1:length(prop))  prop=theta[t-1,c]+rnorm(1,0,0.1);<br />
+rather than<br />
+for(c in 1:length(prop))  prop1=theta[t-1,c]+rnorm(1,0,0.1);</p>
+<p>After changing this, the example code worked beautifully! Keep up the good work! 🙂</p>
+]]></content:encoded>
+	</item>
+</channel>
+</rss>

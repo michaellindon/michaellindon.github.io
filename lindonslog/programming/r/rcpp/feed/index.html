@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	
+	>
+<channel>
+	<title>Comments on: Calling C++ from R using Rcpp</title>
+	<atom:link href="http://www.lindonslog.com/programming/r/rcpp/feed/" rel="self" type="application/rss+xml" />
+	<link>http://www.lindonslog.com/programming/r/rcpp/</link>
+	<description></description>
+	<lastBuildDate>Sun, 27 Nov 2016 15:23:00 +0000</lastBuildDate>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=4.6.1</generator>
+	<item>
+		<title>By: James</title>
+		<link>http://www.lindonslog.com/programming/r/rcpp/#comment-1012</link>
+		<dc:creator><![CDATA[James]]></dc:creator>
+		<pubDate>Mon, 01 Jun 2015 21:54:36 +0000</pubDate>
+		<guid isPermaLink="false">http://www.lindonslog.com/?p=463#comment-1012</guid>
+		<description><![CDATA[replications=rep(1,0,1) - this is a misleading part of the whole article, could you please change it to sth. else? 
+
+Also, i didn&#039;t find the parad version faster than x/y - curious whether we are comparing 8cpus vs. 1 cpu?]]></description>
+		<content:encoded><![CDATA[<p>replications=rep(1,0,1) &#8211; this is a misleading part of the whole article, could you please change it to sth. else? </p>
+<p>Also, i didn&#8217;t find the parad version faster than x/y &#8211; curious whether we are comparing 8cpus vs. 1 cpu?</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: admin</title>
+		<link>http://www.lindonslog.com/programming/r/rcpp/#comment-83</link>
+		<dc:creator><![CDATA[admin]]></dc:creator>
+		<pubDate>Sun, 13 Oct 2013 15:19:22 +0000</pubDate>
+		<guid isPermaLink="false">http://www.lindonslog.com/?p=463#comment-83</guid>
+		<description><![CDATA[Cheers :) I have another example of using Rcpp here:
+http://www.lindonslog.com/programming/parallel-random-number-generation-trng/]]></description>
+		<content:encoded><![CDATA[<p>Cheers 🙂 I have another example of using Rcpp here:<br />
+<a href="http://www.lindonslog.com/programming/parallel-random-number-generation-trng/" rel="nofollow">http://www.lindonslog.com/programming/parallel-random-number-generation-trng/</a></p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Raffael Vogler</title>
+		<link>http://www.lindonslog.com/programming/r/rcpp/#comment-82</link>
+		<dc:creator><![CDATA[Raffael Vogler]]></dc:creator>
+		<pubDate>Sun, 13 Oct 2013 15:11:17 +0000</pubDate>
+		<guid isPermaLink="false">http://www.lindonslog.com/?p=463#comment-82</guid>
+		<description><![CDATA[I think I get your point! Right now I really don&#039;t have any serious experience with either way. But I will come back to this topic when I do. Of course any introductory articles on your blog on .C/.Call/Rcpp are highly welcome - I guess I am not the only one who would appreciate it!]]></description>
+		<content:encoded><![CDATA[<p>I think I get your point! Right now I really don&#8217;t have any serious experience with either way. But I will come back to this topic when I do. Of course any introductory articles on your blog on .C/.Call/Rcpp are highly welcome &#8211; I guess I am not the only one who would appreciate it!</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: admin</title>
+		<link>http://www.lindonslog.com/programming/r/rcpp/#comment-81</link>
+		<dc:creator><![CDATA[admin]]></dc:creator>
+		<pubDate>Sun, 13 Oct 2013 15:01:12 +0000</pubDate>
+		<guid isPermaLink="false">http://www.lindonslog.com/?p=463#comment-81</guid>
+		<description><![CDATA[I recall that their main selling point was that using &quot;.Call()&quot; really obfuscates the code because you have to &quot;protect&quot; and &quot;unprotect&quot; variables all the time because otherwise the R garbage collector may delete variables that you are using. I tried &quot;.Call()&quot; once and Rcpp is certainly a large improvement on this because it takes care of the protection for you. I use &quot;.C()&quot;, however, which involves some copying of the variables to C++ and then you don&#039;t need to worry about the garbage collector. Most people really object to this transfer &quot;overhead&quot;, but if I am porting something from R to C++ then it would necessarily be something very computationally intensive in the first place, in which case the transfer overhead is negligible in comparison. I guess the people who object to the transfer overhead are those who just want to port a small block of code like a nested for loop, in which case the objection is reasonable. This is what I mean by Rcpp is meant for R-users as opposed to C++ users. I started writing a package for R which I wanted to be as fast as possible, which was the reason I started looking in to this. The only interaction I wanted with R was receiving the initial data and sending the final results - so having nothing to do with R in the mean time, so .C() works just fine for me. Plus with .C() you use your regular C++ datatypes and expressions without worrying about converting them with as.something(). .C() just allows me to code C++ without getting in the way with strange SEXP datatypes and other things. I think you will find that most packages coded in C/C++ with just use .C(). That&#039;s my take on it anyway.]]></description>
+		<content:encoded><![CDATA[<p>I recall that their main selling point was that using &#8220;.Call()&#8221; really obfuscates the code because you have to &#8220;protect&#8221; and &#8220;unprotect&#8221; variables all the time because otherwise the R garbage collector may delete variables that you are using. I tried &#8220;.Call()&#8221; once and Rcpp is certainly a large improvement on this because it takes care of the protection for you. I use &#8220;.C()&#8221;, however, which involves some copying of the variables to C++ and then you don&#8217;t need to worry about the garbage collector. Most people really object to this transfer &#8220;overhead&#8221;, but if I am porting something from R to C++ then it would necessarily be something very computationally intensive in the first place, in which case the transfer overhead is negligible in comparison. I guess the people who object to the transfer overhead are those who just want to port a small block of code like a nested for loop, in which case the objection is reasonable. This is what I mean by Rcpp is meant for R-users as opposed to C++ users. I started writing a package for R which I wanted to be as fast as possible, which was the reason I started looking in to this. The only interaction I wanted with R was receiving the initial data and sending the final results &#8211; so having nothing to do with R in the mean time, so .C() works just fine for me. Plus with .C() you use your regular C++ datatypes and expressions without worrying about converting them with as.something(). .C() just allows me to code C++ without getting in the way with strange SEXP datatypes and other things. I think you will find that most packages coded in C/C++ with just use .C(). That&#8217;s my take on it anyway.</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Raffael Vogler</title>
+		<link>http://www.lindonslog.com/programming/r/rcpp/#comment-80</link>
+		<dc:creator><![CDATA[Raffael Vogler]]></dc:creator>
+		<pubDate>Sun, 13 Oct 2013 09:25:15 +0000</pubDate>
+		<guid isPermaLink="false">http://www.lindonslog.com/?p=463#comment-80</guid>
+		<description><![CDATA[I mean in that sense it would be the choice for as I am an R-user who would just consider resorting to C++ for specific purposes. But you also say that you would rather use &quot;.C&quot; than Rcpp. How is that? There is a very interesting SO thread between Hadley, Dirk and Romain and they (Dirk and Romain) make good points in favor of Rcpp. I would like to know more about your take on this. - your command of German is pretty good btw!]]></description>
+		<content:encoded><![CDATA[<p>I mean in that sense it would be the choice for as I am an R-user who would just consider resorting to C++ for specific purposes. But you also say that you would rather use &#8220;.C&#8221; than Rcpp. How is that? There is a very interesting SO thread between Hadley, Dirk and Romain and they (Dirk and Romain) make good points in favor of Rcpp. I would like to know more about your take on this. &#8211; your command of German is pretty good btw!</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: admin</title>
+		<link>http://www.lindonslog.com/programming/r/rcpp/#comment-77</link>
+		<dc:creator><![CDATA[admin]]></dc:creator>
+		<pubDate>Sun, 13 Oct 2013 01:20:30 +0000</pubDate>
+		<guid isPermaLink="false">http://www.lindonslog.com/?p=463#comment-77</guid>
+		<description><![CDATA[schön dass es dir gefällt, Raffael. Ich muss aber zugeben dass ich es halt einfacher finde &quot;.C&quot; zu benutzen als Rcpp. Meine Meinung nach ist Rcpp eher für R-Nutzern als C++ Nutzern zugedacht...]]></description>
+		<content:encoded><![CDATA[<p>schön dass es dir gefällt, Raffael. Ich muss aber zugeben dass ich es halt einfacher finde &#8220;.C&#8221; zu benutzen als Rcpp. Meine Meinung nach ist Rcpp eher für R-Nutzern als C++ Nutzern zugedacht&#8230;</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Raffael Vogler</title>
+		<link>http://www.lindonslog.com/programming/r/rcpp/#comment-75</link>
+		<dc:creator><![CDATA[Raffael Vogler]]></dc:creator>
+		<pubDate>Fri, 11 Oct 2013 19:20:42 +0000</pubDate>
+		<guid isPermaLink="false">http://www.lindonslog.com/?p=463#comment-75</guid>
+		<description><![CDATA[I very much enjoyed reading your article. It is a long time ago that I programmed C++ the last time but it looks still familiar. Given the lack of Windows-compatible packages for utilizing my GPU I am eager to give CUDA a try using Rcpp.]]></description>
+		<content:encoded><![CDATA[<p>I very much enjoyed reading your article. It is a long time ago that I programmed C++ the last time but it looks still familiar. Given the lack of Windows-compatible packages for utilizing my GPU I am eager to give CUDA a try using Rcpp.</p>
+]]></content:encoded>
+	</item>
+</channel>
+</rss>

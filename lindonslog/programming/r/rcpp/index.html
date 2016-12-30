@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="en-US" prefix="og: http://ogp.me/ns#">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width" />
+
+<link rel="profile" href="http://gmpg.org/xfn/11" />
+<link rel="pingback" href="http://www.lindonslog.com/xmlrpc.php" />
+<link href='http://fonts.googleapis.com/css?family=Economica:400,400italic,700,700italic' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=PT+Sans:400,700' rel='stylesheet' type='text/css'>
+<!--[if lt IE 9]>
+<script src="http://www.lindonslog.com/wp-content/themes/Winter/js/html5.js" type="text/javascript"></script>
+<![endif]-->
+
+
+<!-- This site is optimized with the Yoast SEO plugin v3.1.2 - https://yoast.com/wordpress/plugins/seo/ -->
+<title>Calling C++ from R using Rcpp - Lindons Log</title>
+<meta name="description" content="How to interface and call C/C++ code from R using Rcpp."/>
+<meta name="robots" content="noodp"/>
+<link rel="canonical" href="index.html" />
+<meta property="og:locale" content="en_US" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Calling C++ from R using Rcpp - Lindons Log" />
+<meta property="og:description" content="How to interface and call C/C++ code from R using Rcpp." />
+<meta property="og:url" content="http://www.lindonslog.com/programming/r/rcpp/" />
+<meta property="og:site_name" content="Lindons Log" />
+<meta property="article:section" content="R" />
+<meta property="article:published_time" content="2013-06-23T02:39:23+00:00" />
+<meta property="article:modified_time" content="2013-06-25T00:28:05+00:00" />
+<meta property="og:updated_time" content="2013-06-25T00:28:05+00:00" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:description" content="How to interface and call C/C++ code from R using Rcpp." />
+<meta name="twitter:title" content="Calling C++ from R using Rcpp - Lindons Log" />
+<meta name="twitter:site" content="@lindonslog" />
+<meta name="twitter:creator" content="@lindonslog" />
+<!-- / Yoast SEO plugin. -->
+
+<link rel='dns-prefetch' href='http://s0.wp.com/' />
+<link rel='dns-prefetch' href='http://s.gravatar.com/' />
+<link rel='dns-prefetch' href='http://s.w.org/' />
+<link rel="alternate" type="application/rss+xml" title="Lindons Log &raquo; Feed" href="../../../feed/index.html" />
+<link rel="alternate" type="application/rss+xml" title="Lindons Log &raquo; Comments Feed" href="../../../comments/feed/index.html" />
+<link rel="alternate" type="application/rss+xml" title="Lindons Log &raquo; Calling C++ from R using Rcpp Comments Feed" href="feed/index.html" />
+		<script type="text/javascript">
+			window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/2\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/2\/svg\/","svgExt":".svg","source":{"concatemoji":"http:\/\/www.lindonslog.com\/wp-includes\/js\/wp-emoji-release.min.js?ver=4.6.1"}};
+			!function(a,b,c){function d(a){var c,d,e,f,g,h=b.createElement("canvas"),i=h.getContext&&h.getContext("2d"),j=String.fromCharCode;if(!i||!i.fillText)return!1;switch(i.textBaseline="top",i.font="600 32px Arial",a){case"flag":return i.fillText(j(55356,56806,55356,56826),0,0),!(h.toDataURL().length<3e3)&&(i.clearRect(0,0,h.width,h.height),i.fillText(j(55356,57331,65039,8205,55356,57096),0,0),c=h.toDataURL(),i.clearRect(0,0,h.width,h.height),i.fillText(j(55356,57331,55356,57096),0,0),d=h.toDataURL(),c!==d);case"diversity":return i.fillText(j(55356,57221),0,0),e=i.getImageData(16,16,1,1).data,f=e[0]+","+e[1]+","+e[2]+","+e[3],i.fillText(j(55356,57221,55356,57343),0,0),e=i.getImageData(16,16,1,1).data,g=e[0]+","+e[1]+","+e[2]+","+e[3],f!==g;case"simple":return i.fillText(j(55357,56835),0,0),0!==i.getImageData(16,16,1,1).data[0];case"unicode8":return i.fillText(j(55356,57135),0,0),0!==i.getImageData(16,16,1,1).data[0];case"unicode9":return i.fillText(j(55358,56631),0,0),0!==i.getImageData(16,16,1,1).data[0]}return!1}function e(a){var c=b.createElement("script");c.src=a,c.type="text/javascript",b.getElementsByTagName("head")[0].appendChild(c)}var f,g,h,i;for(i=Array("simple","flag","unicode8","diversity","unicode9"),c.supports={everything:!0,everythingExceptFlag:!0},h=0;h<i.length;h++)c.supports[i[h]]=d(i[h]),c.supports.everything=c.supports.everything&&c.supports[i[h]],"flag"!==i[h]&&(c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&c.supports[i[h]]);c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&!c.supports.flag,c.DOMReady=!1,c.readyCallback=function(){c.DOMReady=!0},c.supports.everything||(g=function(){c.readyCallback()},b.addEventListener?(b.addEventListener("DOMContentLoaded",g,!1),a.addEventListener("load",g,!1)):(a.attachEvent("onload",g),b.attachEvent("onreadystatechange",function(){"complete"===b.readyState&&c.readyCallback()})),f=c.source||{},f.concatemoji?e(f.concatemoji):f.wpemoji&&f.twemoji&&(e(f.twemoji),e(f.wpemoji)))}(window,document,window._wpemojiSettings);
+		</script>
+		<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+<link rel='stylesheet' id='papercite_css-css'  href='../../../wp-content/plugins/papercite/papercite.css%3Fver=4.6.1.css' type='text/css' media='all' />
+<link rel='stylesheet' id='style-css'  href='../../../wp-content/themes/Winter/style.css%3Fver=4.6.1.css' type='text/css' media='all' />
+<link rel='stylesheet' id='grid-css'  href='../../../wp-content/themes/Winter/css/grid.css%3Fver=4.6.1.css' type='text/css' media='all' />
+<link rel='stylesheet' id='wp-style-css'  href='../../../wp-content/themes/Winter/css/wp-style.css%3Fver=4.6.1.css' type='text/css' media='all' />
+<link rel='stylesheet' id='fontwaesome-css'  href='../../../wp-content/themes/Winter/css/font-awesome.css%3Fver=4.6.1.css' type='text/css' media='all' />
+<link rel='stylesheet' id='fontwaesome-ie-css'  href='../../../wp-content/themes/Winter/css/font-awesome-ie7.css%3Fver=4.6.1.css' type='text/css' media='all' />
+<link rel='stylesheet' id='flexslider-css'  href='../../../wp-content/themes/Winter/css/flexslider.css%3Fver=4.6.1.css' type='text/css' media='all' />
+<link rel='stylesheet' id='fancybox-css'  href='../../../wp-content/themes/Winter/css/jquery.fancybox.css%3Fver=4.6.1.css' type='text/css' media='all' />
+<link rel='stylesheet' id='genericons-css'  href='../../../wp-content/plugins/jetpack/_inc/genericons/genericons/genericons.css%3Fver=3.1.css' type='text/css' media='all' />
+<link rel='stylesheet' id='jetpack_css-css'  href='../../../wp-content/plugins/jetpack/css/jetpack.css%3Fver=3.9.7.css' type='text/css' media='all' />
+<script type='text/javascript' src='../../../wp-includes/js/jquery/jquery.js%3Fver=1.12.4'></script>
+<script type='text/javascript' src='../../../wp-includes/js/jquery/jquery-migrate.min.js%3Fver=1.4.1'></script>
+<script type='text/javascript' src='../../../wp-content/plugins/papercite/js/papercite.js%3Fver=4.6.1'></script>
+<script type='text/javascript' src='../../../wp-content/themes/Winter/js/jquery.flexslider-min.js%3Fver=1'></script>
+<script type='text/javascript' src='../../../wp-content/themes/Winter/js/jquery.fancybox.pack.js%3Fver=1'></script>
+<script type='text/javascript' src='../../../wp-content/themes/Winter/js/jwplayer.js%3Fver=1'></script>
+<script type='text/javascript' src='../../../wp-content/themes/Winter/js/custom.js%3Fver=1'></script>
+<link rel='https://api.w.org/' href='../../../wp-json/index.html' />
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="../../../xmlrpc.php%3Frsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="../../../wp-includes/wlwmanifest.xml" /> 
+<meta name="generator" content="WordPress 4.6.1" />
+<link rel='shortlink' href='http://wp.me/s1QEx5-rcpp' />
+<link rel="alternate" type="application/json+oembed" href="../../../wp-json/oembed/1.0/embed%3Furl=http%253A%252F%252Fwww.lindonslog.com%252Fprogramming%252Fr%252Frcpp%252F" />
+<link rel="alternate" type="text/xml+oembed" href="../../../wp-json/oembed/1.0/embed%3Furl=http%253A%252F%252Fwww.lindonslog.com%252Fprogramming%252Fr%252Frcpp%252F&amp;format=xml" />
+
+<link rel='dns-prefetch' href='http://jetpack.wordpress.com/'>
+<link rel='dns-prefetch' href='http://s0.wp.com/'>
+<link rel='dns-prefetch' href='http://s1.wp.com/'>
+<link rel='dns-prefetch' href='http://s2.wp.com/'>
+<link rel='dns-prefetch' href='http://public-api.wordpress.com/'>
+<link rel='dns-prefetch' href='http://0.gravatar.com/'>
+<link rel='dns-prefetch' href='http://1.gravatar.com/'>
+<link rel='dns-prefetch' href='http://2.gravatar.com/'>
+<link rel='dns-prefetch' href='http://widgets.wp.com/'>
+<style type="text/css" id="syntaxhighlighteranchor"></style>
+<link rel="icon" href="../../../wp-content/uploads/2015/09/cropped-L-32x32.png" sizes="32x32" />
+<link rel="icon" href="../../../wp-content/uploads/2015/09/cropped-L-192x192.png" sizes="192x192" />
+<link rel="apple-touch-icon-precomposed" href="../../../wp-content/uploads/2015/09/cropped-L-180x180.png" />
+<meta name="msapplication-TileImage" content="http://www.lindonslog.com/wp-content/uploads/2015/09/cropped-L-270x270.png" />
+
+<style id="custom-css-css">.input_prompt{color:#06c}.output_prompt{color:#c00}.prompt{font-family:monospace;font-size:14px}.c,c1{color:#408080;font-style:italic}.k{color:#382;font-weight:700}.kn{color:#382;font-weight:700}.mi{color:#080}.mf{color:#080}.o{color:#96f}.ow{color:#BA22FF;font-weight:700}.nb{color:#382}.n{color:#000}.s,.s1{color:#c22}.se{color:#c22;font-weight:700}.si{color:#C06688;font-weight:700}.nn{color:#4D00FF;font-weight:700}.output_area pre{background-color:#FFF;padding-left:5%}.code_cell{padding-left:1%}.cell{margin-top:10px;margin-bottom:10px}br{line-height:2}.cell h1,h2,h3,h4{margin-top:30px;margin-bottom:10px}</style>
+</head>
+
+<body class="single single-post postid-463 single-format-standard">
+<div id="page" class="hfeed site">
+
+	<header id="masthead" class="site-header" role="banner">
+		<div id="botmenu">
+			<div class="container_6">
+			<div id="submenu" class="menu-top-container"><ul id="web2feel" class="sfmenu"><li id="menu-item-434" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-434"><a href="../../../index.html">About</a></li>
+<li id="menu-item-405" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children menu-item-405"><a href="../../../category/mathematics/index.html">Mathematics</a>
+<ul class="sub-menu">
+	<li id="menu-item-814" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-814"><a href="../../../category/mathematics/linear-algebra/index.html">Linear Algebra</a></li>
+	<li id="menu-item-406" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-406"><a href="../../../category/mathematics/statistics/index.html">Statistics</a></li>
+</ul>
+</li>
+<li id="menu-item-404" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-404"><a href="../../../category/linux-unix/index.html">Linux/Unix</a></li>
+<li id="menu-item-407" class="menu-item menu-item-type-taxonomy menu-item-object-category current-post-ancestor menu-item-has-children menu-item-407"><a href="../../../category/programming/index.html">Programming</a>
+<ul class="sub-menu">
+	<li id="menu-item-408" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-408"><a href="../../../category/programming/openmp/index.html">OpenMP</a></li>
+	<li id="menu-item-487" class="menu-item menu-item-type-taxonomy menu-item-object-category current-post-ancestor current-menu-parent current-post-parent menu-item-487"><a href="../../../category/programming/r/index.html">R</a></li>
+</ul>
+</li>
+<li id="menu-item-842" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-842"><a href="../../../links/index.html">Links</a></li>
+</ul></div>			</div>
+		</div>
+		
+		<div class="top cf ">
+			<div class="head container_6 cf">
+				<div class="logo grid_3">
+					
+					<h1 class="site-title logo"><a id="blogname" rel="home" href="../../../index.html" title="Lindons Log">Lindons Log</a></h1>
+	
+					<h2 class="site-description"></h2>
+				</div>
+				<div class="topbar grid_3">
+						<form method="get" id="searchform" action="../../../index.html" role="search">
+		<label for="s" class="assistive-text">Search</label>
+		<input type="text" class="field" name="s" value="" id="s" placeholder="Search &hellip;" />
+		<input type="submit" class="submit" name="submit" id="searchsubmit" value="Search" />
+	</form>
+				</div>
+			</div>	
+		</div>
+	</header><!-- #masthead .site-header -->
+
+	<div id="main" class="site-main container_6">
+		<div id="primary" class="content-area">
+			<div id="content" class="site-content cf" role="main">
+
+			
+				
+<article id="post-463" class="grid_6 post-463 post type-post status-publish format-standard hentry category-r">
+
+<div class="format-box">
+<i class="icon-file"></i>
+</div>
+
+<div class="post-cover">
+
+	<div class="entry-meta">
+		<span class="clock"> <i class="icon-time"></i> 1287 days ago</span> 
+		<span class="comments-link"> <i class="icon-comment"></i>  <a href="index.html#comments"><span class="dsq-postid" data-dsqidentifier="463 http://www.lindonslog.com/?p=463">7 Comments</span></a></span>
+		<span class="perml"> <i class="icon-bolt"></i> <a href="index.html" rel="bookmark">Permalink</a></span>
+	</div><!-- #entry-meta -->
+	
+	<header class="entry-header">
+		<h2 class="entry-title">Calling C++ from R using Rcpp</h2>
+	</header><!-- .entry-header -->
+
+	<div class="entry-content">
+								
+								
+				<h2>Why call C/C++ from R?</h2>
+<p>I really like programming in R. The fact that it is open source immediately wins my favour over Matlab. It can, however, be quite slow especially if you &#8220;speak&#8221; R with a strong C/C++ accent. This sluggishness, especially when writing unavoidable for loops, has led me to consider other programming languages. I have come to the conclusion that there is no all-round best programming language but a combination of R and C++ is very hard to beat. My resolution is to write the expensive codes in C++ and to call them as functions within R so that I still have the nice dynamic interactivity of an R session with the speed and optimization of C++. There are 3 ways you can get started implementing C code in R, namely, &#8220;.C,&#8221;, &#8220;.Call&#8221; and Rcpp. It is generally not recommended to use &#8220;.C&#8221; but to use &#8220;.Call&#8221; instead. &#8220;.Call&#8221;, however, requires quite a bit of boilerplate code and can be tiresome and obfuscating to write. &#8220;Rcpp&#8221;, while not intrinsically part of R itself, is a package written by<a href="http://dirk.eddelbuettel.com/" rel="nofollow"> D Eddelbuettel</a> and R François which relies on &#8220;.Call&#8221; but allows you to write neater more efficient code by providing an interface between &#8220;.Call&#8221; and the programmer. There are many things to consider when writing C++ code for R but most likely you will want to get coding as fast as possible and worry about these other tangential matters later.</p>
+<h2>How to call C/C++ from R using Rcpp [The Hard/Conscientious Way]</h2>
+<p><em>Note: This is the longest and hardest way to compile C++ code for R, but it is arguably the most flexible for the conscientious user who requires complex code and desires to know all the details of whats going on. For a simpler no-nonsense approach scroll down to the &#8220;sourceCpp&#8221; command.</em><br />
+Lets jump right in with an example</p>
+<pre class="brush: cpp; title: ; notranslate" title="">
+#include &lt;Rcpp.h&gt;
+#include &lt;cstdlib&gt;
+#include &lt;iostream&gt;
+
+
+using namespace std;
+RcppExport SEXP comp(SEXP x, SEXP y){
+        int i,n;
+        Rcpp::NumericVector vector1(x);
+        Rcpp::NumericVector vector2(y);
+        n=vector2.size();
+        Rcpp::NumericVector product(n);
+for(i=0;i&lt;n;i++){
+product[i]=vector1[i]*vector2[i];
+}
+return(product);
+}
+</pre>
+<p><em>Note: You do not need R.h and Rdefines.h when you use Rcpp.h.</em><br />
+<em>Note: This is not the only way to compile and call code for R. See bottom for a neater alternative.</em><br />
+The function has two R objects as arguments, which are datatype &#8220;SEXP&#8221;, and returns an R object. The &#8220;SEXP&#8221; R objects, which are technically pointers to structures with typedef SEXPREC, are quite complex and so must be coerced into a vector using Rcpp::NumericVector, which makes a vector out of the SEXP object. Similarly, Rcpp::NumeriVector can be used to create a vector of length n. The rest is standard C++ code. Before compiling some compiler flags must be set:</p>
+<pre class="brush: bash; title: ; notranslate" title="">
+[michael@michael rcpp]$ export PKG_CXXFLAGS=`Rscript -e &quot;Rcpp:::CxxFlags()&quot;`
+[michael@michael rcpp]$ export PKG_LIBS=`Rscript -e &quot;Rcpp:::LdFlags()&quot;`
+</pre>
+<p>Compile with:</p>
+<pre class="brush: bash; title: ; notranslate" title="">
+[michael@michael rcpp]$ R CMD SHLIB comp.cpp
+</pre>
+<p>The function is now ready to be used in R. Consider the following R code:</p>
+<pre class="brush: r; title: ; notranslate" title="">
+library(Rcpp)
+dyn.load('comp.so')
+x=rnorm(100,0,1)
+y=rnorm(100,0,1)
+.Call('comp',x,y)
+</pre>
+<p>First the Rcpp library is loaded. Then, C++ code is loaded with &#8220;dyn.load&#8221;, after which it is ready to be used in R. The &#8220;.Call&#8221; function calls the &#8220;comp&#8221; function and the two arguments are supplied after. Now lets consider a more interesting example by parallelizing the C++ with openmp.</p>
+<h2>Performance with OpenMP</h2>
+<pre class="brush: cpp; title: ; notranslate" title="">
+#include &lt;Rcpp.h&gt;
+#include &lt;cstdlib&gt;
+#include &lt;iostream&gt;
+#include &lt;omp.h&gt;
+
+using namespace std;
+RcppExport SEXP parad(SEXP x, SEXP y){
+	int i,n,max;
+	Rcpp::NumericVector vector1(x);
+	Rcpp::NumericVector vector2(y);
+	n=vector2.size();
+	Rcpp::NumericVector product(n);
+	max=omp_get_max_threads();
+	omp_set_num_threads(max);
+
+#pragma omp parallel for
+for(i=0;i&lt;n;i++){
+product[i]=vector1[i]/vector2[i];
+}
+return(product);
+}
+</pre>
+<p>The purpose of this code is rather trivial, just dividing each element of x by the corresponding element of y. Now the compiler must be told to link against the openmp libraries so to compile we write</p>
+<pre class="brush: bash; title: ; notranslate" title="">
+[michael@michael rcpp]$ export PKG_LIBS='`Rscript -e &quot;Rcpp:::LdFlags()&quot;` -fopenmp -lgomp'
+[michael@michael rcpp]$ export PKG_CXXFLAGS='`Rscript -e &quot;Rcpp:::CxxFlags()&quot;` -fopenmp'
+[michael@michael rcpp]$ R CMD SHLIB parad.cpp
+</pre>
+<p>How does this fair against the standard R &#8220;x/y&#8221;? To compare the &#8220;rbenchmark&#8221; package will be used.</p>
+<pre class="brush: r; title: ; notranslate" title="">
+library(Rcpp)
+library(rbenchmark)
+dyn.load('unpar.so')
+dyn.load('parad.so')
+
+x=rnorm(10000000,0,1)
+y=rnorm(10000000,0,1)
+benchmark(replications=rep(1,0,1),.Call('unpar',x,y),.Call('parad',x,y),x/y)
+</pre>
+<pre class="brush: r; title: ; notranslate" title="">
+&gt; benchmark(replications=rep(1,0,1),.Call('unpar',x,y),.Call('parad',x,y),x/y)
+                  test replications elapsed relative user.self sys.self
+2   .Call(&quot;parad&quot;, x, y)            1   0.036    1.000     0.112    0.002
+1 .Call(&quot;unpar&quot;, x, y)            1   0.082    2.278     0.081    0.000
+3                  x/y            1   0.053    1.472     0.048    0.005
+</pre>
+<p>The parallel version of the x-divided-by-y code is even faster than R&#8217;s native &#8220;x/y&#8221;.</p>
+<h2>Converting between C++ and R datatypes using &#8220;as&#8221; and &#8220;wrap&#8221;</h2>
+<p>If you feel more comfortable seeing familiar C/C++ variable types, one is free to convert all of the function arguments of SEXP type to the desired C++ variable types for use in the body of the code and then to convert them back to SEXP at the end before returning the function. Say, for example, that I have a vector of 100 standard normal draws as one might obtain from x=rnorm(100,0,1). Passing x as an argument to the C++ function and the variable type of x is SEXP. I can then convert it to a vector of doubles using the <strong>&#8220;as&#8221;</strong> command, perform any processing with it in the body of the function and then convert it back to SEXP at the end using the <strong>&#8220;wrap&#8221;</strong> command. Here is a short example:</p>
+<pre class="brush: r; title: ; notranslate" title="">
+#include &lt;Rcpp.h&gt;
+#include &lt;cstdlib&gt;
+#include &lt;iostream&gt;
+#include &lt;vector&gt;
+
+using namespace std;
+RcppExport SEXP conv(SEXP x, SEXP y){
+	int i,n;
+	vector&lt;double&gt; vector1=Rcpp::as&lt;vector&lt;double&gt; &gt;(x);
+	vector&lt;double&gt; vector2=Rcpp::as&lt;vector&lt;double&gt; &gt;(y);
+n=vector1.size();
+vector&lt;double&gt; product(n);
+
+for(i=0;i&lt;n;i++){
+product[i]=vector1[i]/vector2[i];
+}
+return( Rcpp::wrap(product) );
+}
+</pre>
+<p>The x and y SEXP&#8217;s are converted to vector doubles and then converted back at the end. I like this approach because my function remains looking like C++.</p>
+<h2>Streamlined sourceCpp() and cppFunction()</h2>
+<p>It is not necessary to compile, link and load the C++ code as above. There exist some wrappers for all of these tasks such as <strong>include, sourceCpp and cppFunction</strong>. I like sourceCpp() the best. Consider the C++ code stored in parad.cpp shown below:</p>
+<pre class="brush: r; title: ; notranslate" title="">
+#include &lt;cstdlib&gt;
+#include &lt;iostream&gt;
+#include &lt;Rcpp.h&gt;
+#include &lt;omp.h&gt;
+
+using namespace std;
+// [[Rcpp::export]]
+Rcpp::NumericVector parad(Rcpp::NumericVector x, Rcpp::NumericVector y){
+	int i,n,max;
+	n=x.size();
+	Rcpp::NumericVector product(n);
+	max=omp_get_max_threads();
+	omp_set_num_threads(max);
+
+#pragma omp parallel for
+for(i=0;i&lt;n;i++){
+product[i]=x[i]/y[i];
+}
+return(product);
+}
+</pre>
+<p>This is a neat little parallel C++ function. This can be compiled, linked and loaded in one step using the sourceCpp() function. All we need to do is set some terminal environment variables for the compiler to use openMP.</p>
+<pre class="brush: bash; title: ; notranslate" title="">
+library(Rcpp)
+Sys.setenv(&quot;PKG_CXXFLAGS&quot;=&quot;-fopenmp&quot;)
+Sys.setenv(&quot;PKG_LIBS&quot;=&quot;-fopenmp&quot;)
+sourceCpp(&quot;parad.cpp&quot;)
+a=rnorm(1000,0,1)
+b=rnorm(1000,0,1)
+c=parad(a,b)
+</pre>
+<p>Lines 2 and 3 are simply setting terminal environment variables from within R so that the compiler compiles as &#8220;g++ &#8230;. -fopenmp &#8230;&#8221; which we need for the &#8220;omp.h&#8221; header. sourceCpp is a wrapper that takes care of everything. After that one can immediately start using the parad() function.</p>
+<div class="sharedaddy sd-sharing-enabled"><div class="robots-nocontent sd-block sd-social sd-social-icon-text sd-sharing"><h3 class="sd-title">Share this:</h3><div class="sd-content"><ul><li class="share-facebook"><a rel="nofollow" data-shared="sharing-facebook-463" class="share-facebook sd-button share-icon" href="index.html%3Fshare=facebook.html" target="_blank" title="Click to share on Facebook"><span>Facebook</span></a></li><li class="share-twitter"><a rel="nofollow" data-shared="sharing-twitter-463" class="share-twitter sd-button share-icon" href="index.html%3Fshare=twitter.html" target="_blank" title="Click to share on Twitter"><span>Twitter</span></a></li><li class="share-google-plus-1"><a rel="nofollow" data-shared="sharing-google-463" class="share-google-plus-1 sd-button share-icon" href="index.html%3Fshare=google-plus-1.html" target="_blank" title="Click to share on Google+"><span>Google</span></a></li><li class="share-end"></li></ul></div></div></div><div class='sharedaddy sd-block sd-like jetpack-likes-widget-wrapper jetpack-likes-widget-unloaded' id='like-post-wrapper-27325203-463-5866bc745f707' data-src='//widgets.wp.com/likes/#blog_id=27325203&amp;post_id=463&amp;origin=www.lindonslog.com&amp;obj_id=27325203-463-5866bc745f707' data-name='like-post-frame-27325203-463-5866bc745f707'><h3 class='sd-title'>Like this:</h3><div class='likes-widget-placeholder post-likes-widget-placeholder' style='height:55px'><span class='button'><span>Like</span></span> <span class="loading">Loading...</span></div><span class='sd-text-color'></span><a class='sd-link-color'></a></div>					</div><!-- .entry-content -->
+
+</div>	
+
+</article><!-- #post-463 -->
+				<div class="clear"></div>
+				
+
+				
+<div id="disqus_thread">
+            <div id="dsq-content">
+
+
+            <ul id="dsq-comments">
+                    <li class="comment even thread-even depth-1" id="dsq-comment-75">
+        <div id="dsq-comment-header-75" class="dsq-comment-header">
+            <cite id="dsq-cite-75">
+                <a id="dsq-author-user-75" href="http://www.joyofdata.de" target="_blank" rel="nofollow">Raffael Vogler</a>
+            </cite>
+        </div>
+        <div id="dsq-comment-body-75" class="dsq-comment-body">
+            <div id="dsq-comment-message-75" class="dsq-comment-message"><p>I very much enjoyed reading your article. It is a long time ago that I programmed C++ the last time but it looks still familiar. Given the lack of Windows-compatible packages for utilizing my GPU I am eager to give CUDA a try using Rcpp.</p>
+</div>
+        </div>
+
+    <ul class="children">
+    <li class="comment byuser comment-author-admin bypostauthor odd alt depth-2" id="dsq-comment-77">
+        <div id="dsq-comment-header-77" class="dsq-comment-header">
+            <cite id="dsq-cite-77">
+                <span id="dsq-author-user-77">admin</span>
+            </cite>
+        </div>
+        <div id="dsq-comment-body-77" class="dsq-comment-body">
+            <div id="dsq-comment-message-77" class="dsq-comment-message"><p>schön dass es dir gefällt, Raffael. Ich muss aber zugeben dass ich es halt einfacher finde &#8220;.C&#8221; zu benutzen als Rcpp. Meine Meinung nach ist Rcpp eher für R-Nutzern als C++ Nutzern zugedacht&#8230;</p>
+</div>
+        </div>
+
+    </li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+    <li class="comment even thread-odd thread-alt depth-1" id="dsq-comment-80">
+        <div id="dsq-comment-header-80" class="dsq-comment-header">
+            <cite id="dsq-cite-80">
+                <a id="dsq-author-user-80" href="http://www.joyofdata.de" target="_blank" rel="nofollow">Raffael Vogler</a>
+            </cite>
+        </div>
+        <div id="dsq-comment-body-80" class="dsq-comment-body">
+            <div id="dsq-comment-message-80" class="dsq-comment-message"><p>I mean in that sense it would be the choice for as I am an R-user who would just consider resorting to C++ for specific purposes. But you also say that you would rather use &#8220;.C&#8221; than Rcpp. How is that? There is a very interesting SO thread between Hadley, Dirk and Romain and they (Dirk and Romain) make good points in favor of Rcpp. I would like to know more about your take on this. &#8211; your command of German is pretty good btw!</p>
+</div>
+        </div>
+
+    <ul class="children">
+    <li class="comment byuser comment-author-admin bypostauthor odd alt depth-2" id="dsq-comment-81">
+        <div id="dsq-comment-header-81" class="dsq-comment-header">
+            <cite id="dsq-cite-81">
+                <span id="dsq-author-user-81">admin</span>
+            </cite>
+        </div>
+        <div id="dsq-comment-body-81" class="dsq-comment-body">
+            <div id="dsq-comment-message-81" class="dsq-comment-message"><p>I recall that their main selling point was that using &#8220;.Call()&#8221; really obfuscates the code because you have to &#8220;protect&#8221; and &#8220;unprotect&#8221; variables all the time because otherwise the R garbage collector may delete variables that you are using. I tried &#8220;.Call()&#8221; once and Rcpp is certainly a large improvement on this because it takes care of the protection for you. I use &#8220;.C()&#8221;, however, which involves some copying of the variables to C++ and then you don&#8217;t need to worry about the garbage collector. Most people really object to this transfer &#8220;overhead&#8221;, but if I am porting something from R to C++ then it would necessarily be something very computationally intensive in the first place, in which case the transfer overhead is negligible in comparison. I guess the people who object to the transfer overhead are those who just want to port a small block of code like a nested for loop, in which case the objection is reasonable. This is what I mean by Rcpp is meant for R-users as opposed to C++ users. I started writing a package for R which I wanted to be as fast as possible, which was the reason I started looking in to this. The only interaction I wanted with R was receiving the initial data and sending the final results &#8211; so having nothing to do with R in the mean time, so .C() works just fine for me. Plus with .C() you use your regular C++ datatypes and expressions without worrying about converting them with as.something(). .C() just allows me to code C++ without getting in the way with strange SEXP datatypes and other things. I think you will find that most packages coded in C/C++ with just use .C(). That&#8217;s my take on it anyway.</p>
+</div>
+        </div>
+
+    <ul class="children">
+    <li class="comment even depth-3" id="dsq-comment-82">
+        <div id="dsq-comment-header-82" class="dsq-comment-header">
+            <cite id="dsq-cite-82">
+                <a id="dsq-author-user-82" href="http://www.joyofdata.de" target="_blank" rel="nofollow">Raffael Vogler</a>
+            </cite>
+        </div>
+        <div id="dsq-comment-body-82" class="dsq-comment-body">
+            <div id="dsq-comment-message-82" class="dsq-comment-message"><p>I think I get your point! Right now I really don&#8217;t have any serious experience with either way. But I will come back to this topic when I do. Of course any introductory articles on your blog on .C/.Call/Rcpp are highly welcome &#8211; I guess I am not the only one who would appreciate it!</p>
+</div>
+        </div>
+
+    </li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+    <li class="comment byuser comment-author-admin bypostauthor odd alt thread-even depth-1" id="dsq-comment-83">
+        <div id="dsq-comment-header-83" class="dsq-comment-header">
+            <cite id="dsq-cite-83">
+                <span id="dsq-author-user-83">admin</span>
+            </cite>
+        </div>
+        <div id="dsq-comment-body-83" class="dsq-comment-body">
+            <div id="dsq-comment-message-83" class="dsq-comment-message"><p>Cheers 🙂 I have another example of using Rcpp here:<br />
+<a href="../../parallel-random-number-generation-trng/index.html" rel="nofollow">http://www.lindonslog.com/programming/parallel-random-number-generation-trng/</a></p>
+</div>
+        </div>
+
+    </li><!-- #comment-## -->
+    <li class="comment even thread-odd thread-alt depth-1" id="dsq-comment-1012">
+        <div id="dsq-comment-header-1012" class="dsq-comment-header">
+            <cite id="dsq-cite-1012">
+                <span id="dsq-author-user-1012">James</span>
+            </cite>
+        </div>
+        <div id="dsq-comment-body-1012" class="dsq-comment-body">
+            <div id="dsq-comment-message-1012" class="dsq-comment-message"><p>replications=rep(1,0,1) &#8211; this is a misleading part of the whole article, could you please change it to sth. else? </p>
+<p>Also, i didn&#8217;t find the parad version faster than x/y &#8211; curious whether we are comparing 8cpus vs. 1 cpu?</p>
+</div>
+        </div>
+
+    </li><!-- #comment-## -->
+            </ul>
+
+
+        </div>
+
+    </div>
+
+
+			
+			</div><!-- #content .site-content -->
+		</div><!-- #primary .content-area -->
+
+
+
+	</div><!-- #main .site-main -->
+
+<div id="bottom">
+<div class="container_6 cf">
+
+<li class="botwid grid_2 widget_categories"><h3 class="bothead">Categories</h3>		<ul>
+	<li class="cat-item cat-item-3"><a href="../../../category/linux-unix/index.html" >Linux/Unix</a> (16)
+</li>
+	<li class="cat-item cat-item-5"><a href="../../../category/mathematics/index.html" >Mathematics</a> (22)
+<ul class='children'>
+	<li class="cat-item cat-item-10"><a href="../../../category/mathematics/linear-algebra/index.html" >Linear Algebra</a> (5)
+</li>
+	<li class="cat-item cat-item-7"><a href="../../../category/mathematics/statistics/index.html" >Statistics</a> (17)
+</li>
+</ul>
+</li>
+	<li class="cat-item cat-item-6"><a href="../../../category/programming/index.html" >Programming</a> (24)
+<ul class='children'>
+	<li class="cat-item cat-item-48"><a href="../../../category/programming/clojure/index.html" >clojure</a> (1)
+</li>
+	<li class="cat-item cat-item-51"><a href="../../../category/programming/functional-programming/index.html" >functional programming</a> (1)
+</li>
+	<li class="cat-item cat-item-50"><a href="../../../category/programming/haskell-programming/index.html" >haskell</a> (1)
+</li>
+	<li class="cat-item cat-item-40"><a href="../../../category/programming/julia/index.html" >julia</a> (2)
+</li>
+	<li class="cat-item cat-item-4"><a href="../../../category/programming/openmp/index.html" >OpenMP</a> (6)
+</li>
+	<li class="cat-item cat-item-11"><a href="../../../category/programming/r/index.html" >R</a> (12)
+</li>
+	<li class="cat-item cat-item-43"><a href="../../../category/programming/scala/index.html" >scala</a> (1)
+</li>
+</ul>
+</li>
+		</ul>
+</li>		<li class="botwid grid_2 widget_recent_entries">		<h3 class="bothead">Recent Posts</h3>		<ul>
+					<li>
+				<a href="../../partial-application-functions-julia/index.html">Partial Application for Functions in Julia</a>
+						</li>
+					<li>
+				<a href="../../newtons-iteration-scala-clojure-haskell/index.html">Newtons Iteration in Scala, Clojure and Haskell Comparison</a>
+						</li>
+					<li>
+				<a href="../../../mathematics/statistics/mala-metropolis-adjusted-langevin-algorithm-julia/index.html">MALA &#8211; Metropolis Adjusted Langevin Algorithm in Julia</a>
+						</li>
+					<li>
+				<a href="../../passing-julia-type-to-c-function-as-struct/index.html">Passing Julia Type to C Function as Struct</a>
+						</li>
+					<li>
+				<a href="../../../linux-unix/send-lines-code-vim-r-julia-python-repl-slime/index.html">Send Lines of Code from Vim to R/Julia/Python REPL</a>
+						</li>
+					<li>
+				<a href="../../../linux-unix/c-merge-sort-algorithm/index.html">C++ Merge Sort Algorithm</a>
+						</li>
+					<li>
+				<a href="../../generate-random-inverse-gaussian-r/index.html">Generate Random Inverse Gaussian in R</a>
+						</li>
+					<li>
+				<a href="../../../mathematics/statistics/generalized-double-pareto-shrinkage-priors-sparse-estimation-regression/index.html">Generalized Double Pareto Priors for Regression</a>
+						</li>
+					<li>
+				<a href="../../../mathematics/em-algorithm-bayesian-lasso-r-cpp-code/index.html">EM Algorithm for Bayesian Lasso R Cpp Code</a>
+						</li>
+				</ul>
+		</li>			<div class="squarebanner grid_2 cf">
+	<h3 class="bothead"> Sponsors </h3>
+<ul><li>
+<a rel="nofollow" href="index.html" title=""><img src="index.html" alt="" style="vertical-align:bottom;" /></a>
+</li>			
+
+<li>
+<a rel="nofollow" href="index.html" title=""><img src="index.html" alt="" style="vertical-align:bottom;" /></a>
+</li>
+
+<li>
+<a rel="nofollow" href="index.html" title=""><img src="index.html" alt="" style="vertical-align:bottom;" /></a>
+</li>
+
+<li>
+<a rel="nofollow" href="index.html" title=""><img src="index.html" alt="" style="vertical-align:bottom;" /></a>
+</li></ul>
+</div></div>
+</div>
+
+
+	<footer id="colophon" class="site-footer" role="contentinfo">
+	<div class="container_6">
+	<div class="site-info">
+			<div class="fcred">
+			Copyright &copy; 2016 <a href="../../../index.html" title="Lindons Log">Lindons Log</a> - .<br />
+ | <a href="http://fabthemes.com/Winter/" >Winter WordPress Theme</a>
+			</div>		
+		</div><!-- .site-info -->	
+		</footer><!-- #colophon .site-footer -->
+	
+</div><!-- #page .hfeed .site -->
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-40536457-1', 'lindonslog.com');
+  ga('send', 'pageview');
+
+</script><!-- MathJax Latex Plugin installed: Disabled as no shortcodes on this page -->	<div style="display:none">
+	</div>
+<script type="text/javascript">var elLogo = document.getElementById("ft_logo"); if (elLogo) {elLogo.style.maxHeight = elLogo.getAttribute("relHeight") ? elLogo.getAttribute("relHeight") + "px" : "100px";} if (elLogo) {elLogo.style.maxWidth = elLogo.getAttribute("relWidth") ? elLogo.getAttribute("relWidth") + "px" : "100px";}</script>
+	<script type="text/javascript">
+		window.WPCOM_sharing_counts = {"http:\/\/www.lindonslog.com\/programming\/r\/rcpp\/":463};
+	</script>
+		<script type="text/javascript">
+			var windowOpen;
+		jQuery(document).on( 'ready post-load', function(){
+			jQuery( 'a.share-facebook' ).on( 'click', function() {
+				if ( 'undefined' !== typeof windowOpen ){ // If there's another sharing window open, close it.
+					windowOpen.close();
+				}
+				windowOpen = window.open( jQuery(this).attr( 'href' ), 'wpcomfacebook', 'menubar=1,resizable=1,width=600,height=400' );
+				return false;
+			});
+		});
+		</script>
+				<script type="text/javascript">
+			var windowOpen;
+		jQuery(document).on( 'ready post-load', function(){
+			jQuery( 'a.share-twitter' ).on( 'click', function() {
+				if ( 'undefined' !== typeof windowOpen ){ // If there's another sharing window open, close it.
+					windowOpen.close();
+				}
+				windowOpen = window.open( jQuery(this).attr( 'href' ), 'wpcomtwitter', 'menubar=1,resizable=1,width=600,height=350' );
+				return false;
+			});
+		});
+		</script>
+				<script type="text/javascript">
+			var windowOpen;
+		jQuery(document).on( 'ready post-load', function(){
+			jQuery( 'a.share-google-plus-1' ).on( 'click', function() {
+				if ( 'undefined' !== typeof windowOpen ){ // If there's another sharing window open, close it.
+					windowOpen.close();
+				}
+				windowOpen = window.open( jQuery(this).attr( 'href' ), 'wpcomgoogle-plus-1', 'menubar=1,resizable=1,width=480,height=550' );
+				return false;
+			});
+		});
+		</script>
+		<script type='text/javascript' src='../../../wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/scripts/shCore.js%3Fver=3.0.9b'></script>
+<script type='text/javascript' src='../../../wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/scripts/shBrushCpp.js%3Fver=3.0.9b'></script>
+<script type='text/javascript' src='../../../wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/scripts/shBrushBash.js%3Fver=3.0.9b'></script>
+<script type='text/javascript' src='../../../wp-content/plugins/syntaxhighlighter/third-party-brushes/shBrushR.js%3Fver=20100919'></script>
+<script type='text/javascript'>
+	(function(){
+		var corecss = document.createElement('link');
+		var themecss = document.createElement('link');
+		var corecssurl = "http://www.lindonslog.com/wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/styles/shCore.css?ver=3.0.9b";
+		if ( corecss.setAttribute ) {
+				corecss.setAttribute( "rel", "stylesheet" );
+				corecss.setAttribute( "type", "text/css" );
+				corecss.setAttribute( "href", corecssurl );
+		} else {
+				corecss.rel = "stylesheet";
+				corecss.href = corecssurl;
+		}
+		document.getElementsByTagName("head")[0].insertBefore( corecss, document.getElementById("syntaxhighlighteranchor") );
+		var themecssurl = "http://www.lindonslog.com/wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/styles/shThemeDefault.css?ver=3.0.9b";
+		if ( themecss.setAttribute ) {
+				themecss.setAttribute( "rel", "stylesheet" );
+				themecss.setAttribute( "type", "text/css" );
+				themecss.setAttribute( "href", themecssurl );
+		} else {
+				themecss.rel = "stylesheet";
+				themecss.href = themecssurl;
+		}
+		//document.getElementById("syntaxhighlighteranchor").appendChild(themecss);
+		document.getElementsByTagName("head")[0].insertBefore( themecss, document.getElementById("syntaxhighlighteranchor") );
+	})();
+	SyntaxHighlighter.config.strings.expandSource = '+ expand source';
+	SyntaxHighlighter.config.strings.help = '?';
+	SyntaxHighlighter.config.strings.alert = 'SyntaxHighlighter\n\n';
+	SyntaxHighlighter.config.strings.noBrush = 'Can\'t find brush for: ';
+	SyntaxHighlighter.config.strings.brushNotHtmlScript = 'Brush wasn\'t configured for html-script option: ';
+	SyntaxHighlighter.defaults['pad-line-numbers'] = false;
+	SyntaxHighlighter.defaults['toolbar'] = false;
+	SyntaxHighlighter.all();
+</script>
+<script type='text/javascript' src='http://s0.wp.com/wp-content/js/devicepx-jetpack.js?ver=201652'></script>
+<script type='text/javascript' src='http://s.gravatar.com/js/gprofiles.js?ver=2016Decaa'></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var WPGroHo = {"my_hash":""};
+/* ]]> */
+</script>
+<script type='text/javascript' src='../../../wp-content/plugins/jetpack/modules/wpgroho.js%3Fver=4.6.1'></script>
+<script type='text/javascript' src='../../../wp-content/themes/Winter/js/superfish.js%3Fver=20120206'></script>
+<script type='text/javascript' src='../../../wp-includes/js/comment-reply.min.js%3Fver=4.6.1'></script>
+<script type='text/javascript' src='../../../wp-includes/js/wp-embed.min.js%3Fver=4.6.1'></script>
+<script type='text/javascript' src='../../../wp-content/plugins/jetpack/_inc/postmessage.js%3Fver=3.9.7'></script>
+<script type='text/javascript' src='../../../wp-content/plugins/jetpack/_inc/jquery.jetpack-resize.js%3Fver=3.9.7'></script>
+<script type='text/javascript' src='../../../wp-content/plugins/jetpack/_inc/jquery.inview.js%3Fver=3.9.7'></script>
+<script type='text/javascript' src='../../../wp-content/plugins/jetpack/modules/likes/queuehandler.js%3Fver=3.9.7'></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var embedVars = {"disqusConfig":{"platform":"wordpress@4.6.1","language":""},"disqusIdentifier":"463 http:\/\/www.lindonslog.com\/?p=463","disqusShortname":"michaellindon","disqusTitle":"Calling C++ from R using Rcpp","disqusUrl":"http:\/\/www.lindonslog.com\/programming\/r\/rcpp\/","options":{"manualSync":false},"postId":"463"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='../../../wp-content/plugins/disqus-comment-system/media/js/disqus.js%3Fver=4.6.1'></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var countVars = {"disqusShortname":"michaellindon"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='../../../wp-content/plugins/disqus-comment-system/media/js/count.js%3Fver=4.6.1'></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var sharing_js_options = {"lang":"en","counts":"1"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='../../../wp-content/plugins/jetpack/modules/sharedaddy/sharing.js%3Fver=3.9.7'></script>
+		<iframe src='http://widgets.wp.com/likes/master.html?ver=20151215#ver=20151215' scrolling='no' id='likes-master' name='likes-master' style='display:none;'></iframe>
+		<div id='likes-other-gravatars'><div class="likes-text"><span>%d</span> bloggers like this:</div><ul class="wpl-avatars sd-like-gravatars"></ul></div>
+		<script type='text/javascript' src='http://stats.wp.com/e-201652.js' async defer></script>
+<script type='text/javascript'>
+	_stq = window._stq || [];
+	_stq.push([ 'view', {v:'ext',j:'1:3.9.7',blog:'27325203',post:'463',tz:'-4',srv:'www.lindonslog.com'} ]);
+	_stq.push([ 'clickTrackerInit', '27325203', '463' ]);
+</script>
+
+</body>
+</html>

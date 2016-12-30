@@ -1,0 +1,10 @@
+########################
+# Submit description file for short test program
+########################
+Universe       = grid
+Executable     = short.sh
+Error   = log/job.err.$(Cluster)-$(Process)
+Output  = log/job.out.$(Cluster)-$(Process)
+Log     = log/job.log.$(Cluster)
++ProjectName="OSG-Connect"
+Queue 1

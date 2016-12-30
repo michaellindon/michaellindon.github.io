@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>functional programming &#8211; Lindons Log</title>
+	<atom:link href="http://www.lindonslog.com/category/programming/functional-programming/feed/" rel="self" type="application/rss+xml" />
+	<link>http://www.lindonslog.com</link>
+	<description></description>
+	<lastBuildDate>Thu, 03 Nov 2016 17:07:09 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=4.6.1</generator>
+
+<image>
+	<url>http://www.lindonslog.com/wp-content/uploads/2015/09/cropped-L-32x32.png</url>
+	<title>functional programming &#8211; Lindons Log</title>
+	<link>http://www.lindonslog.com</link>
+	<width>32</width>
+	<height>32</height>
+</image> 
+	<item>
+		<title>Partial Application for Functions in Julia</title>
+		<link>http://www.lindonslog.com/programming/partial-application-functions-julia/</link>
+		<comments>http://www.lindonslog.com/programming/partial-application-functions-julia/#respond</comments>
+		<pubDate>Thu, 03 Nov 2016 17:07:09 +0000</pubDate>
+		<dc:creator><![CDATA[admin]]></dc:creator>
+				<category><![CDATA[functional programming]]></category>
+		<category><![CDATA[julia]]></category>
+		<category><![CDATA[Programming]]></category>
+		<category><![CDATA[Julia]]></category>
+
+		<guid isPermaLink="false">http://www.lindonslog.com/?p=1181</guid>
+		<description><![CDATA[<p>Julia is purportedly a multi-paradigm language but I find their support for functional paradigms to be lacking. One feature that I looked for was Currying or Partial Application which corresponds to converting a function of multiple arguments into a sequence of single argument functions and taking a multiple argument function and fixing some of the [&#8230;]</p>
+<p>The post <a rel="nofollow" href="http://www.lindonslog.com/programming/partial-application-functions-julia/">Partial Application for Functions in Julia</a> appeared first on <a rel="nofollow" href="http://www.lindonslog.com">Lindons Log</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p>Julia is purportedly a multi-paradigm language but I find their support for functional paradigms to be lacking. One feature that I looked for was <a href="https://en.wikipedia.org/wiki/Currying" target="_blank">Currying</a> or <a href="https://en.wikipedia.org/wiki/Partial_application" target="_blank">Partial Application</a> which corresponds to converting a function of multiple arguments into a sequence of single argument functions and taking a multiple argument function and fixing some of the arguments to produce a new function of lesser arity respectively. In Clojure one has the <a href="https://clojuredocs.org/clojure.core/partial" target="_blank">partial function</a> for the latter. Here is my attempt to emulate this behaviour in Julia. </p>
+<h2>Partial Application</h2>
+<pre class="brush: python; title: ; notranslate">
+function partial(f,a...)
+        ( (b...) -&gt; f(a...,b...) )
+end
+</pre>
+<p>The function returns a lambda where the a&#8230; parameters are fixed. If you don&#8217;t know what the ellipsis do, check the <a href="https://en.wikibooks.org/wiki/Introducing_Julia/Functions" target="_blank">documentation</a> for &#8220;splat&#8221;. One can check the behavour is as expected</p>
+<pre class="brush: bash; title: ; notranslate">
+julia&gt; function testf(x,y,z)
+         2*x+y*y+x*y*z
+       end
+testf (generic function with 1 method)
+julia&gt; testf(2,3,4)
+37
+julia&gt; partial(testf,2)(3,4)
+37
+julia&gt; partial(testf,2,3)(4)
+37
+</pre>
+<p>Of course you could just use a lambda.</p>
+<p>The post <a rel="nofollow" href="http://www.lindonslog.com/programming/partial-application-functions-julia/">Partial Application for Functions in Julia</a> appeared first on <a rel="nofollow" href="http://www.lindonslog.com">Lindons Log</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://www.lindonslog.com/programming/partial-application-functions-julia/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+	</channel>
+</rss>

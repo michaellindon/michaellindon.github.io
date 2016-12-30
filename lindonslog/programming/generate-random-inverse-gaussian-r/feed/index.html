@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	
+	>
+<channel>
+	<title>Comments on: Generate Random Inverse Gaussian in R</title>
+	<atom:link href="http://www.lindonslog.com/programming/generate-random-inverse-gaussian-r/feed/" rel="self" type="application/rss+xml" />
+	<link>http://www.lindonslog.com/programming/generate-random-inverse-gaussian-r/</link>
+	<description></description>
+	<lastBuildDate>Sun, 27 Nov 2016 15:23:00 +0000</lastBuildDate>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=4.6.1</generator>
+	<item>
+		<title>By: admin</title>
+		<link>http://www.lindonslog.com/programming/generate-random-inverse-gaussian-r/#comment-608</link>
+		<dc:creator><![CDATA[admin]]></dc:creator>
+		<pubDate>Mon, 22 Sep 2014 16:20:04 +0000</pubDate>
+		<guid isPermaLink="false">http://www.lindonslog.com/?p=1090#comment-608</guid>
+		<description><![CDATA[Andrej, the return type Col double (wordpress is formatting the brackets) is defined within Armadillo. I could have used something else but this random number generator is part of a larger project where I use the armadillo library extensively, so I chose it for continuity. If you look at the Writing R Extensions manual you can call the rnorm C function directly if you like, but before you must write GetRNGstate(); and after PutRNGstate();. I assumed that the Rcpp R::rnorm was just doing this all for you.]]></description>
+		<content:encoded><![CDATA[<p>Andrej, the return type Col double (wordpress is formatting the brackets) is defined within Armadillo. I could have used something else but this random number generator is part of a larger project where I use the armadillo library extensively, so I chose it for continuity. If you look at the Writing R Extensions manual you can call the rnorm C function directly if you like, but before you must write GetRNGstate(); and after PutRNGstate();. I assumed that the Rcpp R::rnorm was just doing this all for you.</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: anspiess</title>
+		<link>http://www.lindonslog.com/programming/generate-random-inverse-gaussian-r/#comment-600</link>
+		<dc:creator><![CDATA[anspiess]]></dc:creator>
+		<pubDate>Sun, 21 Sep 2014 08:39:42 +0000</pubDate>
+		<guid isPermaLink="false">http://www.lindonslog.com/?p=1090#comment-600</guid>
+		<description><![CDATA[Nice example for an acceptance-rejection sampler in Rcpp! Two thoughts:
+a) I think you are not using any ARMA function? b) Calling R::rnorm in each iteration should be quite slow, &#039;cause Rcpp calls an R function which again calls C function &#039;C_rnorm&#039;. Could that one be called directly?
+
+Cheers,
+Andrej]]></description>
+		<content:encoded><![CDATA[<p>Nice example for an acceptance-rejection sampler in Rcpp! Two thoughts:<br />
+a) I think you are not using any ARMA function? b) Calling R::rnorm in each iteration should be quite slow, &#8217;cause Rcpp calls an R function which again calls C function &#8216;C_rnorm&#8217;. Could that one be called directly?</p>
+<p>Cheers,<br />
+Andrej</p>
+]]></content:encoded>
+	</item>
+</channel>
+</rss>

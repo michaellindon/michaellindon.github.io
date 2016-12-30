@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	
+	>
+<channel>
+	<title>Comments on: Parallel Random Number Generation using TRNG</title>
+	<atom:link href="http://www.lindonslog.com/programming/parallel-random-number-generation-trng/feed/" rel="self" type="application/rss+xml" />
+	<link>http://www.lindonslog.com/programming/parallel-random-number-generation-trng/</link>
+	<description></description>
+	<lastBuildDate>Sun, 27 Nov 2016 15:23:00 +0000</lastBuildDate>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=4.6.1</generator>
+	<item>
+		<title>By: Helmingstay</title>
+		<link>http://www.lindonslog.com/programming/parallel-random-number-generation-trng/#comment-676</link>
+		<dc:creator><![CDATA[Helmingstay]]></dc:creator>
+		<pubDate>Fri, 17 Oct 2014 20:42:01 +0000</pubDate>
+		<guid isPermaLink="false">http://www.lindonslog.com/?p=562#comment-676</guid>
+		<description><![CDATA[Thanks, nice writeup.
+Here&#039;s the best theoretical discussion of threads and rng streams, with a clear discussion of problems and justification for TRNG&#039;s methodology, FWIW.
+http://arxiv.org/abs/0905.4238]]></description>
+		<content:encoded><![CDATA[<p>Thanks, nice writeup.<br />
+Here&#8217;s the best theoretical discussion of threads and rng streams, with a clear discussion of problems and justification for TRNG&#8217;s methodology, FWIW.<br />
+<a href="http://arxiv.org/abs/0905.4238" rel="nofollow">http://arxiv.org/abs/0905.4238</a></p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Matteo Fasiolo</title>
+		<link>http://www.lindonslog.com/programming/parallel-random-number-generation-trng/#comment-175</link>
+		<dc:creator><![CDATA[Matteo Fasiolo]]></dc:creator>
+		<pubDate>Wed, 07 May 2014 15:21:19 +0000</pubDate>
+		<guid isPermaLink="false">http://www.lindonslog.com/?p=562#comment-175</guid>
+		<description><![CDATA[Actually using one seed per thread is what I generally do too... but sometimes I do wonder about the hidden risks!]]></description>
+		<content:encoded><![CDATA[<p>Actually using one seed per thread is what I generally do too&#8230; but sometimes I do wonder about the hidden risks!</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: admin</title>
+		<link>http://www.lindonslog.com/programming/parallel-random-number-generation-trng/#comment-174</link>
+		<dc:creator><![CDATA[admin]]></dc:creator>
+		<pubDate>Wed, 07 May 2014 14:54:30 +0000</pubDate>
+		<guid isPermaLink="false">http://www.lindonslog.com/?p=562#comment-174</guid>
+		<description><![CDATA[Hey Matteo, it would be nice to have a package for parallel random number generation for sure, but it might be possible to achieve this with the C++11 pseudo random number generators instead of TRNG (I wrote this post before I was aware of C++11 PRNG). A lot of people would be happy to have one C++11 PRNG object per thread and seed them differently (i.e. seed according to thread id), this is what I always used to do, but the purists out there I think would say that seeding according to thread id is simply not enough as it may still be possible to get overlapping streams. Having said that, I think in practice the chances of getting an overlapping stream are rare, so you might be willing to accept that risk. I know enough to be cautious, but I don&#039;t really know enough how best to proceed.]]></description>
+		<content:encoded><![CDATA[<p>Hey Matteo, it would be nice to have a package for parallel random number generation for sure, but it might be possible to achieve this with the C++11 pseudo random number generators instead of TRNG (I wrote this post before I was aware of C++11 PRNG). A lot of people would be happy to have one C++11 PRNG object per thread and seed them differently (i.e. seed according to thread id), this is what I always used to do, but the purists out there I think would say that seeding according to thread id is simply not enough as it may still be possible to get overlapping streams. Having said that, I think in practice the chances of getting an overlapping stream are rare, so you might be willing to accept that risk. I know enough to be cautious, but I don&#8217;t really know enough how best to proceed.</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Matteo Fasiolo</title>
+		<link>http://www.lindonslog.com/programming/parallel-random-number-generation-trng/#comment-169</link>
+		<dc:creator><![CDATA[Matteo Fasiolo]]></dc:creator>
+		<pubDate>Tue, 06 May 2014 21:52:14 +0000</pubDate>
+		<guid isPermaLink="false">http://www.lindonslog.com/?p=562#comment-169</guid>
+		<description><![CDATA[Hi Michael, many thanks for sharing this! I wonder how difficult would it be to build a R package that makes all the distributions in TRNG available at R level, by using Rcpp. I guess that would be quite useful, as I don&#039;t know about any package that provides such functionality.]]></description>
+		<content:encoded><![CDATA[<p>Hi Michael, many thanks for sharing this! I wonder how difficult would it be to build a R package that makes all the distributions in TRNG available at R level, by using Rcpp. I guess that would be quite useful, as I don&#8217;t know about any package that provides such functionality.</p>
+]]></content:encoded>
+	</item>
+</channel>
+</rss>

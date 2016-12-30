@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en-US" prefix="og: http://ogp.me/ns#">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width" />
+
+<link rel="profile" href="http://gmpg.org/xfn/11" />
+<link rel="pingback" href="http://www.lindonslog.com/xmlrpc.php" />
+<link href='http://fonts.googleapis.com/css?family=Economica:400,400italic,700,700italic' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=PT+Sans:400,700' rel='stylesheet' type='text/css'>
+<!--[if lt IE 9]>
+<script src="http://www.lindonslog.com/wp-content/themes/Winter/js/html5.js" type="text/javascript"></script>
+<![endif]-->
+
+
+<!-- This site is optimized with the Yoast SEO plugin v3.1.2 - https://yoast.com/wordpress/plugins/seo/ -->
+<title>Monotonicity of EM Algorithm Proof - Lindons Log</title>
+<meta name="description" content="Proof of the monotonicity property of the EM Algorithm - that the log likelihood increases or remains the same but never decreases at every iteration."/>
+<meta name="robots" content="noodp"/>
+<link rel="canonical" href="index.html" />
+<meta property="og:locale" content="en_US" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Monotonicity of EM Algorithm Proof - Lindons Log" />
+<meta property="og:description" content="Proof of the monotonicity property of the EM Algorithm - that the log likelihood increases or remains the same but never decreases at every iteration." />
+<meta property="og:url" content="http://www.lindonslog.com/mathematics/monotonicity-em-algorithm-proof/" />
+<meta property="og:site_name" content="Lindons Log" />
+<meta property="article:section" content="Mathematics" />
+<meta property="article:published_time" content="2014-04-19T16:25:41+00:00" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:description" content="Proof of the monotonicity property of the EM Algorithm - that the log likelihood increases or remains the same but never decreases at every iteration." />
+<meta name="twitter:title" content="Monotonicity of EM Algorithm Proof - Lindons Log" />
+<meta name="twitter:site" content="@lindonslog" />
+<meta name="twitter:creator" content="@lindonslog" />
+<!-- / Yoast SEO plugin. -->
+
+<link rel='dns-prefetch' href='http://s0.wp.com/' />
+<link rel='dns-prefetch' href='http://s.gravatar.com/' />
+<link rel='dns-prefetch' href='http://s.w.org/' />
+<link rel="alternate" type="application/rss+xml" title="Lindons Log &raquo; Feed" href="../../feed/index.html" />
+<link rel="alternate" type="application/rss+xml" title="Lindons Log &raquo; Comments Feed" href="../../comments/feed/index.html" />
+<link rel="alternate" type="application/rss+xml" title="Lindons Log &raquo; Monotonicity of EM Algorithm Proof Comments Feed" href="feed/index.html" />
+		<script type="text/javascript">
+			window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/2\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/2\/svg\/","svgExt":".svg","source":{"concatemoji":"http:\/\/www.lindonslog.com\/wp-includes\/js\/wp-emoji-release.min.js?ver=4.6.1"}};
+			!function(a,b,c){function d(a){var c,d,e,f,g,h=b.createElement("canvas"),i=h.getContext&&h.getContext("2d"),j=String.fromCharCode;if(!i||!i.fillText)return!1;switch(i.textBaseline="top",i.font="600 32px Arial",a){case"flag":return i.fillText(j(55356,56806,55356,56826),0,0),!(h.toDataURL().length<3e3)&&(i.clearRect(0,0,h.width,h.height),i.fillText(j(55356,57331,65039,8205,55356,57096),0,0),c=h.toDataURL(),i.clearRect(0,0,h.width,h.height),i.fillText(j(55356,57331,55356,57096),0,0),d=h.toDataURL(),c!==d);case"diversity":return i.fillText(j(55356,57221),0,0),e=i.getImageData(16,16,1,1).data,f=e[0]+","+e[1]+","+e[2]+","+e[3],i.fillText(j(55356,57221,55356,57343),0,0),e=i.getImageData(16,16,1,1).data,g=e[0]+","+e[1]+","+e[2]+","+e[3],f!==g;case"simple":return i.fillText(j(55357,56835),0,0),0!==i.getImageData(16,16,1,1).data[0];case"unicode8":return i.fillText(j(55356,57135),0,0),0!==i.getImageData(16,16,1,1).data[0];case"unicode9":return i.fillText(j(55358,56631),0,0),0!==i.getImageData(16,16,1,1).data[0]}return!1}function e(a){var c=b.createElement("script");c.src=a,c.type="text/javascript",b.getElementsByTagName("head")[0].appendChild(c)}var f,g,h,i;for(i=Array("simple","flag","unicode8","diversity","unicode9"),c.supports={everything:!0,everythingExceptFlag:!0},h=0;h<i.length;h++)c.supports[i[h]]=d(i[h]),c.supports.everything=c.supports.everything&&c.supports[i[h]],"flag"!==i[h]&&(c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&c.supports[i[h]]);c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&!c.supports.flag,c.DOMReady=!1,c.readyCallback=function(){c.DOMReady=!0},c.supports.everything||(g=function(){c.readyCallback()},b.addEventListener?(b.addEventListener("DOMContentLoaded",g,!1),a.addEventListener("load",g,!1)):(a.attachEvent("onload",g),b.attachEvent("onreadystatechange",function(){"complete"===b.readyState&&c.readyCallback()})),f=c.source||{},f.concatemoji?e(f.concatemoji):f.wpemoji&&f.twemoji&&(e(f.twemoji),e(f.wpemoji)))}(window,document,window._wpemojiSettings);
+		</script>
+		<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+<link rel='stylesheet' id='papercite_css-css'  href='../../wp-content/plugins/papercite/papercite.css%3Fver=4.6.1.css' type='text/css' media='all' />
+<link rel='stylesheet' id='style-css'  href='../../wp-content/themes/Winter/style.css%3Fver=4.6.1.css' type='text/css' media='all' />
+<link rel='stylesheet' id='grid-css'  href='../../wp-content/themes/Winter/css/grid.css%3Fver=4.6.1.css' type='text/css' media='all' />
+<link rel='stylesheet' id='wp-style-css'  href='../../wp-content/themes/Winter/css/wp-style.css%3Fver=4.6.1.css' type='text/css' media='all' />
+<link rel='stylesheet' id='fontwaesome-css'  href='../../wp-content/themes/Winter/css/font-awesome.css%3Fver=4.6.1.css' type='text/css' media='all' />
+<link rel='stylesheet' id='fontwaesome-ie-css'  href='../../wp-content/themes/Winter/css/font-awesome-ie7.css%3Fver=4.6.1.css' type='text/css' media='all' />
+<link rel='stylesheet' id='flexslider-css'  href='../../wp-content/themes/Winter/css/flexslider.css%3Fver=4.6.1.css' type='text/css' media='all' />
+<link rel='stylesheet' id='fancybox-css'  href='../../wp-content/themes/Winter/css/jquery.fancybox.css%3Fver=4.6.1.css' type='text/css' media='all' />
+<link rel='stylesheet' id='genericons-css'  href='../../wp-content/plugins/jetpack/_inc/genericons/genericons/genericons.css%3Fver=3.1.css' type='text/css' media='all' />
+<link rel='stylesheet' id='jetpack_css-css'  href='../../wp-content/plugins/jetpack/css/jetpack.css%3Fver=3.9.7.css' type='text/css' media='all' />
+<script type='text/javascript' src='../../wp-includes/js/jquery/jquery.js%3Fver=1.12.4'></script>
+<script type='text/javascript' src='../../wp-includes/js/jquery/jquery-migrate.min.js%3Fver=1.4.1'></script>
+<script type='text/javascript' src='../../wp-content/plugins/papercite/js/papercite.js%3Fver=4.6.1'></script>
+<script type='text/javascript' src='../../wp-content/themes/Winter/js/jquery.flexslider-min.js%3Fver=1'></script>
+<script type='text/javascript' src='../../wp-content/themes/Winter/js/jquery.fancybox.pack.js%3Fver=1'></script>
+<script type='text/javascript' src='../../wp-content/themes/Winter/js/jwplayer.js%3Fver=1'></script>
+<script type='text/javascript' src='../../wp-content/themes/Winter/js/custom.js%3Fver=1'></script>
+<link rel='https://api.w.org/' href='../../wp-json/index.html' />
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="../../xmlrpc.php%3Frsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="../../wp-includes/wlwmanifest.xml" /> 
+<meta name="generator" content="WordPress 4.6.1" />
+<link rel='shortlink' href='http://wp.me/p1QEx5-fH' />
+<link rel="alternate" type="application/json+oembed" href="../../wp-json/oembed/1.0/embed%3Furl=http%253A%252F%252Fwww.lindonslog.com%252Fmathematics%252Fmonotonicity-em-algorithm-proof%252F" />
+<link rel="alternate" type="text/xml+oembed" href="../../wp-json/oembed/1.0/embed%3Furl=http%253A%252F%252Fwww.lindonslog.com%252Fmathematics%252Fmonotonicity-em-algorithm-proof%252F&amp;format=xml" />
+
+<link rel='dns-prefetch' href='http://jetpack.wordpress.com/'>
+<link rel='dns-prefetch' href='http://s0.wp.com/'>
+<link rel='dns-prefetch' href='http://s1.wp.com/'>
+<link rel='dns-prefetch' href='http://s2.wp.com/'>
+<link rel='dns-prefetch' href='http://public-api.wordpress.com/'>
+<link rel='dns-prefetch' href='http://0.gravatar.com/'>
+<link rel='dns-prefetch' href='http://1.gravatar.com/'>
+<link rel='dns-prefetch' href='http://2.gravatar.com/'>
+<link rel='dns-prefetch' href='http://widgets.wp.com/'>
+<style type="text/css" id="syntaxhighlighteranchor"></style>
+<link rel="icon" href="../../wp-content/uploads/2015/09/cropped-L-32x32.png" sizes="32x32" />
+<link rel="icon" href="../../wp-content/uploads/2015/09/cropped-L-192x192.png" sizes="192x192" />
+<link rel="apple-touch-icon-precomposed" href="../../wp-content/uploads/2015/09/cropped-L-180x180.png" />
+<meta name="msapplication-TileImage" content="http://www.lindonslog.com/wp-content/uploads/2015/09/cropped-L-270x270.png" />
+
+<style id="custom-css-css">.input_prompt{color:#06c}.output_prompt{color:#c00}.prompt{font-family:monospace;font-size:14px}.c,c1{color:#408080;font-style:italic}.k{color:#382;font-weight:700}.kn{color:#382;font-weight:700}.mi{color:#080}.mf{color:#080}.o{color:#96f}.ow{color:#BA22FF;font-weight:700}.nb{color:#382}.n{color:#000}.s,.s1{color:#c22}.se{color:#c22;font-weight:700}.si{color:#C06688;font-weight:700}.nn{color:#4D00FF;font-weight:700}.output_area pre{background-color:#FFF;padding-left:5%}.code_cell{padding-left:1%}.cell{margin-top:10px;margin-bottom:10px}br{line-height:2}.cell h1,h2,h3,h4{margin-top:30px;margin-bottom:10px}</style>
+</head>
+
+<body class="single single-post postid-973 single-format-standard">
+<div id="page" class="hfeed site">
+
+	<header id="masthead" class="site-header" role="banner">
+		<div id="botmenu">
+			<div class="container_6">
+			<div id="submenu" class="menu-top-container"><ul id="web2feel" class="sfmenu"><li id="menu-item-434" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-434"><a href="../../index.html">About</a></li>
+<li id="menu-item-405" class="menu-item menu-item-type-taxonomy menu-item-object-category current-post-ancestor current-menu-parent current-post-parent menu-item-has-children menu-item-405"><a href="../../category/mathematics/index.html">Mathematics</a>
+<ul class="sub-menu">
+	<li id="menu-item-814" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-814"><a href="../../category/mathematics/linear-algebra/index.html">Linear Algebra</a></li>
+	<li id="menu-item-406" class="menu-item menu-item-type-taxonomy menu-item-object-category current-post-ancestor current-menu-parent current-post-parent menu-item-406"><a href="../../category/mathematics/statistics/index.html">Statistics</a></li>
+</ul>
+</li>
+<li id="menu-item-404" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-404"><a href="../../category/linux-unix/index.html">Linux/Unix</a></li>
+<li id="menu-item-407" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children menu-item-407"><a href="../../category/programming/index.html">Programming</a>
+<ul class="sub-menu">
+	<li id="menu-item-408" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-408"><a href="../../category/programming/openmp/index.html">OpenMP</a></li>
+	<li id="menu-item-487" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-487"><a href="../../category/programming/r/index.html">R</a></li>
+</ul>
+</li>
+<li id="menu-item-842" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-842"><a href="../../links/index.html">Links</a></li>
+</ul></div>			</div>
+		</div>
+		
+		<div class="top cf ">
+			<div class="head container_6 cf">
+				<div class="logo grid_3">
+					
+					<h1 class="site-title logo"><a id="blogname" rel="home" href="../../index.html" title="Lindons Log">Lindons Log</a></h1>
+	
+					<h2 class="site-description"></h2>
+				</div>
+				<div class="topbar grid_3">
+						<form method="get" id="searchform" action="../../index.html" role="search">
+		<label for="s" class="assistive-text">Search</label>
+		<input type="text" class="field" name="s" value="" id="s" placeholder="Search &hellip;" />
+		<input type="submit" class="submit" name="submit" id="searchsubmit" value="Search" />
+	</form>
+				</div>
+			</div>	
+		</div>
+	</header><!-- #masthead .site-header -->
+
+	<div id="main" class="site-main container_6">
+		<div id="primary" class="content-area">
+			<div id="content" class="site-content cf" role="main">
+
+			
+				
+<article id="post-973" class="grid_6 post-973 post type-post status-publish format-standard hentry category-mathematics category-statistics">
+
+<div class="format-box">
+<i class="icon-file"></i>
+</div>
+
+<div class="post-cover">
+
+	<div class="entry-meta">
+		<span class="clock"> <i class="icon-time"></i> 986 days ago</span> 
+		<span class="comments-link"> <i class="icon-comment"></i>  <a href="index.html#respond"><span class="dsq-postid" data-dsqidentifier="973 http://www.lindonslog.com/?p=973">Leave a comment</span></a></span>
+		<span class="perml"> <i class="icon-bolt"></i> <a href="index.html" rel="bookmark">Permalink</a></span>
+	</div><!-- #entry-meta -->
+	
+	<header class="entry-header">
+		<h2 class="entry-title">Monotonicity of EM Algorithm Proof</h2>
+	</header><!-- .entry-header -->
+
+	<div class="entry-content">
+								
+								
+				<p><br />
+Here the monotonicity of the EM algorithm is established.<br />
+$$	f_{o}(Y_{o}|\theta)=f_{o,m}(Y_{o},Y_{m}|\theta)/f_{m|o}(Y_{m}|Y_{o},\theta)$$<br />
+$$	\log L_{o}(\theta)=\log L_{o,m}(\theta)-\log f_{m|o}(Y_{m}|Y_{o},\theta) \label{eq:loglikelihood} $$<br />
+where \( L_{o}(\theta)\) is the likelihood under the observed data and \(L_{o,m}(\theta)\) is the likelihood under the complete data. Taking the expectation of the second line with respect to the conditional distribution of \(Y_{m}\) given \(Y_{o}\) and the current parameters \(\theta^{k}\) yields<br />
+$$\log L_{o}(\theta)= \mathbb{E}_{Y_{m}}\left[\log L_{o,m}(\theta)|Y_{o},\theta^{k}\right]-\mathbb{E}_{Y_{m}}\left[\log f_{m|o}(Y_{m}|Y_{o},\theta)|Y_{o},\theta^{k} \right]$$<br />
+which is used to construct the difference between the log-likelihood of a new value of \(\theta\) and the current value \(\theta^{k}\) as<br />
+\begin{equation}<br />
+	\begin{split}<br />
+		\log L_{o}(\theta)-&#038;\log L_{o}(\theta^{k})=\mathbb{E}_{Y_{m}}\left[ \log L_{o,m}(\theta)|Y_{o},\theta^{k}\right]-\mathbb{E}_{Y_{m}}\left[ \log L_{o,m}(\theta^{k})|Y_{o},\theta^{k}\right] \\<br />
+		+&#038;\mathbb{E}_{Y_{m}}\left[ \log f_{m|o}(Y_{m}|Y_{o},\theta^{k})|Y_{o},\theta^{k} \right]-\mathbb{E}_{Y_{m}}\left[ \log f_{m|o}(Y_{m}|Y_{o},\theta)|Y_{o},\theta^{k} \right],\\<br />
+\end{split}<br />
+\end{equation}<br />
+or by adopting common notation as<br />
+\begin{equation}<br />
+		\log L_{o}(\theta)-\log L_{o}(\theta^{k})=Q(\theta;\theta^{k})-Q(\theta^{k};\theta^{k})+H(\theta^{k};\theta^{k})-H(\theta;\theta^{k}).\\<br />
+\end{equation}<br />
+Consider the last two &#8220;\( H\)&#8221; terms, then by Jensen&#8217;s inequality</p>
+<p>\begin{align*}<br />
+	       &#038;-\mathbb{E}_{Y_{m}}\left[ \log f_{m|o}(Y_{m}|Y_{o},\theta)- \log f_{m|o}(Y_{m}|Y_{o},\theta^{k})|Y_{o},\theta^{k} \right]\\<br />
+	       &#038;=-\mathbb{E}_{Y_{m}}\left[\log \frac{ f_{m|o}(Y_{m}|Y_{o},\theta)}{ f_{m|o}(Y_{m}|Y_{o},\theta^{k})}|Y_{o},\theta^{k} \right]\\<br />
+	       &#038;\geq-\log \mathbb{E}_{Y_{m}}\left[ \frac{ f_{m|o}(Y_{m}|Y_{o},\theta)}{ f_{m|o}(Y_{m}|Y_{o},\theta^{k})}|Y_{o},\theta^{k} \right]\\<br />
+	       &#038;=-\log \int f_{m|o}(Y_{m}|Y_{o},\theta)dY_{m}\\<br />
+	       &#038;=0 \; \; \; \; \; \; \;\forall \theta\in \Theta.<br />
+\end{align*}<br />
+It follows that \(\log L_{o}(\theta)-\log L_{o}(\theta^{k})\geq 0\) by choosing \(\theta\) such that \(Q(\theta;\theta^{k})-Q(\theta^{k};\theta^{k})\geq 0\).</p>
+<p><span class="Z3988" title="ctx_ver=Z39.88-2004&#038;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Ajournal&#038;rft.jtitle=arXiv&#038;rft_id=info%3Aarxiv%2F1212.2490v1&#038;rfr_id=info%3Asid%2Fresearchblogging.org&#038;rft.atitle=On+the+Convergence+of+Bound+Optimization+Algorithms&#038;rft.issn=&#038;rft.date=2012&#038;rft.volume=&#038;rft.issue=&#038;rft.spage=&#038;rft.epage=&#038;rft.artnum=&#038;rft.au=Ruslan+R+Salakhutdinov&#038;rft.au=Sam+T+Roweis&#038;rft.au=Zoubin+Ghahramani&#038;rfe_dat=bpr3.included=1;bpr3.tags=Mathematics%2CApplied+Mathematics%2C+Probability+and+Statistics%2C+Parallel+and+Distributed+Computing%2C+Algorithms%2C+Operating+Systems">Ruslan R Salakhutdinov, Sam T Roweis, &#038; Zoubin Ghahramani (2012). On the Convergence of Bound Optimization Algorithms <span style="font-style: italic;">arXiv</span> arXiv: <a rev="review" href="http://arxiv.org/abs/1212.2490v1">1212.2490v1</a></span><br />
+<span class="Z3988" title="ctx_ver=Z39.88-2004&#038;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Ajournal&#038;rft_id=info%3Adoi%2F10.1214%2Faos%2F1176346060&#038;rft.atitle=On+the+Convergence+Properties+of+the+EM+Algorithm&#038;rft.jtitle=The+Annals+of+Statistics&#038;rft.artnum=http%3A%2F%2Fprojecteuclid.org%2Feuclid.aos%2F1176346060&#038;rft.volume=11&#038;rft.issue=1&#038;rft.issn=0090-5364&#038;rft.spage=95&#038;rft.epage=103&#038;rft.date=1983&#038;rfr_id=info%3Asid%2Fscienceseeker.org&#038;rft.au=Wu+C.+F.+Jeff&#038;rft.aulast=Wu&#038;rft.aufirst=C.+F.+Jeff&#038;rfs_dat=ss.included=1&#038;rfe_dat=bpr3.included=1;bpr3.tags=Mathematics">Wu C.F.J. (1983). On the Convergence Properties of the EM Algorithm, <span style="font-style:italic;">The Annals of Statistics, 11</span> (1) 95-103. DOI: <a rel="author" href="http://dx.doi.org/10.1214%2Faos%2F1176346060">10.1214/aos/1176346060</a></span><br />
+<span class="Z3988" title="ctx_ver=Z39.88-2004&#038;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Ajournal&#038;rft_id=info%3Adoi%2F10.1002%2F0471721182&#038;rft.artnum=http%3A%2F%2Fdoi.wiley.com%2F10.1002%2F0471721182&#038;rfr_id=info%3Asid%2Fmathblogging.org&#038;rft.au=McLachlan+Geoffrey&#038;rft.aulast=McLachlan&#038;rft.aufirst=Geoffrey&#038;rft.au=Peel+David&#038;rft.aulast=Peel&#038;rft.aufirst=David&#038;rfs_dat=ss.included=1&#038;rfe_dat=bpr3.included=1;bpr3.tags=Mathematics">McLachlan G. &#038; Peel D.   <span style="font-style:italic;"> </span>   DOI: <a rel="author" href="http://dx.doi.org/10.1002%2F0471721182">10.1002/0471721182</a></span></p>
+<div class="sharedaddy sd-sharing-enabled"><div class="robots-nocontent sd-block sd-social sd-social-icon-text sd-sharing"><h3 class="sd-title">Share this:</h3><div class="sd-content"><ul><li class="share-facebook"><a rel="nofollow" data-shared="sharing-facebook-973" class="share-facebook sd-button share-icon" href="index.html%3Fshare=facebook.html" target="_blank" title="Click to share on Facebook"><span>Facebook</span></a></li><li class="share-twitter"><a rel="nofollow" data-shared="sharing-twitter-973" class="share-twitter sd-button share-icon" href="index.html%3Fshare=twitter.html" target="_blank" title="Click to share on Twitter"><span>Twitter</span></a></li><li class="share-google-plus-1"><a rel="nofollow" data-shared="sharing-google-973" class="share-google-plus-1 sd-button share-icon" href="index.html%3Fshare=google-plus-1.html" target="_blank" title="Click to share on Google+"><span>Google</span></a></li><li class="share-end"></li></ul></div></div></div><div class='sharedaddy sd-block sd-like jetpack-likes-widget-wrapper jetpack-likes-widget-unloaded' id='like-post-wrapper-27325203-973-5866bc2551b80' data-src='//widgets.wp.com/likes/#blog_id=27325203&amp;post_id=973&amp;origin=www.lindonslog.com&amp;obj_id=27325203-973-5866bc2551b80' data-name='like-post-frame-27325203-973-5866bc2551b80'><h3 class='sd-title'>Like this:</h3><div class='likes-widget-placeholder post-likes-widget-placeholder' style='height:55px'><span class='button'><span>Like</span></span> <span class="loading">Loading...</span></div><span class='sd-text-color'></span><a class='sd-link-color'></a></div>					</div><!-- .entry-content -->
+
+</div>	
+
+</article><!-- #post-973 -->
+				<div class="clear"></div>
+				
+
+				
+<div id="disqus_thread">
+    </div>
+
+
+			
+			</div><!-- #content .site-content -->
+		</div><!-- #primary .content-area -->
+
+
+
+	</div><!-- #main .site-main -->
+
+<div id="bottom">
+<div class="container_6 cf">
+
+<li class="botwid grid_2 widget_categories"><h3 class="bothead">Categories</h3>		<ul>
+	<li class="cat-item cat-item-3"><a href="../../category/linux-unix/index.html" >Linux/Unix</a> (16)
+</li>
+	<li class="cat-item cat-item-5"><a href="../../category/mathematics/index.html" >Mathematics</a> (22)
+<ul class='children'>
+	<li class="cat-item cat-item-10"><a href="../../category/mathematics/linear-algebra/index.html" >Linear Algebra</a> (5)
+</li>
+	<li class="cat-item cat-item-7"><a href="../../category/mathematics/statistics/index.html" >Statistics</a> (17)
+</li>
+</ul>
+</li>
+	<li class="cat-item cat-item-6"><a href="../../category/programming/index.html" >Programming</a> (24)
+<ul class='children'>
+	<li class="cat-item cat-item-48"><a href="../../category/programming/clojure/index.html" >clojure</a> (1)
+</li>
+	<li class="cat-item cat-item-51"><a href="../../category/programming/functional-programming/index.html" >functional programming</a> (1)
+</li>
+	<li class="cat-item cat-item-50"><a href="../../category/programming/haskell-programming/index.html" >haskell</a> (1)
+</li>
+	<li class="cat-item cat-item-40"><a href="../../category/programming/julia/index.html" >julia</a> (2)
+</li>
+	<li class="cat-item cat-item-4"><a href="../../category/programming/openmp/index.html" >OpenMP</a> (6)
+</li>
+	<li class="cat-item cat-item-11"><a href="../../category/programming/r/index.html" >R</a> (12)
+</li>
+	<li class="cat-item cat-item-43"><a href="../../category/programming/scala/index.html" >scala</a> (1)
+</li>
+</ul>
+</li>
+		</ul>
+</li>		<li class="botwid grid_2 widget_recent_entries">		<h3 class="bothead">Recent Posts</h3>		<ul>
+					<li>
+				<a href="../../programming/partial-application-functions-julia/index.html">Partial Application for Functions in Julia</a>
+						</li>
+					<li>
+				<a href="../../programming/newtons-iteration-scala-clojure-haskell/index.html">Newtons Iteration in Scala, Clojure and Haskell Comparison</a>
+						</li>
+					<li>
+				<a href="../statistics/mala-metropolis-adjusted-langevin-algorithm-julia/index.html">MALA &#8211; Metropolis Adjusted Langevin Algorithm in Julia</a>
+						</li>
+					<li>
+				<a href="../../programming/passing-julia-type-to-c-function-as-struct/index.html">Passing Julia Type to C Function as Struct</a>
+						</li>
+					<li>
+				<a href="../../linux-unix/send-lines-code-vim-r-julia-python-repl-slime/index.html">Send Lines of Code from Vim to R/Julia/Python REPL</a>
+						</li>
+					<li>
+				<a href="../../linux-unix/c-merge-sort-algorithm/index.html">C++ Merge Sort Algorithm</a>
+						</li>
+					<li>
+				<a href="../../programming/generate-random-inverse-gaussian-r/index.html">Generate Random Inverse Gaussian in R</a>
+						</li>
+					<li>
+				<a href="../statistics/generalized-double-pareto-shrinkage-priors-sparse-estimation-regression/index.html">Generalized Double Pareto Priors for Regression</a>
+						</li>
+					<li>
+				<a href="../em-algorithm-bayesian-lasso-r-cpp-code/index.html">EM Algorithm for Bayesian Lasso R Cpp Code</a>
+						</li>
+				</ul>
+		</li>			<div class="squarebanner grid_2 cf">
+	<h3 class="bothead"> Sponsors </h3>
+<ul><li>
+<a rel="nofollow" href="index.html" title=""><img src="index.html" alt="" style="vertical-align:bottom;" /></a>
+</li>			
+
+<li>
+<a rel="nofollow" href="index.html" title=""><img src="index.html" alt="" style="vertical-align:bottom;" /></a>
+</li>
+
+<li>
+<a rel="nofollow" href="index.html" title=""><img src="index.html" alt="" style="vertical-align:bottom;" /></a>
+</li>
+
+<li>
+<a rel="nofollow" href="index.html" title=""><img src="index.html" alt="" style="vertical-align:bottom;" /></a>
+</li></ul>
+</div></div>
+</div>
+
+
+	<footer id="colophon" class="site-footer" role="contentinfo">
+	<div class="container_6">
+	<div class="site-info">
+			<div class="fcred">
+			Copyright &copy; 2016 <a href="../../index.html" title="Lindons Log">Lindons Log</a> - .<br />
+ | <a href="http://fabthemes.com/Winter/" >Winter WordPress Theme</a>
+			</div>		
+		</div><!-- .site-info -->	
+		</footer><!-- #colophon .site-footer -->
+	
+</div><!-- #page .hfeed .site -->
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-40536457-1', 'lindonslog.com');
+  ga('send', 'pageview');
+
+</script><!-- MathJax Latex Plugin installed -->	<div style="display:none">
+	</div>
+<script type="text/javascript">var elLogo = document.getElementById("ft_logo"); if (elLogo) {elLogo.style.maxHeight = elLogo.getAttribute("relHeight") ? elLogo.getAttribute("relHeight") + "px" : "100px";} if (elLogo) {elLogo.style.maxWidth = elLogo.getAttribute("relWidth") ? elLogo.getAttribute("relWidth") + "px" : "100px";}</script>
+	<script type="text/javascript">
+		window.WPCOM_sharing_counts = {"http:\/\/www.lindonslog.com\/mathematics\/monotonicity-em-algorithm-proof\/":973};
+	</script>
+		<script type="text/javascript">
+			var windowOpen;
+		jQuery(document).on( 'ready post-load', function(){
+			jQuery( 'a.share-facebook' ).on( 'click', function() {
+				if ( 'undefined' !== typeof windowOpen ){ // If there's another sharing window open, close it.
+					windowOpen.close();
+				}
+				windowOpen = window.open( jQuery(this).attr( 'href' ), 'wpcomfacebook', 'menubar=1,resizable=1,width=600,height=400' );
+				return false;
+			});
+		});
+		</script>
+				<script type="text/javascript">
+			var windowOpen;
+		jQuery(document).on( 'ready post-load', function(){
+			jQuery( 'a.share-twitter' ).on( 'click', function() {
+				if ( 'undefined' !== typeof windowOpen ){ // If there's another sharing window open, close it.
+					windowOpen.close();
+				}
+				windowOpen = window.open( jQuery(this).attr( 'href' ), 'wpcomtwitter', 'menubar=1,resizable=1,width=600,height=350' );
+				return false;
+			});
+		});
+		</script>
+				<script type="text/javascript">
+			var windowOpen;
+		jQuery(document).on( 'ready post-load', function(){
+			jQuery( 'a.share-google-plus-1' ).on( 'click', function() {
+				if ( 'undefined' !== typeof windowOpen ){ // If there's another sharing window open, close it.
+					windowOpen.close();
+				}
+				windowOpen = window.open( jQuery(this).attr( 'href' ), 'wpcomgoogle-plus-1', 'menubar=1,resizable=1,width=480,height=550' );
+				return false;
+			});
+		});
+		</script>
+		<script type='text/javascript' src='http://s0.wp.com/wp-content/js/devicepx-jetpack.js?ver=201652'></script>
+<script type='text/javascript' src='http://s.gravatar.com/js/gprofiles.js?ver=2016Decaa'></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var WPGroHo = {"my_hash":""};
+/* ]]> */
+</script>
+<script type='text/javascript' src='../../wp-content/plugins/jetpack/modules/wpgroho.js%3Fver=4.6.1'></script>
+<script type='text/javascript' src='../../wp-content/themes/Winter/js/superfish.js%3Fver=20120206'></script>
+<script type='text/javascript' src='../../wp-includes/js/comment-reply.min.js%3Fver=4.6.1'></script>
+<script type='text/javascript' src='../../wp-includes/js/wp-embed.min.js%3Fver=4.6.1'></script>
+<script type='text/javascript' src='../../wp-content/plugins/jetpack/_inc/postmessage.js%3Fver=3.9.7'></script>
+<script type='text/javascript' src='../../wp-content/plugins/jetpack/_inc/jquery.jetpack-resize.js%3Fver=3.9.7'></script>
+<script type='text/javascript' src='../../wp-content/plugins/jetpack/_inc/jquery.inview.js%3Fver=3.9.7'></script>
+<script type='text/javascript' src='../../wp-content/plugins/jetpack/modules/likes/queuehandler.js%3Fver=3.9.7'></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var embedVars = {"disqusConfig":{"platform":"wordpress@4.6.1","language":""},"disqusIdentifier":"973 http:\/\/www.lindonslog.com\/?p=973","disqusShortname":"michaellindon","disqusTitle":"Monotonicity of EM Algorithm Proof","disqusUrl":"http:\/\/www.lindonslog.com\/mathematics\/monotonicity-em-algorithm-proof\/","options":{"manualSync":false},"postId":"973"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='../../wp-content/plugins/disqus-comment-system/media/js/disqus.js%3Fver=4.6.1'></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var countVars = {"disqusShortname":"michaellindon"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='../../wp-content/plugins/disqus-comment-system/media/js/count.js%3Fver=4.6.1'></script>
+<script type='text/javascript' src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default&#038;ver=1.2.1'></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var sharing_js_options = {"lang":"en","counts":"1"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='../../wp-content/plugins/jetpack/modules/sharedaddy/sharing.js%3Fver=3.9.7'></script>
+		<iframe src='http://widgets.wp.com/likes/master.html?ver=20151215#ver=20151215' scrolling='no' id='likes-master' name='likes-master' style='display:none;'></iframe>
+		<div id='likes-other-gravatars'><div class="likes-text"><span>%d</span> bloggers like this:</div><ul class="wpl-avatars sd-like-gravatars"></ul></div>
+		<script type='text/javascript' src='http://stats.wp.com/e-201652.js' async defer></script>
+<script type='text/javascript'>
+	_stq = window._stq || [];
+	_stq.push([ 'view', {v:'ext',j:'1:3.9.7',blog:'27325203',post:'973',tz:'-4',srv:'www.lindonslog.com'} ]);
+	_stq.push([ 'clickTrackerInit', '27325203', '973' ]);
+</script>
+
+</body>
+</html>

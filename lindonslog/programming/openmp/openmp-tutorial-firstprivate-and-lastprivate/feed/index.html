@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	
+	>
+<channel>
+	<title>Comments on: OpenMP Tutorial &#8211; firstprivate and lastprivate</title>
+	<atom:link href="http://www.lindonslog.com/programming/openmp/openmp-tutorial-firstprivate-and-lastprivate/feed/" rel="self" type="application/rss+xml" />
+	<link>http://www.lindonslog.com/programming/openmp/openmp-tutorial-firstprivate-and-lastprivate/</link>
+	<description></description>
+	<lastBuildDate>Sun, 27 Nov 2016 15:23:00 +0000</lastBuildDate>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=4.6.1</generator>
+	<item>
+		<title>By: Jung</title>
+		<link>http://www.lindonslog.com/programming/openmp/openmp-tutorial-firstprivate-and-lastprivate/#comment-1243</link>
+		<dc:creator><![CDATA[Jung]]></dc:creator>
+		<pubDate>Mon, 28 Mar 2016 18:57:38 +0000</pubDate>
+		<guid isPermaLink="false">http://www.lindonslog.com/?p=87#comment-1243</guid>
+		<description><![CDATA[I think, if you specify just private(x), the value of x in parallel loop is not initialized. Thus, x will have random floating number. On the other hand, firstprivate(x) will allow x to have a specific value, which is declared before a parallel region.]]></description>
+		<content:encoded><![CDATA[<p>I think, if you specify just private(x), the value of x in parallel loop is not initialized. Thus, x will have random floating number. On the other hand, firstprivate(x) will allow x to have a specific value, which is declared before a parallel region.</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Keith McDaniel</title>
+		<link>http://www.lindonslog.com/programming/openmp/openmp-tutorial-firstprivate-and-lastprivate/#comment-1038</link>
+		<dc:creator><![CDATA[Keith McDaniel]]></dc:creator>
+		<pubDate>Mon, 15 Jun 2015 21:16:53 +0000</pubDate>
+		<guid isPermaLink="false">http://www.lindonslog.com/?p=87#comment-1038</guid>
+		<description><![CDATA[In this case, what is the difference between private and firstprivate? Do they not both start the parallel region with the value of the variable declared outside of the parallel block?
+I.E., in your initial example, if you simple declared x private, did not assign i to x, then did a print of x, would you not get 44 throughout the entire parallel region? If so, then what is point of firstprivate?
+
+Alternatively, does the first case just initialize the private instance of x within the parallel regions to 0?]]></description>
+		<content:encoded><![CDATA[<p>In this case, what is the difference between private and firstprivate? Do they not both start the parallel region with the value of the variable declared outside of the parallel block?<br />
+I.E., in your initial example, if you simple declared x private, did not assign i to x, then did a print of x, would you not get 44 throughout the entire parallel region? If so, then what is point of firstprivate?</p>
+<p>Alternatively, does the first case just initialize the private instance of x within the parallel regions to 0?</p>
+]]></content:encoded>
+	</item>
+</channel>
+</rss>

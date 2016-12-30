@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	
+	>
+<channel>
+	<title>Comments on: Compile R and OpenBLAS from Source Guide</title>
+	<atom:link href="http://www.lindonslog.com/linux-unix/compile-r-openblas-source-guide/feed/" rel="self" type="application/rss+xml" />
+	<link>http://www.lindonslog.com/linux-unix/compile-r-openblas-source-guide/</link>
+	<description></description>
+	<lastBuildDate>Sun, 27 Nov 2016 15:23:00 +0000</lastBuildDate>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=4.6.1</generator>
+	<item>
+		<title>By: admin</title>
+		<link>http://www.lindonslog.com/linux-unix/compile-r-openblas-source-guide/#comment-682</link>
+		<dc:creator><![CDATA[admin]]></dc:creator>
+		<pubDate>Wed, 22 Oct 2014 16:29:13 +0000</pubDate>
+		<guid isPermaLink="false">http://www.lindonslog.com/?p=995#comment-682</guid>
+		<description><![CDATA[OpenBLAS is an optimized BLAS library based on GotoBLAS2, they are not the same. Go with Openblas, I&#039;m not sure if gotoblas is being maintained anymore. Parallel linear algebra libraries are doing different things than multicore, snow and parallel &lt;- I think these packages are just used to divide and share a large number of identical jobs between processors. There&#039;s no real benefit if all you are using are lm, its really for people who are trying to handle big data and do mcmc in R.]]></description>
+		<content:encoded><![CDATA[<p>OpenBLAS is an optimized BLAS library based on GotoBLAS2, they are not the same. Go with Openblas, I&#8217;m not sure if gotoblas is being maintained anymore. Parallel linear algebra libraries are doing different things than multicore, snow and parallel <- I think these packages are just used to divide and share a large number of identical jobs between processors. There's no real benefit if all you are using are lm, its really for people who are trying to handle big data and do mcmc in R.
+</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: isomorphismes</title>
+		<link>http://www.lindonslog.com/linux-unix/compile-r-openblas-source-guide/#comment-681</link>
+		<dc:creator><![CDATA[isomorphismes]]></dc:creator>
+		<pubDate>Tue, 21 Oct 2014 22:55:45 +0000</pubDate>
+		<guid isPermaLink="false">http://www.lindonslog.com/?p=995#comment-681</guid>
+		<description><![CDATA[Thanks for posting this. Could you talk more to the tradeoffs in choosing ATLAS / openBLAS (which I think goto is the same as open) versus require( multicore &#124; snow &#124; parallel ) ?
+
+In particular I&#039;m not sure how much linear algebra core R routines like &lt;code&gt;plot&lt;/code&gt; use. Clearly &lt;code&gt;lm&lt;/code&gt; and straight-up matrix decompositions use linear algebra but in fact I often use &lt;code&gt;MASS::rlm&lt;/code&gt; instead of &lt;code&gt;lm&lt;/code&gt;.]]></description>
+		<content:encoded><![CDATA[<p>Thanks for posting this. Could you talk more to the tradeoffs in choosing ATLAS / openBLAS (which I think goto is the same as open) versus require( multicore | snow | parallel ) ?</p>
+<p>In particular I&#8217;m not sure how much linear algebra core R routines like <code>plot</code> use. Clearly <code>lm</code> and straight-up matrix decompositions use linear algebra but in fact I often use <code>MASS::rlm</code> instead of <code>lm</code>.</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Joe Liebig (@JochenLiebig)</title>
+		<link>http://www.lindonslog.com/linux-unix/compile-r-openblas-source-guide/#comment-367</link>
+		<dc:creator><![CDATA[Joe Liebig (@JochenLiebig)]]></dc:creator>
+		<pubDate>Thu, 17 Jul 2014 13:46:41 +0000</pubDate>
+		<guid isPermaLink="false">http://www.lindonslog.com/?p=995#comment-367</guid>
+		<description><![CDATA[This is really interesting. I&#039;m lacking the time to reproduce and dig deeper, but at the same time I am wondering whether this could help speed up R on Parallella.]]></description>
+		<content:encoded><![CDATA[<p>This is really interesting. I&#8217;m lacking the time to reproduce and dig deeper, but at the same time I am wondering whether this could help speed up R on Parallella.</p>
+]]></content:encoded>
+	</item>
+</channel>
+</rss>

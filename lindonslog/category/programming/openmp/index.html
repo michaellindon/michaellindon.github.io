@@ -1,0 +1,981 @@
+<!DOCTYPE html>
+<html lang="en-US" prefix="og: http://ogp.me/ns#">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width" />
+
+<link rel="profile" href="http://gmpg.org/xfn/11" />
+<link rel="pingback" href="http://www.lindonslog.com/xmlrpc.php" />
+<link href='http://fonts.googleapis.com/css?family=Economica:400,400italic,700,700italic' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=PT+Sans:400,700' rel='stylesheet' type='text/css'>
+<!--[if lt IE 9]>
+<script src="http://www.lindonslog.com/wp-content/themes/Winter/js/html5.js" type="text/javascript"></script>
+<![endif]-->
+
+
+<!-- This site is optimized with the Yoast SEO plugin v3.1.2 - https://yoast.com/wordpress/plugins/seo/ -->
+<title>OpenMP Archives - Lindons Log</title>
+<link rel="canonical" href="index.html" />
+<meta property="og:locale" content="en_US" />
+<meta property="og:type" content="object" />
+<meta property="og:title" content="OpenMP Archives - Lindons Log" />
+<meta property="og:url" content="http://www.lindonslog.com/category/programming/openmp/" />
+<meta property="og:site_name" content="Lindons Log" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="OpenMP Archives - Lindons Log" />
+<meta name="twitter:site" content="@lindonslog" />
+<!-- / Yoast SEO plugin. -->
+
+<link rel='dns-prefetch' href='http://s0.wp.com/' />
+<link rel='dns-prefetch' href='http://s.gravatar.com/' />
+<link rel='dns-prefetch' href='http://s.w.org/' />
+<link rel="alternate" type="application/rss+xml" title="Lindons Log &raquo; Feed" href="../../../feed/index.html" />
+<link rel="alternate" type="application/rss+xml" title="Lindons Log &raquo; Comments Feed" href="../../../comments/feed/index.html" />
+<link rel="alternate" type="application/rss+xml" title="Lindons Log &raquo; OpenMP Category Feed" href="feed/index.html" />
+		<script type="text/javascript">
+			window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/2\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/2\/svg\/","svgExt":".svg","source":{"concatemoji":"http:\/\/www.lindonslog.com\/wp-includes\/js\/wp-emoji-release.min.js?ver=4.6.1"}};
+			!function(a,b,c){function d(a){var c,d,e,f,g,h=b.createElement("canvas"),i=h.getContext&&h.getContext("2d"),j=String.fromCharCode;if(!i||!i.fillText)return!1;switch(i.textBaseline="top",i.font="600 32px Arial",a){case"flag":return i.fillText(j(55356,56806,55356,56826),0,0),!(h.toDataURL().length<3e3)&&(i.clearRect(0,0,h.width,h.height),i.fillText(j(55356,57331,65039,8205,55356,57096),0,0),c=h.toDataURL(),i.clearRect(0,0,h.width,h.height),i.fillText(j(55356,57331,55356,57096),0,0),d=h.toDataURL(),c!==d);case"diversity":return i.fillText(j(55356,57221),0,0),e=i.getImageData(16,16,1,1).data,f=e[0]+","+e[1]+","+e[2]+","+e[3],i.fillText(j(55356,57221,55356,57343),0,0),e=i.getImageData(16,16,1,1).data,g=e[0]+","+e[1]+","+e[2]+","+e[3],f!==g;case"simple":return i.fillText(j(55357,56835),0,0),0!==i.getImageData(16,16,1,1).data[0];case"unicode8":return i.fillText(j(55356,57135),0,0),0!==i.getImageData(16,16,1,1).data[0];case"unicode9":return i.fillText(j(55358,56631),0,0),0!==i.getImageData(16,16,1,1).data[0]}return!1}function e(a){var c=b.createElement("script");c.src=a,c.type="text/javascript",b.getElementsByTagName("head")[0].appendChild(c)}var f,g,h,i;for(i=Array("simple","flag","unicode8","diversity","unicode9"),c.supports={everything:!0,everythingExceptFlag:!0},h=0;h<i.length;h++)c.supports[i[h]]=d(i[h]),c.supports.everything=c.supports.everything&&c.supports[i[h]],"flag"!==i[h]&&(c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&c.supports[i[h]]);c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&!c.supports.flag,c.DOMReady=!1,c.readyCallback=function(){c.DOMReady=!0},c.supports.everything||(g=function(){c.readyCallback()},b.addEventListener?(b.addEventListener("DOMContentLoaded",g,!1),a.addEventListener("load",g,!1)):(a.attachEvent("onload",g),b.attachEvent("onreadystatechange",function(){"complete"===b.readyState&&c.readyCallback()})),f=c.source||{},f.concatemoji?e(f.concatemoji):f.wpemoji&&f.twemoji&&(e(f.twemoji),e(f.wpemoji)))}(window,document,window._wpemojiSettings);
+		</script>
+		<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+<link rel='stylesheet' id='papercite_css-css'  href='../../../wp-content/plugins/papercite/papercite.css%3Fver=4.6.1.css' type='text/css' media='all' />
+<link rel='stylesheet' id='style-css'  href='../../../wp-content/themes/Winter/style.css%3Fver=4.6.1.css' type='text/css' media='all' />
+<link rel='stylesheet' id='grid-css'  href='../../../wp-content/themes/Winter/css/grid.css%3Fver=4.6.1.css' type='text/css' media='all' />
+<link rel='stylesheet' id='wp-style-css'  href='../../../wp-content/themes/Winter/css/wp-style.css%3Fver=4.6.1.css' type='text/css' media='all' />
+<link rel='stylesheet' id='fontwaesome-css'  href='../../../wp-content/themes/Winter/css/font-awesome.css%3Fver=4.6.1.css' type='text/css' media='all' />
+<link rel='stylesheet' id='fontwaesome-ie-css'  href='../../../wp-content/themes/Winter/css/font-awesome-ie7.css%3Fver=4.6.1.css' type='text/css' media='all' />
+<link rel='stylesheet' id='flexslider-css'  href='../../../wp-content/themes/Winter/css/flexslider.css%3Fver=4.6.1.css' type='text/css' media='all' />
+<link rel='stylesheet' id='fancybox-css'  href='../../../wp-content/themes/Winter/css/jquery.fancybox.css%3Fver=4.6.1.css' type='text/css' media='all' />
+<link rel='stylesheet' id='jetpack_css-css'  href='../../../wp-content/plugins/jetpack/css/jetpack.css%3Fver=3.9.7.css' type='text/css' media='all' />
+<script type='text/javascript' src='../../../wp-includes/js/jquery/jquery.js%3Fver=1.12.4'></script>
+<script type='text/javascript' src='../../../wp-includes/js/jquery/jquery-migrate.min.js%3Fver=1.4.1'></script>
+<script type='text/javascript' src='../../../wp-content/plugins/papercite/js/papercite.js%3Fver=4.6.1'></script>
+<script type='text/javascript' src='../../../wp-content/themes/Winter/js/jquery.flexslider-min.js%3Fver=1'></script>
+<script type='text/javascript' src='../../../wp-content/themes/Winter/js/jquery.fancybox.pack.js%3Fver=1'></script>
+<script type='text/javascript' src='../../../wp-content/themes/Winter/js/jwplayer.js%3Fver=1'></script>
+<script type='text/javascript' src='../../../wp-content/themes/Winter/js/custom.js%3Fver=1'></script>
+<link rel='https://api.w.org/' href='../../../wp-json/index.html' />
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="../../../xmlrpc.php%3Frsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="../../../wp-includes/wlwmanifest.xml" /> 
+<meta name="generator" content="WordPress 4.6.1" />
+
+<link rel='dns-prefetch' href='http://jetpack.wordpress.com/'>
+<link rel='dns-prefetch' href='http://s0.wp.com/'>
+<link rel='dns-prefetch' href='http://s1.wp.com/'>
+<link rel='dns-prefetch' href='http://s2.wp.com/'>
+<link rel='dns-prefetch' href='http://public-api.wordpress.com/'>
+<link rel='dns-prefetch' href='http://0.gravatar.com/'>
+<link rel='dns-prefetch' href='http://1.gravatar.com/'>
+<link rel='dns-prefetch' href='http://2.gravatar.com/'>
+<link rel='dns-prefetch' href='http://widgets.wp.com/'>
+<style type="text/css" id="syntaxhighlighteranchor"></style>
+<link rel="icon" href="../../../wp-content/uploads/2015/09/cropped-L-32x32.png" sizes="32x32" />
+<link rel="icon" href="../../../wp-content/uploads/2015/09/cropped-L-192x192.png" sizes="192x192" />
+<link rel="apple-touch-icon-precomposed" href="../../../wp-content/uploads/2015/09/cropped-L-180x180.png" />
+<meta name="msapplication-TileImage" content="http://www.lindonslog.com/wp-content/uploads/2015/09/cropped-L-270x270.png" />
+
+<style id="custom-css-css">.input_prompt{color:#06c}.output_prompt{color:#c00}.prompt{font-family:monospace;font-size:14px}.c,c1{color:#408080;font-style:italic}.k{color:#382;font-weight:700}.kn{color:#382;font-weight:700}.mi{color:#080}.mf{color:#080}.o{color:#96f}.ow{color:#BA22FF;font-weight:700}.nb{color:#382}.n{color:#000}.s,.s1{color:#c22}.se{color:#c22;font-weight:700}.si{color:#C06688;font-weight:700}.nn{color:#4D00FF;font-weight:700}.output_area pre{background-color:#FFF;padding-left:5%}.code_cell{padding-left:1%}.cell{margin-top:10px;margin-bottom:10px}br{line-height:2}.cell h1,h2,h3,h4{margin-top:30px;margin-bottom:10px}</style>
+</head>
+
+<body class="archive category category-openmp category-4">
+<div id="page" class="hfeed site">
+
+	<header id="masthead" class="site-header" role="banner">
+		<div id="botmenu">
+			<div class="container_6">
+			<div id="submenu" class="menu-top-container"><ul id="web2feel" class="sfmenu"><li id="menu-item-434" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-434"><a href="../../../index.html">About</a></li>
+<li id="menu-item-405" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children menu-item-405"><a href="../../mathematics/index.html">Mathematics</a>
+<ul class="sub-menu">
+	<li id="menu-item-814" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-814"><a href="../../mathematics/linear-algebra/index.html">Linear Algebra</a></li>
+	<li id="menu-item-406" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-406"><a href="../../mathematics/statistics/index.html">Statistics</a></li>
+</ul>
+</li>
+<li id="menu-item-404" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-404"><a href="../../linux-unix/index.html">Linux/Unix</a></li>
+<li id="menu-item-407" class="menu-item menu-item-type-taxonomy menu-item-object-category current-category-ancestor current-menu-ancestor current-menu-parent current-category-parent menu-item-has-children menu-item-407"><a href="../index.html">Programming</a>
+<ul class="sub-menu">
+	<li id="menu-item-408" class="menu-item menu-item-type-taxonomy menu-item-object-category current-menu-item menu-item-408"><a href="index.html">OpenMP</a></li>
+	<li id="menu-item-487" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-487"><a href="../r/index.html">R</a></li>
+</ul>
+</li>
+<li id="menu-item-842" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-842"><a href="../../../links/index.html">Links</a></li>
+</ul></div>			</div>
+		</div>
+		
+		<div class="top cf ">
+			<div class="head container_6 cf">
+				<div class="logo grid_3">
+					
+					<h1 class="site-title logo"><a id="blogname" rel="home" href="../../../index.html" title="Lindons Log">Lindons Log</a></h1>
+	
+					<h2 class="site-description"></h2>
+				</div>
+				<div class="topbar grid_3">
+						<form method="get" id="searchform" action="../../../index.html" role="search">
+		<label for="s" class="assistive-text">Search</label>
+		<input type="text" class="field" name="s" value="" id="s" placeholder="Search &hellip;" />
+		<input type="submit" class="submit" name="submit" id="searchsubmit" value="Search" />
+	</form>
+				</div>
+			</div>	
+		</div>
+	</header><!-- #masthead .site-header -->
+
+	<div id="main" class="site-main container_6">
+		<section id="primary" class="content-area">
+			<div id="content" class="site-content" role="main">
+
+			
+				<header class="page-header">
+					<h1 class="page-title">
+						Category Archives: <span>OpenMP</span>					</h1>
+									</header><!-- .page-header -->
+
+								
+					
+<article id="post-995" class="grid_6 post-995 post type-post status-publish format-standard hentry category-linear-algebra category-linux-unix category-openmp category-programming category-r category-statistics">
+
+<div class="format-box">
+<i class="icon-file"></i>
+</div>
+
+<div class="post-cover">
+
+	<div class="entry-meta">
+		<span class="clock"> <i class="icon-time"></i> 898 days ago</span> 
+		<span class="comments-link"> <i class="icon-comment"></i>  <a href="../../../linux-unix/compile-r-openblas-source-guide/index.html#comments"><span class="dsq-postid" data-dsqidentifier="995 http://www.lindonslog.com/?p=995">3 Comments</span></a></span>
+		<span class="perml"> <i class="icon-bolt"></i> <a href="../../../linux-unix/compile-r-openblas-source-guide/index.html" rel="bookmark">Permalink</a></span>
+	</div><!-- #entry-meta -->
+	
+	<header class="entry-header">
+		<h2 class="entry-title">Compile R and OpenBLAS from Source Guide</h2>
+	</header><!-- .entry-header -->
+
+	<div class="entry-content">
+								
+								
+				<p><a href="index.html#openblas">1. Get OpenBLAS</a><br />
+<a href="index.html#R">2.1 Get R</a><br />
+<a href="index.html#duke">2.2 Specific Instructions for DSS Users</a><br />
+<a href="index.html#validation">3. Validation</a><br />
+<a href="index.html#benchmark">4. Benchmark</a></p>
+<p>This guide is intended to aid any R and Linux user who desires a threaded version of BLAS. In particular I hope this will allow other grad students, who like me do not have many user privileges on their office computer, to follow suit and exploit multiple cores to speed up their linear algebra computations within R. The following will be performed on <strong>Scientific Linux 6.4</strong> but has should be completely general. If you are a <strong>Ubuntu</strong> user, then there is an elegant and streamlined process for changing BLAS libraries and a recommended post about it <a href="http://www.stat.cmu.edu/~nmv/2013/07/09/for-faster-r-use-openblas-instead-better-than-atlas-trivial-to-switch-to-on-ubuntu/" title="ubuntu blas">here</a>. I use <strong>Fedora</strong> on my laptop, and the following has also been tested thereupon. </p>
+<p>My office computer has a quadcore processor with two threads per core but I also have access to a departmental computer with 4 sockets and 12 cores per socket (1 thread per core), so it really makes sense to use a threaded version of BLAS. If you are curious about the hardware on your own computer you can run the command &#8220;cat /proc/cpuinfo&#8221; or &#8220;lscpu&#8221;.</p>
+<p>Unfortunately my office computer is part of a network upon which I do not have permissions to change &#8216;/usr/lib64/R/lib/libRblas.so&#8217;. Moreover R appears to be running serially: if you start up R and get the PID (process ID) from &#8216;top&#8217; or &#8216;ps aux | grep R&#8217; or something and then execute &#8216;cat /proc/PID/status | grep Threads&#8217; you can see there is only one thread available.</p>
+<pre class="brush: bash; title: ; notranslate" title="">
+[msl33@cabbage ~]$ cat /proc/13605/status | grep Threads
+Threads:	1
+
+</pre>
+<p>(where 13605 was the process ID of my R process. That is using the default R on the network. One could appeal to the network administrator to change things for you but they probably won&#8217;t because a parallel BLAS implementation may cause problems for other users who require a serial BLAS, such as those that use the multicore environment to perform inherently parallel algorithms such as parallel tempering instead of using idle cores to speed up the linear algebra. There are also some known conflicts with the multicore package in R. There is, however, nothing stopping the user from compiling one&#8217;s own custom R build in one&#8217;s home directory and just changing the executable path thereto. In addition, you then have the power and freedom customize R to your needs &#8211; at the moment I have some very large matrices which would benefit from a threaded BLAS but at some point I may want to revert to a tuned serial BLAS such at ATLAS for certain parallel algorithms. </p>
+<p>Firstly, go ahead and create a directory in which to keep all your custom software.</p>
+<pre class="brush: bash; title: ; notranslate" title="">
+[msl33@cabbage ~]$ pwd
+/home/grad/msl33
+[msl33@cabbage ~]$ mkdir software
+
+</pre>
+<p><a name="openblas"></a><br />
+<h1>Download OpenBLAS</h1>
+<p>Make a directory &#8220;openblas&#8221; in the &#8220;software directory.</p>
+<pre class="brush: bash; title: ; notranslate" title="">
+[msl33@cabbage ~]$ cd software/
+[msl33@cabbage software]$ mkdir openblas
+
+</pre>
+<p>Next, grab the tarball from the <a href="http://www.openblas.net/" title="openblas homepage">OpenBLAS homepage</a>. Change directory into where you downloaded the tarball and extract the files from it.</p>
+<pre class="brush: bash; title: ; notranslate" title="">
+[msl33@cabbage ~]$ cd Downloads/
+[msl33@cabbage Downloads]$ tar -xvf xianyi-OpenBLAS-v0.2.9-0-gf773f49.tar.gz 
+
+</pre>
+<p>While this is running, fill a kettle with some water and turn it on, this stage is very important.</p>
+<p>Change directory into where you extracted the files and verify that NO_AFFINITY=1 is uncommented in the Makefile.rule. If so proceed and run make.</p>
+<pre class="brush: bash; title: ; notranslate" title="">
+[msl33@cabbage ~/Downloads]$ cd xianyi-OpenBLAS-347dded/
+[msl33@cabbage xianyi-OpenBLAS-347dded]$ cat Makefile.rule | grep NO_AFFINITY
+NO_AFFINITY = 1
+[msl33@cabbage xianyi-OpenBLAS-347dded]$ make
+
+</pre>
+<p>Now is a good time to &#8220;make&#8221; some tea with the water prepared earlier. When done successfully one will see<br />
+<a href="../../../wp-content/uploads/2014/07/openblas_complete.png"><img src="../../../wp-content/uploads/2014/07/openblas_complete.png" alt="openblas confirmation" width="656" height="255" class="size-full wp-image-1002" srcset="http://www.lindonslog.com/wp-content/uploads/2014/07/openblas_complete.png 656w, http://www.lindonslog.com/wp-content/uploads/2014/07/openblas_complete-300x116.png 300w" sizes="(max-width: 656px) 100vw, 656px" /></a><br />
+Now, as instructed above, install to the &#8220;software&#8221; directory made earlier.</p>
+<pre class="brush: bash; title: ; notranslate" title="">
+[msl33@cabbage xianyi-OpenBLAS-347dded]$ make PREFIX=/home/grad/msl33/software/openblas install
+...
+Install OK!
+</pre>
+<p>In  openblas/lib there will be a file &#8220;libopenblas.so&#8221;, needed for later. That&#8217;s it for openblas, next we will do R.</p>
+<p><a name="R"></a><br />
+<h1>Download R</h1>
+<p>Let&#8217;s create an R directory in software. Go onto the R homepage, then download, then choose a <a href="http://mirrors.ebi.ac.uk/CRAN/">mirror</a> and grab the tarball of the latest version. Download it to your &#8220;software&#8221; directory and extract it as before with &#8220;tar -xvf R-3.1.1.tar.gz&#8221;. Once extracted, remove the tarball and change directory into R-3.1.1. Before running the configure script one might bring some customizations into consideration in the name of efficiency. One might consider upping the optimization level from 2 to 3 and adding march or mtune by editing &#8220;config.site&#8221; and changing &#8220;## CFLAGS=&#8221; on line 53 to &#8220;CFLAGS=&#8217;-O3 -march=native'&#8221; and making similar changes for FFLAGS and CXXFLAGS. It is noted in the <a href="http://cran.r-project.org/doc/manuals/r-release/R-admin.html#Compilation-flags">R Installation and Administration</a> documentation that these can produce worthwhile speedups but come with a warning that the build will be less reliable, with segfaults and numerical errors creeping in. It is safest to leave things <a href="http://www.youtube.com/watch?v=aYBkDxao3wg&#038;t=2m28s">regular</a> (reccommended link) but I&#8217;ll take the risk. Now, if you are not using a computer on the duke statistical science network, run the configure script, otherwise see the additional instructions before running configure.</p>
+<pre class="brush: bash; title: ; notranslate" title="">
+[msl33@cabbage R-3.1.1]$ ./configure --prefix=/home/grad/msl33/software/R --enable-R-shlib --enable-BLAS-shlib --enable-memory-profiling --with-tcltk=no
+
+</pre>
+<p><a name="duke"></a><br />
+<h3>BEGIN ADDITIONAL INSTRUCTIONS FOR DUKE STATISTICAL SCIENCE STUDENTS</h3>
+<p>[On the DSS computers some further instructions are required to locate headers and libraries. The first time I tried to make on my office computer I encountered this <a href="http://stackoverflow.com/questions/17570586/unable-to-compile-jni-program-rjava">error</a>. &#8220;jni.h&#8221; could not be found. The error was resolved by locating it and then export the environment variable JAVA_HOME.</p>
+<pre class="brush: bash; title: ; notranslate" title="">
+[msl33@cabbage software]$ locate jni.h
+/usr/lib/jvm/java-1.7.0-sun-1.7.0.11/include/jni.h
+[msl33@cabbage software]$ export JAVA_HOME=/usr/lib/jvm/java-1.7.0-sun-1.7.0.11/
+
+</pre>
+<p>In addition, when running the configure script the readline headers/libs could not be found. We&#8217;ll just borrow them from some other software. Add to CFLAGS, FFLAGS, CXXFLAGS &#8220;-I/opt/EPD_Free/include -L/opt/EPD_Free/lib&#8221; in addition to any other flags that you have set. Also make a lib directory and copy them in.</p>
+<pre class="brush: bash; title: ; notranslate" title="">
+[msl33@cabbage R-3.1.1]$ mkdir lib
+[msl33@cabbage R-3.1.1]$ cp /opt/EPD_Free/lib/libreadline.* lib/
+[msl33@cabbage R-3.1.1]$ cp /opt/EPD_Free/lib/libncurses* lib/
+</pre>
+<p> Now run the configure line above.]</p>
+<h3>END ADDITIONAL INSTRUCTIONS FOR DUKE STATISTICAL SCIENCE STUDENTS</h3>
+<p>Once the configure has completed, you&#8217;ll see a summary below like<br />
+<a href="../../../wp-content/uploads/2014/07/configure.png"><img src="../../../wp-content/uploads/2014/07/configure-1024x383.png" alt="openblas configure" width="640" height="239" class="aligncenter size-large wp-image-1013" srcset="http://www.lindonslog.com/wp-content/uploads/2014/07/configure-1024x383.png 1024w, http://www.lindonslog.com/wp-content/uploads/2014/07/configure-300x112.png 300w, http://www.lindonslog.com/wp-content/uploads/2014/07/configure.png 1026w" sizes="(max-width: 640px) 100vw, 640px" /></a><br />
+Now issue the command &#8220;make&#8221;, it will take some time. Once make has finished, you can execute &#8220;make install&#8221; to populate the software/R directory created earlier but you don&#8217;t need to. Change directories to lib and make a backup of libRblas.so and create a symbolic link to the openblas library that was made earlier.</p>
+<pre class="brush: bash; title: ; notranslate" title="">
+[msl33@cabbage ~]$ cd software/R-3.1.1/lib
+[msl33@cabbage lib]$ pwd
+/home/grad/msl33/software/R-3.1.1/lib
+[msl33@cabbage lib]$ mv libRblas.so libRblas.so.keep
+[msl33@cabbage lib]$ ln -s /home/grad/msl33/software/openblas/lib/libopenblas.so libRblas.so
+
+</pre>
+<p>That was the last step. </p>
+<p><a name="validation"></a><br />
+<h2>Setup Validation</h2>
+<p>The R executable in the bin directory should now use openblas. Note this is the R executable you now need to run in order to use the custom built R with openblas. Just typing R in terminal will load the old /usr/lib64&#8230; which we students didn&#8217;t have the permissions to alter. You can, however, create an alias in your .bashrc file by inserting the line &#8216;alias R=&#8221;/home/grad/msl33/software/R-3.1.1/bin/./R&#8221;&#8216;. Now when you type R in a terminal it will load the new R and not the old one.  One can check that R executable depends on the correct linked shared blas library with the &#8220;ldd&#8221; command.</p>
+<pre class="brush: bash; title: ; notranslate" title="">
+[msl33@cabbage bin]$ pwd
+/home/grad/msl33/software/R-3.1.1/bin
+[msl33@cabbage bin]$ ./R CMD ldd exec/./R | grep blas
+	libRblas.so =&gt; /home/grad/msl33/software/R-3.1.1/lib/libRblas.so (0x00007f62e3fb7000)
+[msl33@cabbage bin]$ ls -lt ../lib | grep openblas
+lrwxrwxrwx  1 msl33 grad      53 Jul 16 15:35 libRblas.so -&gt; /home/grad/msl33/software/openblas/lib/libopenblas.so
+
+</pre>
+<p>In addition, execute &#8220;./R&#8221; from the &#8220;bin&#8221; directory  (or just R if you set up the alias) and grab the process id. </p>
+<pre class="brush: bash; title: ; notranslate" title="">
+[msl33@cabbage bin]$ ps aux | grep R | grep software | awk '{print $2}'
+2412
+[msl33@cabbage bin]$ cat /proc/`ps aux | grep R | grep software | awk '{print $2}'`/status | grep Threads
+Threads:	8
+[msl33@cabbage bin]$ 
+
+</pre>
+<p>Evidently the R session now has 8 threads available. Finally, lets perform an eigen-decomposition and look at the cpu usage using top. You&#8217;ll see it light up all of your cores.<br />
+<a href="../../../wp-content/uploads/2014/07/openblas_cpu.png"><img src="../../../wp-content/uploads/2014/07/openblas_cpu-1024x358.png" alt="openblas cpu usage" width="640" height="223" class="aligncenter size-large wp-image-1012" srcset="http://www.lindonslog.com/wp-content/uploads/2014/07/openblas_cpu-1024x358.png 1024w, http://www.lindonslog.com/wp-content/uploads/2014/07/openblas_cpu-300x105.png 300w, http://www.lindonslog.com/wp-content/uploads/2014/07/openblas_cpu.png 1321w" sizes="(max-width: 640px) 100vw, 640px" /></a></p>
+<p><a name="benchmark"></a><br />
+<h2>Benchmark</h2>
+<p>Using this <a href="http://r.research.att.com/benchmarks/R-benchmark-25.R">benchmark</a> the reference BLAS took 32.1 seconds whilst openBLAS took 7.1 seconds.</p>
+					</div><!-- .entry-content -->
+
+</div>	
+
+</article><!-- #post-995 -->
+
+				
+					
+<article id="post-605" class="grid_6 post-605 post type-post status-publish format-standard hentry category-openmp category-programming category-statistics tag-c tag-mcmc tag-openmp-2 tag-parallel-tempering">
+
+<div class="format-box">
+<i class="icon-file"></i>
+</div>
+
+<div class="post-cover">
+
+	<div class="entry-meta">
+		<span class="clock"> <i class="icon-time"></i> 1265 days ago</span> 
+		<span class="comments-link"> <i class="icon-comment"></i>  <a href="../../../programming/openmp/parallel-tempering-algorithm-c/index.html#comments"><span class="dsq-postid" data-dsqidentifier="605 http://www.lindonslog.com/?p=605">2 Comments</span></a></span>
+		<span class="perml"> <i class="icon-bolt"></i> <a href="../../../programming/openmp/parallel-tempering-algorithm-c/index.html" rel="bookmark">Permalink</a></span>
+	</div><!-- #entry-meta -->
+	
+	<header class="entry-header">
+		<h2 class="entry-title">Parallel Tempering Algorithm with OpenMP / C++</h2>
+	</header><!-- .entry-header -->
+
+	<div class="entry-content">
+								
+								
+				<p><a href="index.html#theory">1.1. Parallel Tempering Theory</a><br />
+<a href="index.html#physics">1.2. Physics Origins</a><br />
+<a href="index.html#intra">2.1 Intra-Thread Metropolis Move</a><br />
+<a href="index.html#inter">2.2. Inter-Thread Parallel Tempering</a><br />
+<a href="index.html#openmp">2.3. OpenMP Parallelization</a><br />
+<a href="index.html#fullcode">3. Full Code</a><br />
+<a href="index.html#simstudy">4. Simulation Study<br />
+<a href="index.html#futureuse">5. On the Future use of Parallel Tempering with OpenMP</a></p>
+<p>Parallel tempering is one of my favourite sampling algorithms to improve MCMC mixing times. This algorithm seems to be used <em>exclusively</em> on distributed memory architectures using MPI and remains unexploited on shared memory architectures such as our office computers, which have up to eight cores. I&#8217;ve written parallel tempering algorithms in MPI and Rmpi but never in OpenMP. It turns out that the latter has substantial advantages. I guess when people think of parallel tempering they think of processors communicating with each other via MPI and swapping parameters directly.  If you are on a shared memory device, however, you can have processor A simply write to a shared array and have processor B read therefrom, which really saves a lot of aggro fiddling around with message numbers, blocking/non-blocking calls and deadlocks etc. Moreover, with OpenMP you can spawn more threads than you have processors, which translates to more parallel MCMC chains in the present context, whereas this becomes troublesome with MPI due to the danger of deadlocks. OpenMP is also much easier to use than MPI, with one line you can fork a serial thread into a desired and hardware-independent  number of parallel threads. The code looks as follows:</p>
+<p><a name="theory"></a><br />
+<h2>Parallel Tempering Theory</h2>
+<p>Each thread simulates an MCMC trajectory from the posterior raised to a fractional power, B. When B=1, the MCMC draws are from the posterior from which we wish to sample. When B=0, the MCMC trajectory is just a realization of a Brownian motion random walk. To see this, consider the acceptance probability of the metropolis move. The density evaluated at the proposed parameters over the density evaluated at the current parameters all raised to the power of zero is unity, whatever the densities are, so the moves always get accepted. Similarly if B is close to zero, then the acceptance probability is near unity and the distribution from which this MCMC is sampling is quite uniform over the parameter space, so the trajectory explores a relatively larger part of the parameter space. As B is increased toward one, the features of the distribution from which we wish to sample start to become more prominent. In the other direction from B=1 to 0 one commonly says that the posterior is &#8220;melted down&#8221; and spreading out its mass. The terminology has remained from its origins in statistical physics where one would simulated particles at a hotter temperature, so that they would jostle around more and escape wells in the potential energy. The key to parallel tempering is to use the more diffuse, hotter or melted down MCMC chains as proposal distributions for the actual cold distribution we wish to sample from. One proceeds by performing a Metropolis-Hastings move because the proposal distributions are not symmetric. For illustration, thread j uses the hotter thread j+1 as its partner and as proposal distribution. Let theta j+1 be the proposed new position for thread j, being the current position of thread j+1.<br />
+<img src="http://s0.wp.com/latex.php?latex=%5Calpha%3Dmin%281%2C%5Cfrac%7B++p_%7Bj%7D+%28%5Ctheta_%7Bj%2B1%7D+%29%7D++%7B+++p_%7Bj%7D%28%5Ctheta_%7Bj%7D+%29+%7D++%5Cfrac%7B++p_%7Bj%2B1%7D+%28%5Ctheta_%7Bj%7D+%29%7D++%7B+++p_%7Bj%2B1%7D%28%5Ctheta_%7Bj%2B1%7D+%29+%7D++++%29++&amp;bg=ffffff&amp;fg=000&amp;s=0" alt="&#92;alpha=min(1,&#92;frac{  p_{j} (&#92;theta_{j+1} )}  {   p_{j}(&#92;theta_{j} ) }  &#92;frac{  p_{j+1} (&#92;theta_{j} )}  {   p_{j+1}(&#92;theta_{j+1} ) }    )  " title="&#92;alpha=min(1,&#92;frac{  p_{j} (&#92;theta_{j+1} )}  {   p_{j}(&#92;theta_{j} ) }  &#92;frac{  p_{j+1} (&#92;theta_{j} )}  {   p_{j+1}(&#92;theta_{j+1} ) }    )  " class="latex" /><br />
+The second fraction is the Hastings addition to the Metropolis algorithm and is required to satisfy detailed balance for an unsymmetrical proposal distribution. Now realise that<br />
+<img src="http://s0.wp.com/latex.php?latex=p_%7Bj%7D%3D%5Cpi%28%5Ctheta%7CY%29%5E%7BB_%7Bj%7D%7D%5C%5C++p_%7Bj%2B1%7D%3D%5Cpi%28%5Ctheta%7CY%29%5E%7BB_%7Bj%2B1%7D%7D++&amp;bg=ffffff&amp;fg=000&amp;s=0" alt="p_{j}=&#92;pi(&#92;theta|Y)^{B_{j}}&#92;&#92;  p_{j+1}=&#92;pi(&#92;theta|Y)^{B_{j+1}}  " title="p_{j}=&#92;pi(&#92;theta|Y)^{B_{j}}&#92;&#92;  p_{j+1}=&#92;pi(&#92;theta|Y)^{B_{j+1}}  " class="latex" /><br />
+i.e. they are the same distribution raised to different fractional powers. Working now on the log scale, it can be shown that<br />
+<img src="http://s0.wp.com/latex.php?latex=log+%5Cleft%28+%5Cfrac%7B++p_%7Bj%7D+%28%5Ctheta_%7Bj%2B1%7D+%29%7D++%7B+++p_%7Bj%7D%28%5Ctheta_%7Bj%7D+%29+%7D++%5Cfrac%7B++p_%7Bj%2B1%7D+%28%5Ctheta_%7Bj%7D+%29%7D++%7B+++p_%7Bj%2B1%7D%28%5Ctheta_%7Bj%2B1%7D+%29+%7D++++%5Cright%29+%3D++%28B_%7Bj%7D-B_%7Bj%2B1%7D%29+%5Cleft%28+log%28%5Cpi%5B%5Ctheta_%7Bj%2B1%7D%7CY%5D%29+-+log%28%5Cpi%5B%5Ctheta_%7Bj%7D%7CY%5D%29+%5Cright%29++&amp;bg=ffffff&amp;fg=000&amp;s=0" alt="log &#92;left( &#92;frac{  p_{j} (&#92;theta_{j+1} )}  {   p_{j}(&#92;theta_{j} ) }  &#92;frac{  p_{j+1} (&#92;theta_{j} )}  {   p_{j+1}(&#92;theta_{j+1} ) }    &#92;right) =  (B_{j}-B_{j+1}) &#92;left( log(&#92;pi[&#92;theta_{j+1}|Y]) - log(&#92;pi[&#92;theta_{j}|Y]) &#92;right)  " title="log &#92;left( &#92;frac{  p_{j} (&#92;theta_{j+1} )}  {   p_{j}(&#92;theta_{j} ) }  &#92;frac{  p_{j+1} (&#92;theta_{j} )}  {   p_{j+1}(&#92;theta_{j+1} ) }    &#92;right) =  (B_{j}-B_{j+1}) &#92;left( log(&#92;pi[&#92;theta_{j+1}|Y]) - log(&#92;pi[&#92;theta_{j}|Y]) &#92;right)  " class="latex" /><br />
+<a name="physics"></a><br />
+<h3>Physics Origins</h3>
+<p>It is at this point where sometimes, in order to make things correspond to the earlier physics literature, one defines the &#8220;Energy&#8221; as<br />
+ <img src="http://s0.wp.com/latex.php?latex=E_%7Bj%7D%3D-log%28%5Cpi%5B%5Ctheta_%7Bj%7D%7CY%5D%29.&amp;bg=ffffff&amp;fg=000&amp;s=0" alt="E_{j}=-log(&#92;pi[&#92;theta_{j}|Y])." title="E_{j}=-log(&#92;pi[&#92;theta_{j}|Y])." class="latex" /><br />
+So that the acceptance probability becomes<br />
+<img src="http://s0.wp.com/latex.php?latex=%5Calpha%3Dmin%281%2Ce%5E%7B-%28B_%7Bj%7D-B_%7Bj%2B1%7D%29%28E_%7Bj%2B1%7D+-+E_%7Bj%7D%29++%7D%29.++&amp;bg=ffffff&amp;fg=000&amp;s=0" alt="&#92;alpha=min(1,e^{-(B_{j}-B_{j+1})(E_{j+1} - E_{j})  }).  " title="&#92;alpha=min(1,e^{-(B_{j}-B_{j+1})(E_{j+1} - E_{j})  }).  " class="latex" /><br />
+It&#8217;s not necessary to define this energy, it only defines an equivalence mapping between statistics and physics. In physics particles get stuck in the local minima of the energy landscape and in statistics the MCMC gets stuck in the local peaks of the posterior. The reason for this is that in a canonical ensemble lower energy states are more probable (recall that nature tries to minimize the potential energy and that force is the negative gradient of the potential energy), so regions of the parameter space with low potential energy, physically, correspond to regions of high probability density, statistically. To be more precise, a result from statistical physics is that the distribution of energy is exponential with scale parameter kT, where k is Boltzmann&#8217;s constant and T is temperature (this condition holds only for a canonical ensemble). An exponential distribution with this scale parameter is called the Boltzmann distribution by physicists. As the temperature increases, higher energy states become more probable and the particle jumps out of the minima more. If you are a statistician you don&#8217;t need to worry about this, but sometimes this notation crops up in the literature. Its also the same acceptance probability now as in physics when sampling energies from a Boltzmann distribution. I have decided not to adopt the physics notation for this post.</p>
+<p><a name="intra"></a><br />
+<h2>Intra-Thread Metropolis Move</h2>
+<p>Each thread, within itself, performs a normal vanilla metropolis move:</p>
+<pre class="brush: cpp; title: ; notranslate" title="">
+//Propose Candidate Position//
+			t1new=t1[rank*nmc+i-1] + normal(stream[rank]);
+			t2new=t2[rank*nmc+i-1] + normal(stream[rank]);
+
+			//Calculate log-Density at Newly-Proposed and Current Position//
+			lpost_new[rank]=lLikelihood(t1new,t2new) + lprior(t1new,t2new);
+			lpost[rank]=lLikelihood(t1[rank*nmc+i-1],t2[rank*nmc+i-1]) + lprior(t1[rank*nmc+i-1],t2[rank*nmc+i-1]);
+
+			//Melt Density and Calculate log-Acceptance Probability//
+			lalpha=B[rank]*(lpost_new[rank]-lpost[rank]);
+
+			//Perform Metropolis Accept-Reject Step//
+			if( log(u(stream[rank])) &lt; lalpha ){
+				//Accept
+				//Proposed as Current Position
+				t1[rank*nmc+i]=t1new;
+				t2[rank*nmc+i]=t2new;
+			}else{
+				//Do not Accept
+				//Propogate Current Position
+				t1[rank*nmc+i]=t1[rank*nmc+i-1];
+				t2[rank*nmc+i]=t2[rank*nmc+i-1];
+			}
+</pre>
+<p>A few comments about the variables. &#8220;nmc&#8221; is the number of mcmc draws I wish to generate. I have two parameters which I have denoted t1 and t2, because t is closest to theta. Moreover, each processor stores its <em>nmc</em> draws of t1 and t2 in a contiguous array in the memory of length nmc times number of threads. &#8220;Rank&#8221; Identifies the thread and &#8220;lpost&#8221; and &#8220;B&#8221; are arrays of length equal to the number of threads in which to store the log posterior density at the current position and the fractional melting power. All of these variables are defined at the top of the code.</p>
+<p><a name="inter"></a><br />
+<h2>Inter-Thread Metropolis-Hastings Move</h2>
+<pre class="brush: cpp; title: ; notranslate" title="">
+
+				if(u(stream[rank]) &lt; 0.5){
+					rank_partner=rank+1;
+					if(rank_partner &lt; size){
+						//Inter-Thread Metropolis-Hastings Part
+						lalpha = (B[rank]-B[rank_partner])*(lpost[rank_partner]-lpost[rank]);
+						if(log(u(stream[rank])) &lt; lalpha){
+							//accept swap
+							swap(t1[rank*nmc+i],t1[rank_partner*nmc+i]);
+							swap(t2[rank*nmc+i],t2[rank_partner*nmc+i]);
+						}
+
+					}
+				}
+</pre>
+<p>The only additional thing to add is that each chain attempts a swap with its neighbour at each iteration with probability 1/2. There is nothing special about 1/2, you could choose what you like, but there are pros and cons. How this made parallel in OpenMP is shown below.</p>
+<p><a name="openmp"></a><br />
+<h2>OpenMP Parallelization</h2>
+<p>The OpenMP parallel implementation of the above algorithm is very simple!</p>
+<pre class="brush: plain; title: ; notranslate" title="">
+#pragma omp parallel private(i,t1new,t2new,rank,lalpha,rank_partner) shared(B, lpost, lpost_new,t1,t2,swapt1,swapt2)
+	{
+		//Identify Each Thread
+		rank=omp_get_thread_num();
+
+		for (i = 1; i &lt; nmc; ++i)
+		{
+
+                 //***Intra-Thread Metropolis Part***//
+	
+#pragma omp barrier      //Synchronise Threads
+#pragma omp critical     //Executed Critical Code Block Oney Thread at a Time. 
+			{
+
+                 //***Inter-Thread Parallel Tempering Part***//
+
+			}
+#pragma omp barrier   //Synchronise Threads
+		}
+	}
+</pre>
+<p>The first parallel pragma simply forks the master thread into a number of threads whereby each thread executes the following code block independently i.e. a number of independent parallel mcmcs. Specifying variables as private means that each thread gets a copy of that variable in its own seperate location in the memory. Shared is the opposite, although I think variables are shared by default. The barrier pragma means that each thread halts until all threads have reached this point. The critical pragma means the following code block is executed by one thread at a time only. This prevents thread j swapping with thread j+1 whilst thread j+1 is attempting a swap with thread j+2, nasty things such as race conditions can occur. The last pragma barrier waits for all threads to have reached the end and then the next iteration of the for loop proceeds.</p>
+<p><a name="fullcode"></a><br />
+<h2>Full code</h2>
+<p>The full code can be found <a href="../../../example_code/tempering.cpp">here</a>. It depends on <a href="index.html">OpenMP</a> and the <a href="../../../programming/parallel-random-number-generation-trng/index.html" title="Parallel Random Number Generation using TRNG">TRNG</a> library in order to generate multiple independent streams of random numbers. It takes the number of mcmc draws as a command-line argument.</p>
+<pre class="brush: bash; title: ; notranslate" title="">
+[michael@michael tempering]$ wget http://www.lindonslog.com/example_code/tempering.cpp
+[michael@michael tempering]$ g++ tempering.cpp -fopenmp -o tempering  -ltrng4 -lm
+[michael@michael tempering]$ ./tempering 10000
+Thread 0 has fractional power 1
+Thread 1 has fractional power 0.469117
+Thread 2 has fractional power 0.220071
+Thread 3 has fractional power 0.103239
+Thread 4 has fractional power 0.0484313
+Thread 5 has fractional power 0.0227199
+Thread 6 has fractional power 0.0106583
+Thread 7 has fractional power 0.005
+[michael@michael tempering]$
+</pre>
+<p><a name="simstudy"></a><br />
+<h2>Simulation Study</h2>
+<p>I chose the likelihood to be 5 sharply peaked normal distributions located at the corners of a sort-of unit square plus one at the origin with variances of 0.001. The prior was a normal of variance 1000 centered at the origin. The parallel tempering algorithm was run with 8 threads. The posterior draws and mixing results are below:<br />
+<div id="attachment_632" style="width: 490px" class="wp-caption aligncenter"><a href="../../../wp-content/uploads/2013/07/partempdraws.png"><img src="../../../wp-content/uploads/2013/07/partempdraws.png" alt="Posterior Draws" width="480" height="480" class="size-full wp-image-632" srcset="http://www.lindonslog.com/wp-content/uploads/2013/07/partempdraws.png 480w, http://www.lindonslog.com/wp-content/uploads/2013/07/partempdraws-150x150.png 150w, http://www.lindonslog.com/wp-content/uploads/2013/07/partempdraws-300x300.png 300w" sizes="(max-width: 480px) 100vw, 480px" /></a><p class="wp-caption-text">Posterior Draws from Parallel Tempering</p></div><br />
+<div id="attachment_630" style="width: 610px" class="wp-caption aligncenter"><a href="../../../wp-content/uploads/2013/07/parallel_tempering.png"><img src="../../../wp-content/uploads/2013/07/parallel_tempering.png" alt="parallel tempering mixing" width="600" height="900" class="size-full wp-image-630" srcset="http://www.lindonslog.com/wp-content/uploads/2013/07/parallel_tempering.png 600w, http://www.lindonslog.com/wp-content/uploads/2013/07/parallel_tempering-200x300.png 200w" sizes="(max-width: 600px) 100vw, 600px" /></a><p class="wp-caption-text">Mixing of parallel tempering algorithm</p></div></p>
+<p><a name="futureuse"></a><br />
+<h2>On the Future use of Parallel Tempering with OpenMP</h2>
+<p>I hope the code exemplifies how easy it is to run parallel MCMC chains with OpenMP. I would argue that the metropolis moves are the hardest part. If you can write them for a single serial chain, then it is only a few extra steps to run parallel chains and imlement that parallel tempering algorithm. My laptop has four cores and my office computer has eight. Given the trajectory of technology that shared memory devices have an ever increasing number of cores, it seems to me that parallel tempering is becoming an ever-more valuable algorithm to improve mixing times of MCMC runs. Afterall, had I not used the extra 3 cores on my laptop, they would have remained idle. If you have extra cores, why not use them! Moreover with OpenMP you can spawn as many parallel MCMCs as you desire, avoiding the pitalls of MPI.</p>
+<p><span class="Z3988" title="ctx_ver=Z39.88-2004&#038;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Ajournal&#038;rft_id=info%3Adoi%2F10.1039%2Fb509983h&#038;rft.atitle=Parallel+tempering%3A+Theory%2C+applications%2C+and+new+perspectives&#038;rft.jtitle=Physical+Chemistry+Chemical+Physics&#038;rft.artnum=http%3A%2F%2Fxlink.rsc.org%2F%3FDOI%3Db509983h&#038;rft.volume=7&#038;rft.issue=23&#038;rft.issn=1463-9076&#038;rft.spage=3910&#038;rft.date=2005&#038;rfr_id=info%3Asid%2Fscienceseeker.org&#038;rft.au=Earl+David+J.&#038;rft.aulast=Earl&#038;rft.aufirst=David+J.&#038;rft.au=Deem+Michael+W.&#038;rft.aulast=Deem&#038;rft.aufirst=Michael+W.&#038;rfs_dat=ss.included=1&#038;rfe_dat=bpr3.included=1;bpr3.tags=Chemistry%2CComputer+Science+%2F+Engineering%2CMathematics%2CPhysics">Earl D.J. &#038; Deem M.W. (2005). Parallel tempering: Theory, applications, and new perspectives, <span style="font-style:italic;">Physical Chemistry Chemical Physics, 7</span> (23) 3910. DOI: <a rel="author" href="http://dx.doi.org/10.1039%2Fb509983h">10.1039/b509983h</a></span></p>
+					</div><!-- .entry-content -->
+
+</div>	
+
+</article><!-- #post-605 -->
+
+				
+					
+<article id="post-87" class="grid_6 post-87 post type-post status-publish format-standard hentry category-openmp">
+
+<div class="format-box">
+<i class="icon-file"></i>
+</div>
+
+<div class="post-cover">
+
+	<div class="entry-meta">
+		<span class="clock"> <i class="icon-time"></i> 1441 days ago</span> 
+		<span class="comments-link"> <i class="icon-comment"></i>  <a href="../../../programming/openmp/openmp-tutorial-firstprivate-and-lastprivate/index.html#comments"><span class="dsq-postid" data-dsqidentifier="87 http://www.lindonslog.com/?p=87">2 Comments</span></a></span>
+		<span class="perml"> <i class="icon-bolt"></i> <a href="../../../programming/openmp/openmp-tutorial-firstprivate-and-lastprivate/index.html" rel="bookmark">Permalink</a></span>
+	</div><!-- #entry-meta -->
+	
+	<header class="entry-header">
+		<h2 class="entry-title">OpenMP Tutorial &#8211; firstprivate and lastprivate</h2>
+	</header><!-- .entry-header -->
+
+	<div class="entry-content">
+								
+								
+				<p>Here I will consider firstprivate and lastprivate. Recall one of the earlier entries about private variables. When a variable is declared as private, each thread gets a unique memory address of where to store values for that variable while in the parallel region. When the parallel region ends, the memory is freed and these variables no longer exist. Consider the following bit of code as an example:</p>
+<pre class="brush: cpp; title: ; notranslate" title="">
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;omp.h&gt;
+
+
+int main(void){
+int i;
+int x;
+x=44;
+#pragma omp parallel for private(x) 
+for(i=0;i&lt;=10;i++){
+x=i;
+printf(&quot;Thread number: %d     x: %d\n&quot;,omp_get_thread_num(),x);
+}
+printf(&quot;x is %d\n&quot;, x);
+
+
+}
+</pre>
+<p>Yields&#8230;</p>
+<pre class="brush: bash; title: ; notranslate" title="">
+Thread number: 0     x: 0
+Thread number: 0     x: 1
+Thread number: 0     x: 2
+Thread number: 3     x: 9
+Thread number: 3     x: 10
+Thread number: 2     x: 6
+Thread number: 2     x: 7
+Thread number: 2     x: 8
+Thread number: 1     x: 3
+Thread number: 1     x: 4
+Thread number: 1     x: 5
+x is 44
+</pre>
+<p>You&#8217;ll notice that x is exactly the value it was before the parallel region.</p>
+<p>Suppose we wanted to keep the last value of x after the parallel region. This can be achieved with lastprivate. Replace private(x) with lastprivate(x) and this is the result:</p>
+<pre class="brush: bash; title: ; notranslate" title="">
+Thread number: 3     x: 9
+Thread number: 3     x: 10
+Thread number: 1     x: 3
+Thread number: 1     x: 4
+Thread number: 1     x: 5
+Thread number: 0     x: 0
+Thread number: 0     x: 1
+Thread number: 0     x: 2
+Thread number: 2     x: 6
+Thread number: 2     x: 7
+Thread number: 2     x: 8
+x is 10
+</pre>
+<p>Notice that it is 10 and not 8. That is to say, it is the last iteration which is kept, not the last operation. Now what if we replace lastprivate(x) with firstprivate(x). What do you think it will do? This:</p>
+<pre class="brush: bash; title: ; notranslate" title="">
+Thread number: 3     x: 9
+Thread number: 3     x: 10
+Thread number: 1     x: 3
+Thread number: 1     x: 4
+Thread number: 1     x: 5
+Thread number: 0     x: 0
+Thread number: 0     x: 1
+Thread number: 0     x: 2
+Thread number: 2     x: 6
+Thread number: 2     x: 7
+Thread number: 2     x: 8
+x is 44
+</pre>
+<p>If you were like me, you were expecting to get the value 0 i.e. the value of x on the first iteration. <strong>NO</strong> </p>
+<blockquote><p>firstprivate Specifies that each thread should have its own instance of a variable, and that the variable should be initialized with the value of the variable, because it exists before the parallel construct.</p></blockquote>
+<p>That is, every thread gets its own instance of x and that instance equals 44.</p>
+					</div><!-- .entry-content -->
+
+</div>	
+
+</article><!-- #post-87 -->
+
+				
+					
+<article id="post-78" class="grid_6 post-78 post type-post status-publish format-standard hentry category-openmp category-programming">
+
+<div class="format-box">
+<i class="icon-file"></i>
+</div>
+
+<div class="post-cover">
+
+	<div class="entry-meta">
+		<span class="clock"> <i class="icon-time"></i> 1895 days ago</span> 
+		<span class="comments-link"> <i class="icon-comment"></i>  <a href="../../../programming/openmp/openmp-tutorial-critical-atomic-and-reduction/index.html#comments"><span class="dsq-postid" data-dsqidentifier="78 http://www.lindonslog.com/?p=78">2 Comments</span></a></span>
+		<span class="perml"> <i class="icon-bolt"></i> <a href="../../../programming/openmp/openmp-tutorial-critical-atomic-and-reduction/index.html" rel="bookmark">Permalink</a></span>
+	</div><!-- #entry-meta -->
+	
+	<header class="entry-header">
+		<h2 class="entry-title">OpenMP Tutorial &#8211; Critical, Atomic and Reduction</h2>
+	</header><!-- .entry-header -->
+
+	<div class="entry-content">
+								
+								
+				<h2> Atomic and Critical</h2>
+<blockquote>
+<ul>
+<li><em>critical</em>: the enclosed code block will be executed by only one thread at a time, and not simultaneously executed by multiple threads. It is often used to protect shared data fromrace conditions.</li>
+<li><em>atomic</em>: the memory update (write, or read-modify-write) in the next instruction will be performed atomically. It does not make the entire statement atomic; only the memory update is atomic. A compiler might use special hardware instructions for better performance than when using <em>critical</em>.</li>
+</ul>
+</blockquote>
+<p>Consider this code which numerically approximates pi:</p>
+<pre class="brush: cpp; title: ; notranslate" title="">
+
+int main(void){
+double pi,x;
+int i,N;
+pi=0.0;
+N=1000;
+#pragma omp parallel for
+for(i=0;i x=(double)i/N;
+pi+=4/(1+x*x);
+}
+pi=pi/N;
+printf(&quot;Pi is %f\n&quot;,pi);
+}
+</pre>
+<p>We compile this with gcc main.c -o test, ignoring the -fopenmp options, this means that the #pragma omp parallel for will be interpreted as a comment i.e. ignored. We run it and this is the result:<br />
+<
+Now compile with the -fopenmp option and run:
+
+Oh dear... Let's examine what went wrong. Well, by default and as we have not specified it as private, the variable x is shared. This means all threads have the same memory address of the variable x. Therefore, thread i will compute some value at x and store it at memory address &amp;x, thread j will then compute its value of x and store it at &amp;x <strong>BEFORE</strong> thread i has used its value to make its contribution to pi. The threads are all over writing each others values of x because they all have the same memory address for x. Our first correction is that x must be made private:<br />
+<code>#pragma omp parallel for private(x)</code></p>
+<p>Secondly, we have a <strong>&#8220;Race Condition&#8221;</strong> for pi. Let me illustrate this with a simple example. Here is what would ideally happen:</p>
+<p>&nbsp;</p>
+<ul>
+<li>Thread 1 reads the current value of pi : 0</li>
+<li>Thread 1 increments the value of pi : 1</li>
+<li>Thread 1 stores the new value of pi: 1</li>
+<li>Thread 2 reads the current value of pi: 1</li>
+<li>Thread 2 increments the value of pi: 2</li>
+<li>Thread 2 stores the value of pi: 2</li>
+</ul>
+<p>What is actually happening is more like this:</p>
+<ul>
+<li>Thread 1 reads the current value of pi: 0</li>
+<li>Thread 2 reads the current value of pi: 0</li>
+<li>Thread 1 increments pi: 1</li>
+<li>Thread 2 increments pi: 1</li>
+<li>Thread 1 stores its value of pi: 1</li>
+<li>Thread 2 stores its value of pi: 1</li>
+</ul>
+<p>The way to correct this is to tell the code to execute the read/write of pi only one thread at a time. This can be achieved with critical or atomic. Add<br />
+<code>#pragma omp atomic</code> Just before pi get&#8217;s updated and you&#8217;ll see that it works.</p>
+<p>This scenario crops up time and time again where you are updating some value inside a parallel loop so in the end it had its own clause made for it. All the above can be achieved by simply making pi a<strong> reduction variable</strong>. </p>
+<h2>Reduction</h2>
+<p>To make pi a reduction variable the code is changed as follows:</p>
+<p>&nbsp;</p>
+<pre class="brush: cpp; title: ; notranslate" title="">
+int main(void){
+double pi,x;
+int i,N;
+pi=0.0;
+N=1000;
+#pragma omp parallel for private(x) reduction(+:pi)
+for(i=0;i&amp;lt;N;i++){
+x=(double)i/N;
+pi+=4/(1+x*x);
+}
+pi=pi/N;
+printf(&quot;Pi is %f\n&quot;,pi);
+}
+</pre>
+<p>This is simply the quick and neat way of achieving all what we did above.</p>
+					</div><!-- .entry-content -->
+
+</div>	
+
+</article><!-- #post-78 -->
+
+				
+					
+<article id="post-65" class="grid_6 post-65 post type-post status-publish format-standard hentry category-openmp">
+
+<div class="format-box">
+<i class="icon-file"></i>
+</div>
+
+<div class="post-cover">
+
+	<div class="entry-meta">
+		<span class="clock"> <i class="icon-time"></i> 1896 days ago</span> 
+		<span class="comments-link"> <i class="icon-comment"></i>  <a href="../../../programming/openmp/openmp-tutorial-work-sharing/index.html#respond"><span class="dsq-postid" data-dsqidentifier="65 http://www.lindonslog.com/?p=65">Leave a comment</span></a></span>
+		<span class="perml"> <i class="icon-bolt"></i> <a href="../../../programming/openmp/openmp-tutorial-work-sharing/index.html" rel="bookmark">Permalink</a></span>
+	</div><!-- #entry-meta -->
+	
+	<header class="entry-header">
+		<h2 class="entry-title">OpenMP Parallel For</h2>
+	</header><!-- .entry-header -->
+
+	<div class="entry-content">
+								
+								
+				<p>The parallel directive <code>#pragma omp parallel</code> makes the code parallel, that is, it forks the master thread into a number of parallel threads, but it doesn&#8217;t actually share out the work.<br />
+What we are really after is the parallel for directive, which we call a <strong>work-sharing</strong> construct. Consider</p>
+<pre class="brush: cpp; title: ; notranslate" title="">
+#include &lt;iostream&gt;
+#include &lt;omp.h&gt;
+
+using namespace std;
+main (void)
+{
+	int i;
+	int foo;
+#pragma omp parallel for
+  for(i=1;i&lt;10;i++){
+#pragma omp critical
+{
+foo=omp_get_thread_num();
+	  cout &lt;&lt; &quot;Loop number: &quot;&lt;&lt; i &lt;&lt; &quot; &quot; &lt;&lt; &quot;Thread number: &quot; &lt;&lt; foo &lt;&lt; endl;
+}
+}
+}
+</pre>
+<p>The for directive applies to the for loop immediately preceding it. Notice how we don&#8217;t have to outline a parallel region with curly braces {} following this directive in contrast to before. This program yields:</p>
+<pre class="brush: bash; title: ; notranslate" title="">
+[michael@michael lindonslog]$ ./openmp 
+Loop number: 1 Thread number: 0
+Loop number: 8 Thread number: 3
+Loop number: 2 Thread number: 0
+Loop number: 3 Thread number: 0
+Loop number: 9 Thread number: 3
+Loop number: 6 Thread number: 2
+Loop number: 4 Thread number: 1
+Loop number: 7 Thread number: 2
+Loop number: 5 Thread number: 1
+[michael@michael lindonslog]$ 
+</pre>
+<p>Notice what I said about the order. By default, the loop index i.e. &#8220;i&#8221; in this context, is made private by the for directive.</p>
+<p>At the end of the parallel for loop, there is an implicit barrier where all threads wait until they have all finished. There are however some rules for the parallel for directive</p>
+<ol>
+<li>The loop index, i, is incremented by a fixed amount each iteration e.g. i++ or i+=step.</li>
+<li>The start and end values must not change during the loop.</li>
+<li>There must be no &#8220;breaks&#8221; in the loop where the code steps out of that code block. Functions are, however, permitted and run as you would expect.</li>
+<li>The comparison operators may be &lt; &lt;= =&gt; &gt;</li>
+</ol>
+<p>There may be times when you want to perform some operation in the order of the iterations. This can be achieved with an ordered directive and an ordered clause. Each thread will wait until the previous iteration has finished it&#8217;s ordered section before proceeding with its own.</p>
+<pre class="brush: cpp; title: ; notranslate" title="">
+int main(void){
+int i,a[10];
+#pragma omp parallel for ordered 
+for(i=0;i&lt;10;i++){
+a[i]=expensive_function(i);
+#pragma omp ordered
+printf(&quot;Thread ID: %d    Hello World %d\n&quot;,omp_get_thread_num(),i);
+}
+}
+</pre>
+<p>Will now print out the Hello Worlds in order. N.B. There is a penalty for this. The threads have to wait until the preceding iteration has finished with its ordered section of code. Only if the expensive_function() in this case were expensive, would this be worthwhile.</p>
+					</div><!-- .entry-content -->
+
+</div>	
+
+</article><!-- #post-65 -->
+
+				
+					
+<article id="post-56" class="grid_6 post-56 post type-post status-publish format-standard hentry category-openmp tag-c tag-openmp-2 tag-parallel tag-programming-2">
+
+<div class="format-box">
+<i class="icon-file"></i>
+</div>
+
+<div class="post-cover">
+
+	<div class="entry-meta">
+		<span class="clock"> <i class="icon-time"></i> 1896 days ago</span> 
+		<span class="comments-link"> <i class="icon-comment"></i>  <a href="../../../programming/openmp/openmp-tutorial-thinking-parallel/index.html#respond"><span class="dsq-postid" data-dsqidentifier="56 http://www.lindonslog.com/?p=56">Leave a comment</span></a></span>
+		<span class="perml"> <i class="icon-bolt"></i> <a href="../../../programming/openmp/openmp-tutorial-thinking-parallel/index.html" rel="bookmark">Permalink</a></span>
+	</div><!-- #entry-meta -->
+	
+	<header class="entry-header">
+		<h2 class="entry-title">Parallel Programming in C with OpenMP</h2>
+	</header><!-- .entry-header -->
+
+	<div class="entry-content">
+								
+								
+				<h2>OpenMP &#8211; Open Specifications for Multi Processing</h2>
+<p>The central theme of parallel code is that of threads. A serial code starts off as one thread. As soon as the first parallel directive(Fortran)/pragma(C) is encountered, the master thread forks into a number of threads. The proceeding code is then executed in parallel in a manner which can be adjusted using certain options.</p>
+<p>To get started with OpenMP. You will need to include the omp header file with<br />
+ <code>#include &lt;omp.h&gt;</code><br />
+ and you will need to add the -fopenmp option when compiling.</p>
+<p>To fork the master thread into a number of parallel threads, one writes the following line of code:<br />
+<code>#pragma omp parallel</code><br />
+This directive will apply to the following block of code, {&#8230;}, only and must be structured as such. By default, all variables previously declared are shared i.e. all threads have the same memory address of a shared variable. This can, however, be declared explicitly by adding <code>shared(var_name)</code>. Conversely, you may want to make variables private, that is, each thread gets allocated a unique location in the memory to store this variable. Private variables are only accessed by the threads they are in and all the additional copies of the variable created for parallisation are destroyed when the threads merge. There are also reduction variables. More on that later&#8230;</p>
+<p>Lets try an example. When you execute your code, it will inherit the OMP_NUM_THREADS environment variable of your terminal. Suppose we want to set the number of threads to 4. We write</p>
+<pre class="brush: bash; title: ; notranslate" title="">
+prog@michael-laptop:~$ export OMP_NUM_THREADS=4
+prog@michael-laptop:~$ echo $OMP_NUM_THREADS
+4
+prog@michael-laptop:~$ 
+</pre>
+<p>You can also specify the number of threads during run time with the omp_set_num_threads() function defined in omp.h</p>
+<p>Good. Now here&#8217;s our sample code:</p>
+<pre class="brush: cpp; title: ; notranslate" title="">
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;omp.h&gt;
+
+int main(void){
+printf(&quot;Number of threads before parallisation: %d\n&quot;,omp_get_num_threads());
+#pragma omp parallel 
+{
+printf(&quot;Current thread number: %d\n&quot;,omp_get_thread_num());
+if(omp_get_thread_num()==0)
+{
+printf(&quot;Number of threads after parallisation: %d\n&quot;,omp_get_num_threads());
+}
+}
+printf(&quot;Number of threads after merging threads %d\n&quot;,omp_get_num_threads());
+}
+</pre>
+<p>compile and run:</p>
+<pre class="brush: bash; title: ; notranslate" title="">
+prog@michael-laptop:~$ g++ openmp.cpp -o test -fopenmp
+prog@michael-laptop:~$ ./test
+Number of threads before parallisation: 1
+Current thread number: 3
+Current thread number: 1
+Current thread number: 0
+Number of threads after parallisation: 4
+Current thread number: 2
+Number of threads after merging threads 1
+</pre>
+<p>Next I&#8217;ll talk about work sharing&#8230;</p>
+					</div><!-- .entry-content -->
+
+</div>	
+
+</article><!-- #post-56 -->
+
+				
+				<div class="clear"></div>
+				
+			
+			</div><!-- #content .site-content -->
+		</section><!-- #primary .content-area -->
+
+
+	</div><!-- #main .site-main -->
+
+<div id="bottom">
+<div class="container_6 cf">
+
+<li class="botwid grid_2 widget_categories"><h3 class="bothead">Categories</h3>		<ul>
+	<li class="cat-item cat-item-3"><a href="../../linux-unix/index.html" >Linux/Unix</a> (16)
+</li>
+	<li class="cat-item cat-item-5"><a href="../../mathematics/index.html" >Mathematics</a> (22)
+<ul class='children'>
+	<li class="cat-item cat-item-10"><a href="../../mathematics/linear-algebra/index.html" >Linear Algebra</a> (5)
+</li>
+	<li class="cat-item cat-item-7"><a href="../../mathematics/statistics/index.html" >Statistics</a> (17)
+</li>
+</ul>
+</li>
+	<li class="cat-item cat-item-6 current-cat-parent current-cat-ancestor"><a href="../index.html" >Programming</a> (24)
+<ul class='children'>
+	<li class="cat-item cat-item-48"><a href="../clojure/index.html" >clojure</a> (1)
+</li>
+	<li class="cat-item cat-item-51"><a href="../functional-programming/index.html" >functional programming</a> (1)
+</li>
+	<li class="cat-item cat-item-50"><a href="../haskell-programming/index.html" >haskell</a> (1)
+</li>
+	<li class="cat-item cat-item-40"><a href="../julia/index.html" >julia</a> (2)
+</li>
+	<li class="cat-item cat-item-4 current-cat"><a href="index.html" >OpenMP</a> (6)
+</li>
+	<li class="cat-item cat-item-11"><a href="../r/index.html" >R</a> (12)
+</li>
+	<li class="cat-item cat-item-43"><a href="../scala/index.html" >scala</a> (1)
+</li>
+</ul>
+</li>
+		</ul>
+</li>		<li class="botwid grid_2 widget_recent_entries">		<h3 class="bothead">Recent Posts</h3>		<ul>
+					<li>
+				<a href="../../../programming/partial-application-functions-julia/index.html">Partial Application for Functions in Julia</a>
+						</li>
+					<li>
+				<a href="../../../programming/newtons-iteration-scala-clojure-haskell/index.html">Newtons Iteration in Scala, Clojure and Haskell Comparison</a>
+						</li>
+					<li>
+				<a href="../../../mathematics/statistics/mala-metropolis-adjusted-langevin-algorithm-julia/index.html">MALA &#8211; Metropolis Adjusted Langevin Algorithm in Julia</a>
+						</li>
+					<li>
+				<a href="../../../programming/passing-julia-type-to-c-function-as-struct/index.html">Passing Julia Type to C Function as Struct</a>
+						</li>
+					<li>
+				<a href="../../../linux-unix/send-lines-code-vim-r-julia-python-repl-slime/index.html">Send Lines of Code from Vim to R/Julia/Python REPL</a>
+						</li>
+					<li>
+				<a href="../../../linux-unix/c-merge-sort-algorithm/index.html">C++ Merge Sort Algorithm</a>
+						</li>
+					<li>
+				<a href="../../../programming/generate-random-inverse-gaussian-r/index.html">Generate Random Inverse Gaussian in R</a>
+						</li>
+					<li>
+				<a href="../../../mathematics/statistics/generalized-double-pareto-shrinkage-priors-sparse-estimation-regression/index.html">Generalized Double Pareto Priors for Regression</a>
+						</li>
+					<li>
+				<a href="../../../mathematics/em-algorithm-bayesian-lasso-r-cpp-code/index.html">EM Algorithm for Bayesian Lasso R Cpp Code</a>
+						</li>
+				</ul>
+		</li>			<div class="squarebanner grid_2 cf">
+	<h3 class="bothead"> Sponsors </h3>
+<ul><li>
+<a rel="nofollow" href="index.html" title=""><img src="index.html" alt="" style="vertical-align:bottom;" /></a>
+</li>			
+
+<li>
+<a rel="nofollow" href="index.html" title=""><img src="index.html" alt="" style="vertical-align:bottom;" /></a>
+</li>
+
+<li>
+<a rel="nofollow" href="index.html" title=""><img src="index.html" alt="" style="vertical-align:bottom;" /></a>
+</li>
+
+<li>
+<a rel="nofollow" href="index.html" title=""><img src="index.html" alt="" style="vertical-align:bottom;" /></a>
+</li></ul>
+</div></div>
+</div>
+
+
+	<footer id="colophon" class="site-footer" role="contentinfo">
+	<div class="container_6">
+	<div class="site-info">
+			<div class="fcred">
+			Copyright &copy; 2016 <a href="../../../index.html" title="Lindons Log">Lindons Log</a> - .<br />
+ | <a href="http://fabthemes.com/Winter/" >Winter WordPress Theme</a>
+			</div>		
+		</div><!-- .site-info -->	
+		</footer><!-- #colophon .site-footer -->
+	
+</div><!-- #page .hfeed .site -->
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-40536457-1', 'lindonslog.com');
+  ga('send', 'pageview');
+
+</script><!-- MathJax Latex Plugin installed: Disabled as no shortcodes on this page -->	<div style="display:none">
+	</div>
+<script type="text/javascript">var elLogo = document.getElementById("ft_logo"); if (elLogo) {elLogo.style.maxHeight = elLogo.getAttribute("relHeight") ? elLogo.getAttribute("relHeight") + "px" : "100px";} if (elLogo) {elLogo.style.maxWidth = elLogo.getAttribute("relWidth") ? elLogo.getAttribute("relWidth") + "px" : "100px";}</script><script type='text/javascript' src='../../../wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/scripts/shCore.js%3Fver=3.0.9b'></script>
+<script type='text/javascript' src='../../../wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/scripts/shBrushBash.js%3Fver=3.0.9b'></script>
+<script type='text/javascript' src='../../../wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/scripts/shBrushCpp.js%3Fver=3.0.9b'></script>
+<script type='text/javascript' src='../../../wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/scripts/shBrushPlain.js%3Fver=3.0.9b'></script>
+<script type='text/javascript'>
+	(function(){
+		var corecss = document.createElement('link');
+		var themecss = document.createElement('link');
+		var corecssurl = "http://www.lindonslog.com/wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/styles/shCore.css?ver=3.0.9b";
+		if ( corecss.setAttribute ) {
+				corecss.setAttribute( "rel", "stylesheet" );
+				corecss.setAttribute( "type", "text/css" );
+				corecss.setAttribute( "href", corecssurl );
+		} else {
+				corecss.rel = "stylesheet";
+				corecss.href = corecssurl;
+		}
+		document.getElementsByTagName("head")[0].insertBefore( corecss, document.getElementById("syntaxhighlighteranchor") );
+		var themecssurl = "http://www.lindonslog.com/wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/styles/shThemeDefault.css?ver=3.0.9b";
+		if ( themecss.setAttribute ) {
+				themecss.setAttribute( "rel", "stylesheet" );
+				themecss.setAttribute( "type", "text/css" );
+				themecss.setAttribute( "href", themecssurl );
+		} else {
+				themecss.rel = "stylesheet";
+				themecss.href = themecssurl;
+		}
+		//document.getElementById("syntaxhighlighteranchor").appendChild(themecss);
+		document.getElementsByTagName("head")[0].insertBefore( themecss, document.getElementById("syntaxhighlighteranchor") );
+	})();
+	SyntaxHighlighter.config.strings.expandSource = '+ expand source';
+	SyntaxHighlighter.config.strings.help = '?';
+	SyntaxHighlighter.config.strings.alert = 'SyntaxHighlighter\n\n';
+	SyntaxHighlighter.config.strings.noBrush = 'Can\'t find brush for: ';
+	SyntaxHighlighter.config.strings.brushNotHtmlScript = 'Brush wasn\'t configured for html-script option: ';
+	SyntaxHighlighter.defaults['pad-line-numbers'] = false;
+	SyntaxHighlighter.defaults['toolbar'] = false;
+	SyntaxHighlighter.all();
+</script>
+<script type='text/javascript' src='http://s0.wp.com/wp-content/js/devicepx-jetpack.js?ver=201652'></script>
+<script type='text/javascript' src='http://s.gravatar.com/js/gprofiles.js?ver=2016Decaa'></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var WPGroHo = {"my_hash":""};
+/* ]]> */
+</script>
+<script type='text/javascript' src='../../../wp-content/plugins/jetpack/modules/wpgroho.js%3Fver=4.6.1'></script>
+<script type='text/javascript' src='../../../wp-content/themes/Winter/js/superfish.js%3Fver=20120206'></script>
+<script type='text/javascript' src='../../../wp-includes/js/wp-embed.min.js%3Fver=4.6.1'></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var countVars = {"disqusShortname":"michaellindon"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='../../../wp-content/plugins/disqus-comment-system/media/js/count.js%3Fver=4.6.1'></script>
+<script type='text/javascript' src='http://stats.wp.com/e-201652.js' async defer></script>
+<script type='text/javascript'>
+	_stq = window._stq || [];
+	_stq.push([ 'view', {v:'ext',j:'1:3.9.7',blog:'27325203',post:'0',tz:'-4',srv:'www.lindonslog.com'} ]);
+	_stq.push([ 'clickTrackerInit', '27325203', '0' ]);
+</script>
+
+</body>
+</html>

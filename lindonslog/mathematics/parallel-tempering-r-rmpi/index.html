@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="en-US" prefix="og: http://ogp.me/ns#">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width" />
+
+<link rel="profile" href="http://gmpg.org/xfn/11" />
+<link rel="pingback" href="http://www.lindonslog.com/xmlrpc.php" />
+<link href='http://fonts.googleapis.com/css?family=Economica:400,400italic,700,700italic' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=PT+Sans:400,700' rel='stylesheet' type='text/css'>
+<!--[if lt IE 9]>
+<script src="http://www.lindonslog.com/wp-content/themes/Winter/js/html5.js" type="text/javascript"></script>
+<![endif]-->
+
+
+<!-- This site is optimized with the Yoast SEO plugin v3.1.2 - https://yoast.com/wordpress/plugins/seo/ -->
+<title>Parallel Tempering in R with Rmpi - Lindons Log</title>
+<meta name="description" content="An introduction to parallel and distributed computing in R using Rmpi exemplified by parallel tempering - metropolis coupled Markov chain monte carlo mcmc."/>
+<meta name="robots" content="noodp"/>
+<link rel="canonical" href="index.html" />
+<meta property="og:locale" content="en_US" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Parallel Tempering in R with Rmpi - Lindons Log" />
+<meta property="og:description" content="An introduction to parallel and distributed computing in R using Rmpi exemplified by parallel tempering - metropolis coupled Markov chain monte carlo mcmc." />
+<meta property="og:url" content="http://www.lindonslog.com/mathematics/parallel-tempering-r-rmpi/" />
+<meta property="og:site_name" content="Lindons Log" />
+<meta property="article:tag" content="mcmc" />
+<meta property="article:tag" content="metropolis coupled" />
+<meta property="article:tag" content="mpi" />
+<meta property="article:tag" content="parallel" />
+<meta property="article:tag" content="parallel tempering" />
+<meta property="article:tag" content="R" />
+<meta property="article:tag" content="rmpi" />
+<meta property="article:section" content="Mathematics" />
+<meta property="article:published_time" content="2013-10-07T01:00:54+00:00" />
+<meta property="article:modified_time" content="2013-11-21T09:07:48+00:00" />
+<meta property="og:updated_time" content="2013-11-21T09:07:48+00:00" />
+<meta property="og:image" content="http://www.lindonslog.com/wp-content/uploads/2013/10/parallel_tempering_mixing.jpeg" />
+<meta property="og:image:width" content="1000" />
+<meta property="og:image:height" content="1000" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:description" content="An introduction to parallel and distributed computing in R using Rmpi exemplified by parallel tempering - metropolis coupled Markov chain monte carlo mcmc." />
+<meta name="twitter:title" content="Parallel Tempering in R with Rmpi - Lindons Log" />
+<meta name="twitter:site" content="@lindonslog" />
+<meta name="twitter:image" content="http://www.lindonslog.com/wp-content/uploads/2013/10/parallel_tempering_mixing.jpeg" />
+<meta name="twitter:creator" content="@lindonslog" />
+<!-- / Yoast SEO plugin. -->
+
+<link rel='dns-prefetch' href='http://s0.wp.com/' />
+<link rel='dns-prefetch' href='http://s.gravatar.com/' />
+<link rel='dns-prefetch' href='http://s.w.org/' />
+<link rel="alternate" type="application/rss+xml" title="Lindons Log &raquo; Feed" href="../../feed/index.html" />
+<link rel="alternate" type="application/rss+xml" title="Lindons Log &raquo; Comments Feed" href="../../comments/feed/index.html" />
+<link rel="alternate" type="application/rss+xml" title="Lindons Log &raquo; Parallel Tempering in R with Rmpi Comments Feed" href="feed/index.html" />
+		<script type="text/javascript">
+			window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/2\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/2\/svg\/","svgExt":".svg","source":{"concatemoji":"http:\/\/www.lindonslog.com\/wp-includes\/js\/wp-emoji-release.min.js?ver=4.6.1"}};
+			!function(a,b,c){function d(a){var c,d,e,f,g,h=b.createElement("canvas"),i=h.getContext&&h.getContext("2d"),j=String.fromCharCode;if(!i||!i.fillText)return!1;switch(i.textBaseline="top",i.font="600 32px Arial",a){case"flag":return i.fillText(j(55356,56806,55356,56826),0,0),!(h.toDataURL().length<3e3)&&(i.clearRect(0,0,h.width,h.height),i.fillText(j(55356,57331,65039,8205,55356,57096),0,0),c=h.toDataURL(),i.clearRect(0,0,h.width,h.height),i.fillText(j(55356,57331,55356,57096),0,0),d=h.toDataURL(),c!==d);case"diversity":return i.fillText(j(55356,57221),0,0),e=i.getImageData(16,16,1,1).data,f=e[0]+","+e[1]+","+e[2]+","+e[3],i.fillText(j(55356,57221,55356,57343),0,0),e=i.getImageData(16,16,1,1).data,g=e[0]+","+e[1]+","+e[2]+","+e[3],f!==g;case"simple":return i.fillText(j(55357,56835),0,0),0!==i.getImageData(16,16,1,1).data[0];case"unicode8":return i.fillText(j(55356,57135),0,0),0!==i.getImageData(16,16,1,1).data[0];case"unicode9":return i.fillText(j(55358,56631),0,0),0!==i.getImageData(16,16,1,1).data[0]}return!1}function e(a){var c=b.createElement("script");c.src=a,c.type="text/javascript",b.getElementsByTagName("head")[0].appendChild(c)}var f,g,h,i;for(i=Array("simple","flag","unicode8","diversity","unicode9"),c.supports={everything:!0,everythingExceptFlag:!0},h=0;h<i.length;h++)c.supports[i[h]]=d(i[h]),c.supports.everything=c.supports.everything&&c.supports[i[h]],"flag"!==i[h]&&(c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&c.supports[i[h]]);c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&!c.supports.flag,c.DOMReady=!1,c.readyCallback=function(){c.DOMReady=!0},c.supports.everything||(g=function(){c.readyCallback()},b.addEventListener?(b.addEventListener("DOMContentLoaded",g,!1),a.addEventListener("load",g,!1)):(a.attachEvent("onload",g),b.attachEvent("onreadystatechange",function(){"complete"===b.readyState&&c.readyCallback()})),f=c.source||{},f.concatemoji?e(f.concatemoji):f.wpemoji&&f.twemoji&&(e(f.twemoji),e(f.wpemoji)))}(window,document,window._wpemojiSettings);
+		</script>
+		<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+<link rel='stylesheet' id='papercite_css-css'  href='../../wp-content/plugins/papercite/papercite.css%3Fver=4.6.1.css' type='text/css' media='all' />
+<link rel='stylesheet' id='style-css'  href='../../wp-content/themes/Winter/style.css%3Fver=4.6.1.css' type='text/css' media='all' />
+<link rel='stylesheet' id='grid-css'  href='../../wp-content/themes/Winter/css/grid.css%3Fver=4.6.1.css' type='text/css' media='all' />
+<link rel='stylesheet' id='wp-style-css'  href='../../wp-content/themes/Winter/css/wp-style.css%3Fver=4.6.1.css' type='text/css' media='all' />
+<link rel='stylesheet' id='fontwaesome-css'  href='../../wp-content/themes/Winter/css/font-awesome.css%3Fver=4.6.1.css' type='text/css' media='all' />
+<link rel='stylesheet' id='fontwaesome-ie-css'  href='../../wp-content/themes/Winter/css/font-awesome-ie7.css%3Fver=4.6.1.css' type='text/css' media='all' />
+<link rel='stylesheet' id='flexslider-css'  href='../../wp-content/themes/Winter/css/flexslider.css%3Fver=4.6.1.css' type='text/css' media='all' />
+<link rel='stylesheet' id='fancybox-css'  href='../../wp-content/themes/Winter/css/jquery.fancybox.css%3Fver=4.6.1.css' type='text/css' media='all' />
+<link rel='stylesheet' id='genericons-css'  href='../../wp-content/plugins/jetpack/_inc/genericons/genericons/genericons.css%3Fver=3.1.css' type='text/css' media='all' />
+<link rel='stylesheet' id='jetpack_css-css'  href='../../wp-content/plugins/jetpack/css/jetpack.css%3Fver=3.9.7.css' type='text/css' media='all' />
+<script type='text/javascript' src='../../wp-includes/js/jquery/jquery.js%3Fver=1.12.4'></script>
+<script type='text/javascript' src='../../wp-includes/js/jquery/jquery-migrate.min.js%3Fver=1.4.1'></script>
+<script type='text/javascript' src='../../wp-content/plugins/papercite/js/papercite.js%3Fver=4.6.1'></script>
+<script type='text/javascript' src='../../wp-content/themes/Winter/js/jquery.flexslider-min.js%3Fver=1'></script>
+<script type='text/javascript' src='../../wp-content/themes/Winter/js/jquery.fancybox.pack.js%3Fver=1'></script>
+<script type='text/javascript' src='../../wp-content/themes/Winter/js/jwplayer.js%3Fver=1'></script>
+<script type='text/javascript' src='../../wp-content/themes/Winter/js/custom.js%3Fver=1'></script>
+<link rel='https://api.w.org/' href='../../wp-json/index.html' />
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="../../xmlrpc.php%3Frsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="../../wp-includes/wlwmanifest.xml" /> 
+<meta name="generator" content="WordPress 4.6.1" />
+<link rel='shortlink' href='http://wp.me/p1QEx5-ef' />
+<link rel="alternate" type="application/json+oembed" href="../../wp-json/oembed/1.0/embed%3Furl=http%253A%252F%252Fwww.lindonslog.com%252Fmathematics%252Fparallel-tempering-r-rmpi%252F" />
+<link rel="alternate" type="text/xml+oembed" href="../../wp-json/oembed/1.0/embed%3Furl=http%253A%252F%252Fwww.lindonslog.com%252Fmathematics%252Fparallel-tempering-r-rmpi%252F&amp;format=xml" />
+
+<link rel='dns-prefetch' href='http://jetpack.wordpress.com/'>
+<link rel='dns-prefetch' href='http://s0.wp.com/'>
+<link rel='dns-prefetch' href='http://s1.wp.com/'>
+<link rel='dns-prefetch' href='http://s2.wp.com/'>
+<link rel='dns-prefetch' href='http://public-api.wordpress.com/'>
+<link rel='dns-prefetch' href='http://0.gravatar.com/'>
+<link rel='dns-prefetch' href='http://1.gravatar.com/'>
+<link rel='dns-prefetch' href='http://2.gravatar.com/'>
+<link rel='dns-prefetch' href='http://widgets.wp.com/'>
+<style type="text/css" id="syntaxhighlighteranchor"></style>
+<link rel="icon" href="../../wp-content/uploads/2015/09/cropped-L-32x32.png" sizes="32x32" />
+<link rel="icon" href="../../wp-content/uploads/2015/09/cropped-L-192x192.png" sizes="192x192" />
+<link rel="apple-touch-icon-precomposed" href="../../wp-content/uploads/2015/09/cropped-L-180x180.png" />
+<meta name="msapplication-TileImage" content="http://www.lindonslog.com/wp-content/uploads/2015/09/cropped-L-270x270.png" />
+
+<style id="custom-css-css">.input_prompt{color:#06c}.output_prompt{color:#c00}.prompt{font-family:monospace;font-size:14px}.c,c1{color:#408080;font-style:italic}.k{color:#382;font-weight:700}.kn{color:#382;font-weight:700}.mi{color:#080}.mf{color:#080}.o{color:#96f}.ow{color:#BA22FF;font-weight:700}.nb{color:#382}.n{color:#000}.s,.s1{color:#c22}.se{color:#c22;font-weight:700}.si{color:#C06688;font-weight:700}.nn{color:#4D00FF;font-weight:700}.output_area pre{background-color:#FFF;padding-left:5%}.code_cell{padding-left:1%}.cell{margin-top:10px;margin-bottom:10px}br{line-height:2}.cell h1,h2,h3,h4{margin-top:30px;margin-bottom:10px}</style>
+</head>
+
+<body class="single single-post postid-883 single-format-standard">
+<div id="page" class="hfeed site">
+
+	<header id="masthead" class="site-header" role="banner">
+		<div id="botmenu">
+			<div class="container_6">
+			<div id="submenu" class="menu-top-container"><ul id="web2feel" class="sfmenu"><li id="menu-item-434" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-434"><a href="../../index.html">About</a></li>
+<li id="menu-item-405" class="menu-item menu-item-type-taxonomy menu-item-object-category current-post-ancestor current-menu-parent current-post-parent menu-item-has-children menu-item-405"><a href="../../category/mathematics/index.html">Mathematics</a>
+<ul class="sub-menu">
+	<li id="menu-item-814" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-814"><a href="../../category/mathematics/linear-algebra/index.html">Linear Algebra</a></li>
+	<li id="menu-item-406" class="menu-item menu-item-type-taxonomy menu-item-object-category current-post-ancestor current-menu-parent current-post-parent menu-item-406"><a href="../../category/mathematics/statistics/index.html">Statistics</a></li>
+</ul>
+</li>
+<li id="menu-item-404" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-404"><a href="../../category/linux-unix/index.html">Linux/Unix</a></li>
+<li id="menu-item-407" class="menu-item menu-item-type-taxonomy menu-item-object-category current-post-ancestor current-menu-parent current-post-parent menu-item-has-children menu-item-407"><a href="../../category/programming/index.html">Programming</a>
+<ul class="sub-menu">
+	<li id="menu-item-408" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-408"><a href="../../category/programming/openmp/index.html">OpenMP</a></li>
+	<li id="menu-item-487" class="menu-item menu-item-type-taxonomy menu-item-object-category current-post-ancestor current-menu-parent current-post-parent menu-item-487"><a href="../../category/programming/r/index.html">R</a></li>
+</ul>
+</li>
+<li id="menu-item-842" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-842"><a href="../../links/index.html">Links</a></li>
+</ul></div>			</div>
+		</div>
+		
+		<div class="top cf ">
+			<div class="head container_6 cf">
+				<div class="logo grid_3">
+					
+					<h1 class="site-title logo"><a id="blogname" rel="home" href="../../index.html" title="Lindons Log">Lindons Log</a></h1>
+	
+					<h2 class="site-description"></h2>
+				</div>
+				<div class="topbar grid_3">
+						<form method="get" id="searchform" action="../../index.html" role="search">
+		<label for="s" class="assistive-text">Search</label>
+		<input type="text" class="field" name="s" value="" id="s" placeholder="Search &hellip;" />
+		<input type="submit" class="submit" name="submit" id="searchsubmit" value="Search" />
+	</form>
+				</div>
+			</div>	
+		</div>
+	</header><!-- #masthead .site-header -->
+
+	<div id="main" class="site-main container_6">
+		<div id="primary" class="content-area">
+			<div id="content" class="site-content cf" role="main">
+
+			
+				
+<article id="post-883" class="grid_6 post-883 post type-post status-publish format-standard has-post-thumbnail hentry category-mathematics category-programming category-r category-statistics tag-mcmc tag-metropolis-coupled tag-mpi tag-parallel tag-parallel-tempering tag-r tag-rmpi">
+
+<div class="format-box">
+<i class="icon-file"></i>
+</div>
+
+<div class="post-cover">
+
+	<div class="entry-meta">
+		<span class="clock"> <i class="icon-time"></i> 1181 days ago</span> 
+		<span class="comments-link"> <i class="icon-comment"></i>  <a href="index.html#comments"><span class="dsq-postid" data-dsqidentifier="883 http://www.lindonslog.com/?p=883">5 Comments</span></a></span>
+		<span class="perml"> <i class="icon-bolt"></i> <a href="index.html" rel="bookmark">Permalink</a></span>
+	</div><!-- #entry-meta -->
+	
+	<header class="entry-header">
+		<h2 class="entry-title">Parallel Tempering in R with Rmpi</h2>
+	</header><!-- .entry-header -->
+
+	<div class="entry-content">
+								
+									<a class="thickbox" title= "Parallel Tempering in R with Rmpi" href="../../wp-content/uploads/2013/10/parallel_tempering_mixing.jpeg"><img style="margin-bottom:20px;" src="../../wp-content/uploads/2013/10/parallel_tempering_mixing-720x405.jpeg"/></a>
+								
+				<p>My office computer recently got a really nice upgrade and now I have 8 cores on my desktop to play with. I also at the same time received some code for a Gibbs sampler written in R from my adviser. I wanted to try a metropolis-coupled markov chain monte carlo, <img src="http://s0.wp.com/latex.php?latex=MC%5E%7B3%7D&amp;bg=ffffff&amp;fg=000&amp;s=0" alt="MC^{3}" title="MC^{3}" class="latex" />, algorithm on it to try and improve the mixing but the problem was that it was written in R and I&#8217;m used to writing parallel code in C/C++ with OpenMP or MPI. Previously I wrote about a parallel tempering algorithm with an implementation in C++ using OpenMP and so I thought I would try and code up the same sort of thing in R as a warm-up exercise before I started with the full <img src="http://s0.wp.com/latex.php?latex=MC%5E%7B3%7D&amp;bg=ffffff&amp;fg=000&amp;s=0" alt="MC^{3}" title="MC^{3}" class="latex" /> algorithm. Sadly I don&#8217;t think there is any facility in R for OpenMP style parallelism. There are packages such as <em>snow</em> and <em>multicore</em> but these are very high level packages and don&#8217;t really allow one to control the finer details. There is, however, Rmpi. It is a little bit different from regular C/Fortran MPI implementations and I once had a very bad experience getting some Rmpi code to work for a project deadline, it wasn&#8217;t pretty, so I was a little reluctant to reconsider this package but if you look at the changelogs it is still being actively maintained and in the end I&#8217;m very happy with the outcome of this experiment. I tried to write the below code as generally as possible, so that it is easily adapted by myself, or others, in the future.</p>
+<h2>Target Density</h2>
+<p>First one needs to write a density one wishes to sample from</p>
+<pre class="brush: r; title: ; notranslate" title="">
+logdensity&lt;-function(theta){
+  #Distribution one wishes to sample from here.
+  #It may be more convinient to pass a theta as a list
+  sigma2=0.001;
+  Sigma=matrix(0,2,2);
+  Sigma[1,1]=sigma2;
+  Sigma[2,2]=sigma2;
+  density=dmvnorm(theta,c(0,0),Sigma)+dmvnorm(theta,c(-2,0.8),Sigma)+dmvnorm(theta,c(-1,1),Sigma)+dmvnorm(theta,c(1,1),Sigma)+dmvnorm(theta,c(0.5,0.5),Sigma);
+  return(log(density))
+}
+</pre>
+<p>The density I chose was a mixture of 5 well-separated bi-variate Normals. One should note that it is probably cleanest to pass all the arguments to this function as a list theta. It wasn&#8217;t really necessary in this case but if you have a posterior distribution with a number of parameters of varying dimension then it would be much nicer as a list. In a future blog post I may change the target density to be the energy distribution of a Lennard-Jones cluster. </p>
+<h2>Parallel Tempering Algorithm</h2>
+<p>This too is written as a function because Rmpi allows you to pass the function to all slaves and execute it. It was basically the easiest way of writing it for Rmpi.</p>
+<pre class="brush: r; title: ; notranslate" title="">
+temper&lt;-function(niter,Bmin,swap.interval){
+  rank=mpi.comm.rank();
+  size=mpi.comm.size();
+  swap=0;
+  swaps.attempted=0;
+  swaps.accepted=0;
+  
+  #Higher ranks run the higher &quot;temperatures&quot; (~smaller fractional powers)
+  B=rep(0,size-1);
+  for(r in 1:size-1){
+    temp=(r-1)/(size-2);
+    B[r]=Bmin^temp;
+  }
+  
+  
+  #Create a list for proposal moves
+  prop=rep(0,2);
+  theta=matrix(0,niter,2)
+  
+  for(t in 2:niter){
+    
+    for(c in 1:length(prop))   prop=theta[t-1,c]+rnorm(1,0,0.1);
+    
+    #Calculate Log-Density at proposed and current position
+    logdensity.current=logdensity(theta[t-1,])
+    logdensity.prop=logdensity(prop);
+    
+    #Calculate log acceptance probability
+    lalpha=B[rank]*(logdensity.prop-logdensity.current)
+    
+    if(log(runif(1))&lt;lalpha){
+      #Accept proposed move
+      theta[t,]=prop;
+      logdensity.current=logdensity.prop;
+    }else{
+      #Otherwise do not move
+      theta[t,]=theta[t-1,];
+    } 
+    
+    if(t%%swap.interval ==0){
+      for(evenodd in 0:1){
+        swap=0;
+        logdensity.partner=0;
+        if(rank%%2 == evenodd%%2){
+          rank.partner=rank + 1;
+          #ranks range from 1:size-1. Cannot have a partner rank == size
+          if(0&lt;rank.partner &amp;&amp; rank.partner&lt;size){
+            #On first iteration, evens receive from above odd
+            #On second iteration, odds receive from above evens
+            logdensity.partner&lt;-mpi.recv.Robj(rank.partner,rank.partner);
+            lalpha = (B[rank]-B[rank.partner])*(logdensity.partner-logdensity.current);
+            swaps.attempted=swaps.attempted+1;
+            if(log(runif(1))&lt;lalpha){
+              swap=1;
+              swaps.accepted=swaps.accepted+1;
+            }
+            mpi.send.Robj(swap,dest=rank.partner,tag=rank)
+          }
+          if(swap==1){
+            thetaswap=theta[t,];
+            mpi.send.Robj(thetaswap,dest=rank.partner,tag=rank)
+            theta[t,]=mpi.recv.Robj(rank.partner,rank.partner)
+          }
+        }else{
+          rank.partner=rank-1;
+          #ranks range from 1:size-1. Cannot have a partner rank ==0
+          if(0&lt;rank.partner &amp;&amp; rank.partner&lt;size){
+            #On first iteration, odds send to evens below
+            #On second iteration, evens sent to odds below
+            mpi.send.Robj(logdensity.current,dest=rank.partner,tag=rank);
+            swap=mpi.recv.Robj(rank.partner,rank.partner);
+          }
+          if(swap==1){
+            thetaswap=theta[t,];
+            theta[t,]=mpi.recv.Robj(rank.partner,rank.partner);
+            mpi.send.Robj(thetaswap,dest=rank.partner,tag=rank);
+          }
+        }
+      }
+    }
+  }
+  return(theta)
+}
+</pre>
+<p>The bulk of the above code is the communication of each processor with its next nearest neighbors. Metropolis moves will be attempted every <em>swap.interval</em> iterations, an argument one can pass to the function. When this code block is entered, even rank processors will partner with their higher ranked odd neighbours (they have a high rank so higher temperature i.e. smaller fractional power &#8211; a more &#8220;melted down&#8221; target density). The higher odd partners will send their lower even partners the value of their density and then the lower even partners will calculate an acceptance probabilty. If the move succeeds the lower rank even processors send their higher rank odd processors a binary swap=1 telling the higher rank odd processors that a send/receive procedure will occur. The lower even rank sends the higher odd rank its parameters and then subsequently the higher odd rank sends its lower even rank its parameters. In this way a metropolis move between processors is achieved. Next, odd rank processors form partners with their higher even ranked neighbours (because we need to swap with processor rank 1, the target density). The same procedure occurs as before but swapping odd for even. More visually, first swaps are attempted between 2-3, 4-5, 6-7 etc and then swaps are attempted between 1-2, 3-4, 5-6. This is almost like a merge-sort style algorithm. One can see how the parameters could be passed from 3 down to 2 and then from 2 down to 1. The main point is that each processor attempts a swap with its nearest-neighbours, the one above and the one below, every <em>swap.interval</em> iterations.<br />
+With these functions defined one can now proceed to set up the mpi communicator/world.</p>
+<h2>Rmpi</h2>
+<p>First spawn some slaves.</p>
+<pre class="brush: r; title: ; notranslate" title="">
+library(Rmpi)
+mpi.spawn.Rslaves(nslaves=6)
+</pre>
+<p>If it worked, you should see something like this:</p>
+<pre class="brush: r; title: ; notranslate" title="">
+&gt; mpi.spawn.Rslaves(nslaves=6)
+	6 slaves are spawned successfully. 0 failed.
+master (rank 0, comm 1) of size 7 is running on: cabbage 
+slave1 (rank 1, comm 1) of size 7 is running on: cabbage 
+slave2 (rank 2, comm 1) of size 7 is running on: cabbage 
+slave3 (rank 3, comm 1) of size 7 is running on: cabbage 
+slave4 (rank 4, comm 1) of size 7 is running on: cabbage 
+slave5 (rank 5, comm 1) of size 7 is running on: cabbage 
+slave6 (rank 6, comm 1) of size 7 is running on: cabbage 
+</pre>
+<p>(yes, my office computer was named cabbage, lettuce is the one next to me). One can then send the function definitions to the slave processors.</p>
+<pre class="brush: r; title: ; notranslate" title="">
+niter=3000
+Bmin=0.005
+swap.interval=3
+#Send to slaves some required data
+mpi.bcast.Robj2slave(niter)
+mpi.bcast.Robj2slave(Bmin)
+mpi.bcast.Robj2slave(swap.interval)
+#Send to slaves the logdensity function
+mpi.bcast.Robj2slave(logdensity)
+#Send to slaves the temper function
+mpi.bcast.Robj2slave(temper) 
+#Send to slaves the dmvnorm function
+mpi.bcast.Robj2slave(dmvnorm) 
+</pre>
+<p>If you want to make sure that the slaves have the correct function definition, one can execute the command <em>mpi.remote.exec(temper)</em> and this will return the function definition. That is all, now it can be run.</p>
+<pre class="brush: r; title: ; notranslate" title="">
+mcmc=mpi.remote.exec(temper(niter,Bmin,swap.interval))
+</pre>
+<p>This returns a list object containing the mcmc draws for each slave.</p>
+<h3>Results</h3>
+<p>The end product is something that looks like this<br />
+<a href="../../wp-content/uploads/2013/10/parallel_tempering_mixing.jpeg"><img src="../../wp-content/uploads/2013/10/parallel_tempering_mixing-300x300.jpeg" alt="parallel tempering mixing" width="300" height="300" class="aligncenter size-medium wp-image-889" srcset="http://www.lindonslog.com/wp-content/uploads/2013/10/parallel_tempering_mixing-300x300.jpeg 300w, http://www.lindonslog.com/wp-content/uploads/2013/10/parallel_tempering_mixing-150x150.jpeg 150w, http://www.lindonslog.com/wp-content/uploads/2013/10/parallel_tempering_mixing.jpeg 1000w" sizes="(max-width: 300px) 100vw, 300px" /></a><br />
+Which are the draws (in black) from the target distribution. It is also useful to build up intuition for parallel tempering to look at what is happening on the other processors. The draws for all processors are shown below:<br />
+<a href="../../wp-content/uploads/2013/10/parallel_tempering.jpeg"><img src="../../wp-content/uploads/2013/10/parallel_tempering-682x1024.jpeg" alt="parallel tempering draws for each processor" width="640" height="960" class="aligncenter size-large wp-image-891" srcset="http://www.lindonslog.com/wp-content/uploads/2013/10/parallel_tempering-682x1024.jpeg 682w, http://www.lindonslog.com/wp-content/uploads/2013/10/parallel_tempering-200x300.jpeg 200w, http://www.lindonslog.com/wp-content/uploads/2013/10/parallel_tempering.jpeg 1000w" sizes="(max-width: 640px) 100vw, 640px" /></a></p>
+<p>N.B. Although my computer only has 8 cores I tried running the code 12 slaves. At first I was concerned that the MPI communications would enter a deadlock and the code would hang but it didn&#8217;t, so it seems you can scale up the number of slaves above the number of cores.</p>
+<h2>Temperature Set</h2>
+<p>Notice that the temperature set used in the code has the property that <img src="http://s0.wp.com/latex.php?latex=%5Cfrac%7B%5Cbeta_%7Bn%7D%7D%7B%5Cbeta_%7Bn%2B1%7D%7D%3Dc&amp;bg=ffffff&amp;fg=000&amp;s=0" alt="&#92;frac{&#92;beta_{n}}{&#92;beta_{n+1}}=c" title="&#92;frac{&#92;beta_{n}}{&#92;beta_{n+1}}=c" class="latex" />, for c a constant. There is a paper by Kofke(2002) that justifies this temperature set as it yields a constant acceptance ratio between cores under certain conditions. Indeed, the acceptance ratio (the fraction of metropolis moves that succeeded between cores) are roughly constant, as shown below:</p>
+<pre class="brush: r; title: ; notranslate" title="">
+[1] 0.7227723
+[1] 0.7926793
+[1] 0.710171
+[1] 0.8037804
+[1] 0.7191719
+[1] 0.7974797
+[1] 0.729673
+[1] 0.8223822
+[1] 0.8184818
+[1] 0.8445845
+</pre>
+<p><span class="Z3988" title="ctx_ver=Z39.88-2004&#038;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Ajournal&#038;rft_id=info%3Adoi%2F10.1039%2Fb509983h&#038;rft.atitle=Parallel+tempering%3A+Theory%2C+applications%2C+and+new+perspectives&#038;rft.jtitle=Physical+Chemistry+Chemical+Physics&#038;rft.artnum=http%3A%2F%2Fxlink.rsc.org%2F%3FDOI%3Db509983h&#038;rft.volume=7&#038;rft.issue=23&#038;rft.issn=1463-9076&#038;rft.spage=3910&#038;rft.date=2005&#038;rfr_id=info%3Asid%2Fscienceseeker.org&#038;rft.au=Earl+David+J.&#038;rft.aulast=Earl&#038;rft.aufirst=David+J.&#038;rft.au=Deem+Michael+W.&#038;rft.aulast=Deem&#038;rft.aufirst=Michael+W.&#038;rfs_dat=ss.included=1&#038;rfe_dat=bpr3.included=1;bpr3.tags=Chemistry%2CComputer+Science+%2F+Engineering%2CMathematics%2CPhysics">Earl D.J. &#038; Deem M.W. (2005). Parallel tempering: Theory, applications, and new perspectives, <span style="font-style:italic;">Physical Chemistry Chemical Physics, 7</span> (23) 3910. DOI: <a rel="author" href="http://dx.doi.org/10.1039%2Fb509983h">10.1039/b509983h</a></span><br />
+<span class="Z3988" title="ctx_ver=Z39.88-2004&#038;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Ajournal&#038;rft_id=info%3Adoi%2F10.1063%2F1.1507776&#038;rft.atitle=On+the+acceptance+probability+of+replica-exchange+Monte+Carlo+trials&#038;rft.jtitle=The+Journal+of+Chemical+Physics&#038;rft.artnum=http%3A%2F%2Flink.aip.org%2Flink%2FJCPSA6%2Fv117%2Fi15%2Fp6911%2Fs1%26Agg%3Ddoi&#038;rft.volume=117&#038;rft.issue=15&#038;rft.issn=00219606&#038;rft.spage=6911&#038;rft.date=2002&#038;rfr_id=info%3Asid%2Fscienceseeker.org&#038;rft.au=Kofke+David+A.&#038;rft.aulast=Kofke&#038;rft.aufirst=David+A.&#038;rfs_dat=ss.included=1&#038;rfe_dat=bpr3.included=1;bpr3.tags=Chemistry%2CComputer+Science+%2F+Engineering%2CPhysics">Kofke D.A. (2002). On the acceptance probability of replica-exchange Monte Carlo trials, <span style="font-style:italic;">The Journal of Chemical Physics, 117</span> (15) 6911. DOI: <a rel="author" href="http://dx.doi.org/10.1063%2F1.1507776">10.1063/1.1507776</a></span></p>
+<div class="sharedaddy sd-sharing-enabled"><div class="robots-nocontent sd-block sd-social sd-social-icon-text sd-sharing"><h3 class="sd-title">Share this:</h3><div class="sd-content"><ul><li class="share-facebook"><a rel="nofollow" data-shared="sharing-facebook-883" class="share-facebook sd-button share-icon" href="index.html%3Fshare=facebook.html" target="_blank" title="Click to share on Facebook"><span>Facebook</span></a></li><li class="share-twitter"><a rel="nofollow" data-shared="sharing-twitter-883" class="share-twitter sd-button share-icon" href="index.html%3Fshare=twitter.html" target="_blank" title="Click to share on Twitter"><span>Twitter</span></a></li><li class="share-google-plus-1"><a rel="nofollow" data-shared="sharing-google-883" class="share-google-plus-1 sd-button share-icon" href="index.html%3Fshare=google-plus-1.html" target="_blank" title="Click to share on Google+"><span>Google</span></a></li><li class="share-end"></li></ul></div></div></div><div class='sharedaddy sd-block sd-like jetpack-likes-widget-wrapper jetpack-likes-widget-unloaded' id='like-post-wrapper-27325203-883-5866bc2c5c285' data-src='//widgets.wp.com/likes/#blog_id=27325203&amp;post_id=883&amp;origin=www.lindonslog.com&amp;obj_id=27325203-883-5866bc2c5c285' data-name='like-post-frame-27325203-883-5866bc2c5c285'><h3 class='sd-title'>Like this:</h3><div class='likes-widget-placeholder post-likes-widget-placeholder' style='height:55px'><span class='button'><span>Like</span></span> <span class="loading">Loading...</span></div><span class='sd-text-color'></span><a class='sd-link-color'></a></div>					</div><!-- .entry-content -->
+
+</div>	
+
+</article><!-- #post-883 -->
+				<div class="clear"></div>
+				
+
+				
+<div id="disqus_thread">
+            <div id="dsq-content">
+
+
+            <ul id="dsq-comments">
+                    <li class="comment even thread-even depth-1" id="dsq-comment-124">
+        <div id="dsq-comment-header-124" class="dsq-comment-header">
+            <cite id="dsq-cite-124">
+                <span id="dsq-author-user-124">Manuela</span>
+            </cite>
+        </div>
+        <div id="dsq-comment-body-124" class="dsq-comment-body">
+            <div id="dsq-comment-message-124" class="dsq-comment-message"><p>Dear Michael, thanks for this great tutorial! Very nice intro to parallel tempering with Rmpi.</p>
+<p>The code for the temper() function seems to have a tiny typo though: in line 22 it should read<br />
+for(c in 1:length(prop))  prop=theta[t-1,c]+rnorm(1,0,0.1);<br />
+rather than<br />
+for(c in 1:length(prop))  prop1=theta[t-1,c]+rnorm(1,0,0.1);</p>
+<p>After changing this, the example code worked beautifully! Keep up the good work! 🙂</p>
+</div>
+        </div>
+
+    <ul class="children">
+    <li class="comment byuser comment-author-admin bypostauthor odd alt depth-2" id="dsq-comment-125">
+        <div id="dsq-comment-header-125" class="dsq-comment-header">
+            <cite id="dsq-cite-125">
+                <span id="dsq-author-user-125">admin</span>
+            </cite>
+        </div>
+        <div id="dsq-comment-body-125" class="dsq-comment-body">
+            <div id="dsq-comment-message-125" class="dsq-comment-message"><p>Manuela,<br />
+vielen Dank für die Bemerkung! Sie haben recht, da sollte kein &#8220;1&#8221; stehen. Bitte schau Ihnen mal dieses Bildschirmfoto an:<br />
+<a href="../../wp-content/uploads/2013/11/Screenshot-from-2013-11-21-080616.png" rel="nofollow">http://www.lindonslog.com/wp-content/uploads/2013/11/Screenshot-from-2013-11-21-080616.png</a><br />
+so sollte der Quelltext aussehen und komischerweise so steht es auch in meinem Editor :/ Anscheinend verwandelt WordPress das &#8220;c&#8221; zu einem &#8220;1&#8221;.<br />
+Ich suche nach eine Lösung 🙂</p>
+</div>
+        </div>
+
+    <ul class="children">
+    <li class="comment even depth-3" id="dsq-comment-126">
+        <div id="dsq-comment-header-126" class="dsq-comment-header">
+            <cite id="dsq-cite-126">
+                <span id="dsq-author-user-126">Manuela</span>
+            </cite>
+        </div>
+        <div id="dsq-comment-body-126" class="dsq-comment-body">
+            <div id="dsq-comment-message-126" class="dsq-comment-message"><p>Right &#8211; the same thing seems to have happened with the code in my comment. Weird! </p>
+<p>It should read &#8220;prop[ c ]&#8221; rather than &#8220;prop&#8221; (i.e. access only the c-th element of the vector prop), but WordPress has somehow removed the &#8220;[ c ]&#8221;.</p>
+</div>
+        </div>
+
+    </li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+    <li class="comment odd alt thread-odd thread-alt depth-1" id="dsq-comment-680">
+        <div id="dsq-comment-header-680" class="dsq-comment-header">
+            <cite id="dsq-cite-680">
+                <span id="dsq-author-user-680">Yuriy</span>
+            </cite>
+        </div>
+        <div id="dsq-comment-body-680" class="dsq-comment-body">
+            <div id="dsq-comment-message-680" class="dsq-comment-message"><p>Hi Michael,<br />
+thanks for this tutorial. Could you please share your thoughts on how to choose the number of temperatures (chains), and how to choose swap.interval? Is there an adaptive way to do it, e.g., matching the swap acceptance rate to some target values?</p>
+</div>
+        </div>
+
+    <ul class="children">
+    <li class="comment byuser comment-author-admin bypostauthor even depth-2" id="dsq-comment-683">
+        <div id="dsq-comment-header-683" class="dsq-comment-header">
+            <cite id="dsq-cite-683">
+                <span id="dsq-author-user-683">admin</span>
+            </cite>
+        </div>
+        <div id="dsq-comment-body-683" class="dsq-comment-body">
+            <div id="dsq-comment-message-683" class="dsq-comment-message"><p>A good rule of thumb is to use a geometric temperature ladder between your desired maximum and minimum temperature. The more processors you have the finer you can make this discrete temperature ladder, if you only have a few processors, then the difference in temperature between processors can be too large to get a good acceptance ratio. I recall a paper saying that for best results you should attempt to swap at each iteration&#8230; I&#8217;m not sure, attempting swaps requires communication and can be a computational burden. For the metropolis hastings within a single processor acceptance ratio should be around 40%, for the metropolis hastings between processors that is anothing thing &#8211; some people measure the performance of parallel tempering by the time it takes to get from the bottom temperature to the top temperature and back down again. If you have a lot of processors/temperatures the acceptance ratio is high but then there are more temperatures to traverse through&#8230; finding a good balance is key. There are adaptive ways but it requires a lot of effort.</p>
+</div>
+        </div>
+
+    </li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+            </ul>
+
+
+        </div>
+
+    </div>
+
+
+			
+			</div><!-- #content .site-content -->
+		</div><!-- #primary .content-area -->
+
+
+
+	</div><!-- #main .site-main -->
+
+<div id="bottom">
+<div class="container_6 cf">
+
+<li class="botwid grid_2 widget_categories"><h3 class="bothead">Categories</h3>		<ul>
+	<li class="cat-item cat-item-3"><a href="../../category/linux-unix/index.html" >Linux/Unix</a> (16)
+</li>
+	<li class="cat-item cat-item-5"><a href="../../category/mathematics/index.html" >Mathematics</a> (22)
+<ul class='children'>
+	<li class="cat-item cat-item-10"><a href="../../category/mathematics/linear-algebra/index.html" >Linear Algebra</a> (5)
+</li>
+	<li class="cat-item cat-item-7"><a href="../../category/mathematics/statistics/index.html" >Statistics</a> (17)
+</li>
+</ul>
+</li>
+	<li class="cat-item cat-item-6"><a href="../../category/programming/index.html" >Programming</a> (24)
+<ul class='children'>
+	<li class="cat-item cat-item-48"><a href="../../category/programming/clojure/index.html" >clojure</a> (1)
+</li>
+	<li class="cat-item cat-item-51"><a href="../../category/programming/functional-programming/index.html" >functional programming</a> (1)
+</li>
+	<li class="cat-item cat-item-50"><a href="../../category/programming/haskell-programming/index.html" >haskell</a> (1)
+</li>
+	<li class="cat-item cat-item-40"><a href="../../category/programming/julia/index.html" >julia</a> (2)
+</li>
+	<li class="cat-item cat-item-4"><a href="../../category/programming/openmp/index.html" >OpenMP</a> (6)
+</li>
+	<li class="cat-item cat-item-11"><a href="../../category/programming/r/index.html" >R</a> (12)
+</li>
+	<li class="cat-item cat-item-43"><a href="../../category/programming/scala/index.html" >scala</a> (1)
+</li>
+</ul>
+</li>
+		</ul>
+</li>		<li class="botwid grid_2 widget_recent_entries">		<h3 class="bothead">Recent Posts</h3>		<ul>
+					<li>
+				<a href="../../programming/partial-application-functions-julia/index.html">Partial Application for Functions in Julia</a>
+						</li>
+					<li>
+				<a href="../../programming/newtons-iteration-scala-clojure-haskell/index.html">Newtons Iteration in Scala, Clojure and Haskell Comparison</a>
+						</li>
+					<li>
+				<a href="../statistics/mala-metropolis-adjusted-langevin-algorithm-julia/index.html">MALA &#8211; Metropolis Adjusted Langevin Algorithm in Julia</a>
+						</li>
+					<li>
+				<a href="../../programming/passing-julia-type-to-c-function-as-struct/index.html">Passing Julia Type to C Function as Struct</a>
+						</li>
+					<li>
+				<a href="../../linux-unix/send-lines-code-vim-r-julia-python-repl-slime/index.html">Send Lines of Code from Vim to R/Julia/Python REPL</a>
+						</li>
+					<li>
+				<a href="../../linux-unix/c-merge-sort-algorithm/index.html">C++ Merge Sort Algorithm</a>
+						</li>
+					<li>
+				<a href="../../programming/generate-random-inverse-gaussian-r/index.html">Generate Random Inverse Gaussian in R</a>
+						</li>
+					<li>
+				<a href="../statistics/generalized-double-pareto-shrinkage-priors-sparse-estimation-regression/index.html">Generalized Double Pareto Priors for Regression</a>
+						</li>
+					<li>
+				<a href="../em-algorithm-bayesian-lasso-r-cpp-code/index.html">EM Algorithm for Bayesian Lasso R Cpp Code</a>
+						</li>
+				</ul>
+		</li>			<div class="squarebanner grid_2 cf">
+	<h3 class="bothead"> Sponsors </h3>
+<ul><li>
+<a rel="nofollow" href="index.html" title=""><img src="index.html" alt="" style="vertical-align:bottom;" /></a>
+</li>			
+
+<li>
+<a rel="nofollow" href="index.html" title=""><img src="index.html" alt="" style="vertical-align:bottom;" /></a>
+</li>
+
+<li>
+<a rel="nofollow" href="index.html" title=""><img src="index.html" alt="" style="vertical-align:bottom;" /></a>
+</li>
+
+<li>
+<a rel="nofollow" href="index.html" title=""><img src="index.html" alt="" style="vertical-align:bottom;" /></a>
+</li></ul>
+</div></div>
+</div>
+
+
+	<footer id="colophon" class="site-footer" role="contentinfo">
+	<div class="container_6">
+	<div class="site-info">
+			<div class="fcred">
+			Copyright &copy; 2016 <a href="../../index.html" title="Lindons Log">Lindons Log</a> - .<br />
+ | <a href="http://fabthemes.com/Winter/" >Winter WordPress Theme</a>
+			</div>		
+		</div><!-- .site-info -->	
+		</footer><!-- #colophon .site-footer -->
+	
+</div><!-- #page .hfeed .site -->
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-40536457-1', 'lindonslog.com');
+  ga('send', 'pageview');
+
+</script><!-- MathJax Latex Plugin installed: Disabled as no shortcodes on this page -->	<div style="display:none">
+	</div>
+<script type="text/javascript">var elLogo = document.getElementById("ft_logo"); if (elLogo) {elLogo.style.maxHeight = elLogo.getAttribute("relHeight") ? elLogo.getAttribute("relHeight") + "px" : "100px";} if (elLogo) {elLogo.style.maxWidth = elLogo.getAttribute("relWidth") ? elLogo.getAttribute("relWidth") + "px" : "100px";}</script>
+	<script type="text/javascript">
+		window.WPCOM_sharing_counts = {"http:\/\/www.lindonslog.com\/mathematics\/parallel-tempering-r-rmpi\/":883};
+	</script>
+		<script type="text/javascript">
+			var windowOpen;
+		jQuery(document).on( 'ready post-load', function(){
+			jQuery( 'a.share-facebook' ).on( 'click', function() {
+				if ( 'undefined' !== typeof windowOpen ){ // If there's another sharing window open, close it.
+					windowOpen.close();
+				}
+				windowOpen = window.open( jQuery(this).attr( 'href' ), 'wpcomfacebook', 'menubar=1,resizable=1,width=600,height=400' );
+				return false;
+			});
+		});
+		</script>
+				<script type="text/javascript">
+			var windowOpen;
+		jQuery(document).on( 'ready post-load', function(){
+			jQuery( 'a.share-twitter' ).on( 'click', function() {
+				if ( 'undefined' !== typeof windowOpen ){ // If there's another sharing window open, close it.
+					windowOpen.close();
+				}
+				windowOpen = window.open( jQuery(this).attr( 'href' ), 'wpcomtwitter', 'menubar=1,resizable=1,width=600,height=350' );
+				return false;
+			});
+		});
+		</script>
+				<script type="text/javascript">
+			var windowOpen;
+		jQuery(document).on( 'ready post-load', function(){
+			jQuery( 'a.share-google-plus-1' ).on( 'click', function() {
+				if ( 'undefined' !== typeof windowOpen ){ // If there's another sharing window open, close it.
+					windowOpen.close();
+				}
+				windowOpen = window.open( jQuery(this).attr( 'href' ), 'wpcomgoogle-plus-1', 'menubar=1,resizable=1,width=480,height=550' );
+				return false;
+			});
+		});
+		</script>
+		<script type='text/javascript' src='../../wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/scripts/shCore.js%3Fver=3.0.9b'></script>
+<script type='text/javascript' src='../../wp-content/plugins/syntaxhighlighter/third-party-brushes/shBrushR.js%3Fver=20100919'></script>
+<script type='text/javascript'>
+	(function(){
+		var corecss = document.createElement('link');
+		var themecss = document.createElement('link');
+		var corecssurl = "http://www.lindonslog.com/wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/styles/shCore.css?ver=3.0.9b";
+		if ( corecss.setAttribute ) {
+				corecss.setAttribute( "rel", "stylesheet" );
+				corecss.setAttribute( "type", "text/css" );
+				corecss.setAttribute( "href", corecssurl );
+		} else {
+				corecss.rel = "stylesheet";
+				corecss.href = corecssurl;
+		}
+		document.getElementsByTagName("head")[0].insertBefore( corecss, document.getElementById("syntaxhighlighteranchor") );
+		var themecssurl = "http://www.lindonslog.com/wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/styles/shThemeDefault.css?ver=3.0.9b";
+		if ( themecss.setAttribute ) {
+				themecss.setAttribute( "rel", "stylesheet" );
+				themecss.setAttribute( "type", "text/css" );
+				themecss.setAttribute( "href", themecssurl );
+		} else {
+				themecss.rel = "stylesheet";
+				themecss.href = themecssurl;
+		}
+		//document.getElementById("syntaxhighlighteranchor").appendChild(themecss);
+		document.getElementsByTagName("head")[0].insertBefore( themecss, document.getElementById("syntaxhighlighteranchor") );
+	})();
+	SyntaxHighlighter.config.strings.expandSource = '+ expand source';
+	SyntaxHighlighter.config.strings.help = '?';
+	SyntaxHighlighter.config.strings.alert = 'SyntaxHighlighter\n\n';
+	SyntaxHighlighter.config.strings.noBrush = 'Can\'t find brush for: ';
+	SyntaxHighlighter.config.strings.brushNotHtmlScript = 'Brush wasn\'t configured for html-script option: ';
+	SyntaxHighlighter.defaults['pad-line-numbers'] = false;
+	SyntaxHighlighter.defaults['toolbar'] = false;
+	SyntaxHighlighter.all();
+</script>
+<script type='text/javascript' src='http://s0.wp.com/wp-content/js/devicepx-jetpack.js?ver=201652'></script>
+<script type='text/javascript' src='http://s.gravatar.com/js/gprofiles.js?ver=2016Decaa'></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var WPGroHo = {"my_hash":""};
+/* ]]> */
+</script>
+<script type='text/javascript' src='../../wp-content/plugins/jetpack/modules/wpgroho.js%3Fver=4.6.1'></script>
+<script type='text/javascript' src='../../wp-content/themes/Winter/js/superfish.js%3Fver=20120206'></script>
+<script type='text/javascript' src='../../wp-includes/js/comment-reply.min.js%3Fver=4.6.1'></script>
+<script type='text/javascript' src='../../wp-includes/js/wp-embed.min.js%3Fver=4.6.1'></script>
+<script type='text/javascript' src='../../wp-content/plugins/jetpack/_inc/postmessage.js%3Fver=3.9.7'></script>
+<script type='text/javascript' src='../../wp-content/plugins/jetpack/_inc/jquery.jetpack-resize.js%3Fver=3.9.7'></script>
+<script type='text/javascript' src='../../wp-content/plugins/jetpack/_inc/jquery.inview.js%3Fver=3.9.7'></script>
+<script type='text/javascript' src='../../wp-content/plugins/jetpack/modules/likes/queuehandler.js%3Fver=3.9.7'></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var embedVars = {"disqusConfig":{"platform":"wordpress@4.6.1","language":""},"disqusIdentifier":"883 http:\/\/www.lindonslog.com\/?p=883","disqusShortname":"michaellindon","disqusTitle":"Parallel Tempering in R with Rmpi","disqusUrl":"http:\/\/www.lindonslog.com\/mathematics\/parallel-tempering-r-rmpi\/","options":{"manualSync":false},"postId":"883"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='../../wp-content/plugins/disqus-comment-system/media/js/disqus.js%3Fver=4.6.1'></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var countVars = {"disqusShortname":"michaellindon"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='../../wp-content/plugins/disqus-comment-system/media/js/count.js%3Fver=4.6.1'></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var sharing_js_options = {"lang":"en","counts":"1"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='../../wp-content/plugins/jetpack/modules/sharedaddy/sharing.js%3Fver=3.9.7'></script>
+		<iframe src='http://widgets.wp.com/likes/master.html?ver=20151215#ver=20151215' scrolling='no' id='likes-master' name='likes-master' style='display:none;'></iframe>
+		<div id='likes-other-gravatars'><div class="likes-text"><span>%d</span> bloggers like this:</div><ul class="wpl-avatars sd-like-gravatars"></ul></div>
+		<script type='text/javascript' src='http://stats.wp.com/e-201652.js' async defer></script>
+<script type='text/javascript'>
+	_stq = window._stq || [];
+	_stq.push([ 'view', {v:'ext',j:'1:3.9.7',blog:'27325203',post:'883',tz:'-4',srv:'www.lindonslog.com'} ]);
+	_stq.push([ 'clickTrackerInit', '27325203', '883' ]);
+</script>
+
+</body>
+</html>

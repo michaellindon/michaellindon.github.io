@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	
+	>
+<channel>
+	<title>Comments on: Stochastic Optimization in R by Parallel Tempering</title>
+	<atom:link href="http://www.lindonslog.com/programming/stochastic-optimization-r-rmpi-parallel-tempering/feed/" rel="self" type="application/rss+xml" />
+	<link>http://www.lindonslog.com/programming/stochastic-optimization-r-rmpi-parallel-tempering/</link>
+	<description></description>
+	<lastBuildDate>Sun, 27 Nov 2016 15:23:00 +0000</lastBuildDate>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=4.6.1</generator>
+	<item>
+		<title>By: Raymond</title>
+		<link>http://www.lindonslog.com/programming/stochastic-optimization-r-rmpi-parallel-tempering/#comment-366</link>
+		<dc:creator><![CDATA[Raymond]]></dc:creator>
+		<pubDate>Thu, 17 Jul 2014 06:23:40 +0000</pubDate>
+		<guid isPermaLink="false">http://www.lindonslog.com/?p=910#comment-366</guid>
+		<description><![CDATA[I read thro this and gone back to your earlier R mpi post, 
+Sorry, still not sure how to &#039;spread&#039; R process 2 PC (you got cabbage and lettuce).
+Shall I just run mpi.bcast...something, it will automatically bcast to all nodes but when did you define the nodes that are avaliable?]]></description>
+		<content:encoded><![CDATA[<p>I read thro this and gone back to your earlier R mpi post,<br />
+Sorry, still not sure how to &#8216;spread&#8217; R process 2 PC (you got cabbage and lettuce).<br />
+Shall I just run mpi.bcast&#8230;something, it will automatically bcast to all nodes but when did you define the nodes that are avaliable?</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: fndtenorio</title>
+		<link>http://www.lindonslog.com/programming/stochastic-optimization-r-rmpi-parallel-tempering/#comment-92</link>
+		<dc:creator><![CDATA[fndtenorio]]></dc:creator>
+		<pubDate>Mon, 14 Oct 2013 21:12:07 +0000</pubDate>
+		<guid isPermaLink="false">http://www.lindonslog.com/?p=910#comment-92</guid>
+		<description><![CDATA[You can ask for the paper here: 
+nashjc( at )uottawa( dot)ca]]></description>
+		<content:encoded><![CDATA[<p>You can ask for the paper here:<br />
+nashjc( at )uottawa( dot)ca</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: fndtenorio</title>
+		<link>http://www.lindonslog.com/programming/stochastic-optimization-r-rmpi-parallel-tempering/#comment-90</link>
+		<dc:creator><![CDATA[fndtenorio]]></dc:creator>
+		<pubDate>Mon, 14 Oct 2013 20:30:42 +0000</pubDate>
+		<guid isPermaLink="false">http://www.lindonslog.com/?p=910#comment-90</guid>
+		<description><![CDATA[Sure. The problem above is to approximate the function y = 1 / (1 + (5*xi)^2) using a polynomial of degree n. Using n = 10:
+
+  require(gaoptim)
+  require(pracma)
+  
+  n &#060;- 10  # polynomial of degree 10
+  m &#060;- 101 # no. of data points
+  xi &#060;- seq(-1, 1, length = m)
+  yi &#060;- 1 / (1 + (5*xi)^2)
+  
+  pfn &#060;- function(p) max(abs(polyval(c(p), xi) - yi))
+  pfninv &#060;- function(p){ 1/pfn(p) }
+  
+  ## set up a matrix for the polynomial data
+  ndeg &#060;- 10
+  ndim &#060;- ndeg + 1
+  ga = GAReal(pfninv, lb = rep(-1000, ndim), ub = rep(1000, ndim), selection = &#039;uniform&#039;)
+              
+  ga$evolve(200)
+  print(ga)
+
+You can use least squares and compare with a GA solution. I received a paper on this, i can send you, just need the email.]]></description>
+		<content:encoded><![CDATA[<p>Sure. The problem above is to approximate the function y = 1 / (1 + (5*xi)^2) using a polynomial of degree n. Using n = 10:</p>
+<p>  require(gaoptim)<br />
+  require(pracma)</p>
+<p>  n &lt;- 10  # polynomial of degree 10<br />
+  m &lt;- 101 # no. of data points<br />
+  xi &lt;- seq(-1, 1, length = m)<br />
+  yi &lt;- 1 / (1 + (5*xi)^2)</p>
+<p>  pfn &lt;- function(p) max(abs(polyval(c(p), xi) &#8211; yi))<br />
+  pfninv &lt;- function(p){ 1/pfn(p) }</p>
+<p>  ## set up a matrix for the polynomial data<br />
+  ndeg &lt;- 10<br />
+  ndim &lt;- ndeg + 1<br />
+  ga = GAReal(pfninv, lb = rep(-1000, ndim), ub = rep(1000, ndim), selection = &#039;uniform&#039;)</p>
+<p>  ga$evolve(200)<br />
+  print(ga)</p>
+<p>You can use least squares and compare with a GA solution. I received a paper on this, i can send you, just need the email.</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: admin</title>
+		<link>http://www.lindonslog.com/programming/stochastic-optimization-r-rmpi-parallel-tempering/#comment-89</link>
+		<dc:creator><![CDATA[admin]]></dc:creator>
+		<pubDate>Mon, 14 Oct 2013 16:33:17 +0000</pubDate>
+		<guid isPermaLink="false">http://www.lindonslog.com/?p=910#comment-89</guid>
+		<description><![CDATA[Hi Fernando, I can&#039;t get this piece of code as it is here to run - is it missing something? Would you mind posting it again? Parallel tempering does have some issues, specifically the devil is in the details with tuning parameters such as the choice of temperature set and also how large the proposed moves are within each tempered distribution. That being said there are adaptive ideas out there which adjust the proposal size so that you get an acceptance rate of around 40% within each distribution and also rules of thumb about how to choose the temperatures (i.e. geometric). I&#039;m keen to learn about other methods though, so if these genetic algorithms perform well I&#039;ll take a look at them :)]]></description>
+		<content:encoded><![CDATA[<p>Hi Fernando, I can&#8217;t get this piece of code as it is here to run &#8211; is it missing something? Would you mind posting it again? Parallel tempering does have some issues, specifically the devil is in the details with tuning parameters such as the choice of temperature set and also how large the proposed moves are within each tempered distribution. That being said there are adaptive ideas out there which adjust the proposal size so that you get an acceptance rate of around 40% within each distribution and also rules of thumb about how to choose the temperatures (i.e. geometric). I&#8217;m keen to learn about other methods though, so if these genetic algorithms perform well I&#8217;ll take a look at them 🙂</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: fndtenorio</title>
+		<link>http://www.lindonslog.com/programming/stochastic-optimization-r-rmpi-parallel-tempering/#comment-88</link>
+		<dc:creator><![CDATA[fndtenorio]]></dc:creator>
+		<pubDate>Mon, 14 Oct 2013 15:55:57 +0000</pubDate>
+		<guid isPermaLink="false">http://www.lindonslog.com/?p=910#comment-88</guid>
+		<description><![CDATA[I&#039;m not a expert either, stochastic optimization is natural to understand but very hard to describe the math behind. Sometimes is very hard to design a fitness function, and there&#039;s no guarantee of convergence, limiting the use in real time applications. If the search space is very very large, then it get&#039;s worse. For example, the GA technique is probably fail to solve the  Runge function polynomial approximation:
+
+# ga fail (answer  is a minimum maximal abs deviation of around 0.06)
+require(pracma)
+n = 10
+m = 101
+xi = seq(-1, 1, length = m)
+yi &#060;- 1 / (1 + (5*xi)^2)
+pfn &#060;- function(p) max(abs(polyval(c(p), xi) - yi))
+
+But there&#039;s always a better choice i guess!]]></description>
+		<content:encoded><![CDATA[<p>I&#8217;m not a expert either, stochastic optimization is natural to understand but very hard to describe the math behind. Sometimes is very hard to design a fitness function, and there&#8217;s no guarantee of convergence, limiting the use in real time applications. If the search space is very very large, then it get&#8217;s worse. For example, the GA technique is probably fail to solve the  Runge function polynomial approximation:</p>
+<p># ga fail (answer  is a minimum maximal abs deviation of around 0.06)<br />
+require(pracma)<br />
+n = 10<br />
+m = 101<br />
+xi = seq(-1, 1, length = m)<br />
+yi &lt;- 1 / (1 + (5*xi)^2)<br />
+pfn &lt;- function(p) max(abs(polyval(c(p), xi) &#8211; yi))</p>
+<p>But there&#039;s always a better choice i guess!</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: admin</title>
+		<link>http://www.lindonslog.com/programming/stochastic-optimization-r-rmpi-parallel-tempering/#comment-86</link>
+		<dc:creator><![CDATA[admin]]></dc:creator>
+		<pubDate>Mon, 14 Oct 2013 00:14:40 +0000</pubDate>
+		<guid isPermaLink="false">http://www.lindonslog.com/?p=910#comment-86</guid>
+		<description><![CDATA[I gave your package a try and I have also uploaded the parallel tempering optimization results for your test (&quot;Wild&quot;) function. I don&#039;t have much experience with genetic algorithms, how well do these genetic algorithms perform in higher dimensional spaces? Do they have any shortcomings?]]></description>
+		<content:encoded><![CDATA[<p>I gave your package a try and I have also uploaded the parallel tempering optimization results for your test (&#8220;Wild&#8221;) function. I don&#8217;t have much experience with genetic algorithms, how well do these genetic algorithms perform in higher dimensional spaces? Do they have any shortcomings?</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: fndtenorio</title>
+		<link>http://www.lindonslog.com/programming/stochastic-optimization-r-rmpi-parallel-tempering/#comment-84</link>
+		<dc:creator><![CDATA[fndtenorio]]></dc:creator>
+		<pubDate>Sun, 13 Oct 2013 21:39:18 +0000</pubDate>
+		<guid isPermaLink="false">http://www.lindonslog.com/?p=910#comment-84</guid>
+		<description><![CDATA[Genetic algorithms  cracks this very fast:  
+
+require(gaoptim)
+energy.inv = function(theta){-energy(theta)}
+ga = GAReal(energy.inv, -100, 100, selection = &#039;uniform&#039;)
+ga$evolve(100)
+print(ga$bestIndividual())
+
+Nice job anyway!]]></description>
+		<content:encoded><![CDATA[<p>Genetic algorithms  cracks this very fast:  </p>
+<p>require(gaoptim)<br />
+energy.inv = function(theta){-energy(theta)}<br />
+ga = GAReal(energy.inv, -100, 100, selection = &#8216;uniform&#8217;)<br />
+ga$evolve(100)<br />
+print(ga$bestIndividual())</p>
+<p>Nice job anyway!</p>
+]]></content:encoded>
+	</item>
+</channel>
+</rss>

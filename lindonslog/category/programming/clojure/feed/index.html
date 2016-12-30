@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>clojure &#8211; Lindons Log</title>
+	<atom:link href="http://www.lindonslog.com/category/programming/clojure/feed/" rel="self" type="application/rss+xml" />
+	<link>http://www.lindonslog.com</link>
+	<description></description>
+	<lastBuildDate>Thu, 03 Nov 2016 17:07:09 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=4.6.1</generator>
+
+<image>
+	<url>http://www.lindonslog.com/wp-content/uploads/2015/09/cropped-L-32x32.png</url>
+	<title>clojure &#8211; Lindons Log</title>
+	<link>http://www.lindonslog.com</link>
+	<width>32</width>
+	<height>32</height>
+</image> 
+	<item>
+		<title>Newtons Iteration in Scala, Clojure and Haskell Comparison</title>
+		<link>http://www.lindonslog.com/programming/newtons-iteration-scala-clojure-haskell/</link>
+		<comments>http://www.lindonslog.com/programming/newtons-iteration-scala-clojure-haskell/#respond</comments>
+		<pubDate>Sun, 16 Oct 2016 13:19:28 +0000</pubDate>
+		<dc:creator><![CDATA[admin]]></dc:creator>
+				<category><![CDATA[clojure]]></category>
+		<category><![CDATA[haskell]]></category>
+		<category><![CDATA[Programming]]></category>
+		<category><![CDATA[scala]]></category>
+
+		<guid isPermaLink="false">http://www.lindonslog.com/?p=1177</guid>
+		<description><![CDATA[<p>Newton&#8217;s iterations is an algorithm for computing the square root of a number n. It also makes a nice &#8220;Hello World&#8221; program if you find yourself doing a lot of optimization. Here is how it looks in Haskell, Clojure and Scala Haskell Clojure Scala</p>
+<p>The post <a rel="nofollow" href="http://www.lindonslog.com/programming/newtons-iteration-scala-clojure-haskell/">Newtons Iteration in Scala, Clojure and Haskell Comparison</a> appeared first on <a rel="nofollow" href="http://www.lindonslog.com">Lindons Log</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p>Newton&#8217;s iterations is an algorithm for computing the square root of a number n. It also makes a nice &#8220;Hello World&#8221; program if you find yourself doing a lot of optimization. Here is how it looks in Haskell, Clojure and Scala</p>
+<h2>Haskell</h2>
+<pre class="brush: python; title: ; notranslate">
+update y x = 0.5*(x+y/x)
+foo = (iterate (update 100) 1000)
+foobar = zip foo (tail foo)
+notconverged tol x = if (abs(a-b)/abs(b) &gt; tol) then True else False
+  where
+    a = fst x
+    b = snd x
+map (\x -&gt; fst x) $ takeWhile (notconverged (0.000001)) foobar
+</pre>
+<h2>Clojure</h2>
+<pre class="brush: clojure; title: ; notranslate">
+(use '(incanter core stats charts io))
+ 
+(defn sqroot [y x] (* 0.5 (+ x (/ y x))))
+(def updater (partial sqroot 16))
+(defn converged? [x] (&gt; (abs (- (first x) (last x))) 0.0000001))
+(map (fn [x] (first x)) (take-while converged? (partition 2 1 (iterate updater 100))))
+</pre>
+<h2>Scala</h2>
+<pre class="brush: scala; title: ; notranslate">
+import breeze.numerics.abs
+ 
+def UpdateCurry(r: Double)(x: Double) = 0.5*(x+r/x)
+ 
+val tolerance=0.0000001
+val desiredSQRoot=16
+val Update=UpdateCurry(desiredSQRoot)_
+ 
+val iterates = Iterator.iterate(1.0) { x =&gt; Update(x) }
+ 
+def ConvergedCurry(tol: Double)(x: Seq[Double]): Boolean = abs(x(0)-x(1))/abs(x(0))&lt;tol
+val Converged=ConvergedCurry(tolerance)_
+ 
+val trace=iterates.sliding(2).takeWhile( x=&gt; !Converged(x)).toList
+</pre>
+<p>The post <a rel="nofollow" href="http://www.lindonslog.com/programming/newtons-iteration-scala-clojure-haskell/">Newtons Iteration in Scala, Clojure and Haskell Comparison</a> appeared first on <a rel="nofollow" href="http://www.lindonslog.com">Lindons Log</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://www.lindonslog.com/programming/newtons-iteration-scala-clojure-haskell/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+	</channel>
+</rss>

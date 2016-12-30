@@ -1,0 +1,538 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>Linux/Unix &#8211; Lindons Log</title>
+	<atom:link href="http://www.lindonslog.com/category/linux-unix/feed/" rel="self" type="application/rss+xml" />
+	<link>http://www.lindonslog.com</link>
+	<description></description>
+	<lastBuildDate>Thu, 03 Nov 2016 17:07:09 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=4.6.1</generator>
+
+<image>
+	<url>http://www.lindonslog.com/wp-content/uploads/2015/09/cropped-L-32x32.png</url>
+	<title>Linux/Unix &#8211; Lindons Log</title>
+	<link>http://www.lindonslog.com</link>
+	<width>32</width>
+	<height>32</height>
+</image> 
+	<item>
+		<title>Send Lines of Code from Vim to R/Julia/Python REPL</title>
+		<link>http://www.lindonslog.com/linux-unix/send-lines-code-vim-r-julia-python-repl-slime/</link>
+		<comments>http://www.lindonslog.com/linux-unix/send-lines-code-vim-r-julia-python-repl-slime/#comments</comments>
+		<pubDate>Sun, 29 Mar 2015 14:36:42 +0000</pubDate>
+		<dc:creator><![CDATA[admin]]></dc:creator>
+				<category><![CDATA[Linux/Unix]]></category>
+
+		<guid isPermaLink="false">http://www.lindonslog.com/?p=1108</guid>
+		<description><![CDATA[<p>Vim + Tmux + Slime Workflow Editing code in anything other than Vim seems to drain my coding stamina rapidly, but when working with a language such as R that has an interactive REPL (read evaluate print loop) it is often useful to send lines of code thereto for purposes of debugging. I have used [&#8230;]</p>
+<p>The post <a rel="nofollow" href="http://www.lindonslog.com/linux-unix/send-lines-code-vim-r-julia-python-repl-slime/">Send Lines of Code from Vim to R/Julia/Python REPL</a> appeared first on <a rel="nofollow" href="http://www.lindonslog.com">Lindons Log</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<h1>Vim + Tmux + Slime Workflow</h1>
+<p>Editing code in anything other than Vim seems to drain my coding stamina rapidly, but when working with a language such as R that has an interactive REPL (read evaluate print loop) it is often useful to send lines of code thereto for purposes of debugging. I have used the <a href="https://github.com/vim-scripts/Vim-R-plugin">Vim-R-Plugin</a> for some time but recently my differences with R have led me to Julia, and so I have been looking for a way to send code from Vim to Julia. My search has resulted in <a href="https://github.com/jpalardy/vim-slime">vim-slime</a>.</p>
+<h2>Vim Slime</h2>
+<p>vim-slime is absolutely great, it&#8217;s a plugin for vim that lets you send text to screen or tmux. This is perfect for programming any language that has an REPL, simply load a session up in a tmux, open up vim, tell it what tmux window and session you want to send text to and away you go. This will work for any language!<br />
+A great post can be found <a href="https://technotales.wordpress.com/2007/10/03/like-slime-for-vim/">here</a>.</p>
+<h2>Edit Locally, Execute Remotely</h2>
+<p>I&#8217;ve long since desired to be able to do this. It would be great if you could edit the file locally, but have the Julia session execute on a remote machine, say my office computer, so that all the heavy lifting is done by the remote machine allowing me to get on with my own personal things on my local machine. Vim-slime provides an elegant solution. Simply start a tmux session, ssh to your remote machine, start up an interactive REPL of the language of your choice, open another terminal locally and start vim on your code and now you can send lines to your remote R/Julia/Python session! This has dramatically improved my workflow as my office computer is much more powerful than my laptop.<br />
+<div id="attachment_1112" style="width: 650px" class="wp-caption aligncenter"><a href="http://www.lindonslog.com/wp-content/uploads/2015/03/vimslime.png"><img src="http://www.lindonslog.com/wp-content/uploads/2015/03/vimslime-1024x576.png" alt="vimslime" width="640" height="360" class="size-large wp-image-1112" srcset="http://www.lindonslog.com/wp-content/uploads/2015/03/vimslime-1024x576.png 1024w, http://www.lindonslog.com/wp-content/uploads/2015/03/vimslime-300x169.png 300w" sizes="(max-width: 640px) 100vw, 640px" /></a><p class="wp-caption-text">send code from vim to r python julia etc repl</p></div></p>
+<p>The post <a rel="nofollow" href="http://www.lindonslog.com/linux-unix/send-lines-code-vim-r-julia-python-repl-slime/">Send Lines of Code from Vim to R/Julia/Python REPL</a> appeared first on <a rel="nofollow" href="http://www.lindonslog.com">Lindons Log</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://www.lindonslog.com/linux-unix/send-lines-code-vim-r-julia-python-repl-slime/feed/</wfw:commentRss>
+		<slash:comments>1</slash:comments>
+		</item>
+		<item>
+		<title>C++ Merge Sort Algorithm</title>
+		<link>http://www.lindonslog.com/linux-unix/c-merge-sort-algorithm/</link>
+		<comments>http://www.lindonslog.com/linux-unix/c-merge-sort-algorithm/#respond</comments>
+		<pubDate>Mon, 05 Jan 2015 22:55:09 +0000</pubDate>
+		<dc:creator><![CDATA[admin]]></dc:creator>
+				<category><![CDATA[Linux/Unix]]></category>
+		<category><![CDATA[Programming]]></category>
+		<category><![CDATA[algorithms]]></category>
+		<category><![CDATA[c]]></category>
+		<category><![CDATA[C++11]]></category>
+		<category><![CDATA[merge]]></category>
+		<category><![CDATA[mergesort]]></category>
+		<category><![CDATA[sort]]></category>
+		<category><![CDATA[sorting]]></category>
+
+		<guid isPermaLink="false">http://www.lindonslog.com/?p=1097</guid>
+		<description><![CDATA[<p>C++ Merge Sort Algorithm stdout Unsorted: -2 14 7 -15 -9 -17 -8 -1 13 1 -10 -7 16 -19 6 2 -12 -11 8 -18 -14 10 5 4 17 12 15 -16 -5 18 -4 -3 -6 -20 0 3 9 -13 11 19 Sorted: -20 -19 -18 -17 -16 -15 -14 -13 [&#8230;]</p>
+<p>The post <a rel="nofollow" href="http://www.lindonslog.com/linux-unix/c-merge-sort-algorithm/">C++ Merge Sort Algorithm</a> appeared first on <a rel="nofollow" href="http://www.lindonslog.com">Lindons Log</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<h2>C++ Merge Sort Algorithm</h2>
+<pre class="brush: cpp; title: ; notranslate">
+#include &lt;random&gt;
+#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;algorithm&gt;
+
+using namespace std;
+
+vector&lt;int&gt; merge_sort(const vector&lt;int&gt;&amp; input)
+{
+	if(input.size()&lt;=1) return input;
+	vector&lt;int&gt; output(input.size());
+
+	//Split Vector//
+	int midpoint=0.5*input.size();
+	vector&lt;int&gt; input_left(input.begin(),input.begin()+midpoint);
+	vector&lt;int&gt; input_right(input.begin()+midpoint,input.end());
+
+	input_left=merge_sort(input_left);
+	input_right=merge_sort(input_right);
+	merge(input_left.begin(),input_left.end(),input_right.begin(),input_right.end(),output.begin());
+
+	return output;
+}
+
+int main(){
+
+	//Create unsorted vector of ints
+	vector&lt;int&gt; unsorted(40);
+	iota(unsorted.begin(),unsorted.end(),-20);
+	shuffle(unsorted.begin(),unsorted.end(),default_random_engine());
+
+	//Perform merge_sort//
+	vector&lt;int&gt; sorted=merge_sort(unsorted);
+
+	//Display results//
+	cout &lt;&lt; &quot;Unsorted: &quot; &lt;&lt;  endl;
+	for(auto value:unsorted)  cout &lt;&lt; value &lt;&lt; &quot; &quot;;
+	cout &lt;&lt;  endl;
+	cout &lt;&lt; &quot;Sorted: &quot; &lt;&lt;  endl;
+	for(auto value:sorted)  cout &lt;&lt; value &lt;&lt; &quot; &quot;;
+	cout &lt;&lt;  endl;
+
+}
+</pre>
+<h3>stdout</h3>
+<p>Unsorted:<br />
+-2 14 7 -15 -9 -17 -8 -1 13 1 -10 -7 16 -19 6 2 -12 -11 8 -18 -14 10 5 4 17 12 15 -16 -5 18 -4 -3 -6 -20 0 3 9 -13 11 19<br />
+Sorted:<br />
+-20 -19 -18 -17 -16 -15 -14 -13 -12 -11 -10 -9 -8 -7 -6 -5 -4 -3 -2 -1 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 </p>
+<p>The post <a rel="nofollow" href="http://www.lindonslog.com/linux-unix/c-merge-sort-algorithm/">C++ Merge Sort Algorithm</a> appeared first on <a rel="nofollow" href="http://www.lindonslog.com">Lindons Log</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://www.lindonslog.com/linux-unix/c-merge-sort-algorithm/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>Compile R and OpenBLAS from Source Guide</title>
+		<link>http://www.lindonslog.com/linux-unix/compile-r-openblas-source-guide/</link>
+		<comments>http://www.lindonslog.com/linux-unix/compile-r-openblas-source-guide/#comments</comments>
+		<pubDate>Wed, 16 Jul 2014 20:54:15 +0000</pubDate>
+		<dc:creator><![CDATA[admin]]></dc:creator>
+				<category><![CDATA[Linear Algebra]]></category>
+		<category><![CDATA[Linux/Unix]]></category>
+		<category><![CDATA[OpenMP]]></category>
+		<category><![CDATA[Programming]]></category>
+		<category><![CDATA[R]]></category>
+		<category><![CDATA[Statistics]]></category>
+
+		<guid isPermaLink="false">http://www.lindonslog.com/?p=995</guid>
+		<description><![CDATA[<p>1. Get OpenBLAS 2.1 Get R 2.2 Specific Instructions for DSS Users 3. Validation 4. Benchmark This guide is intended to aid any R and Linux user who desires a threaded version of BLAS. In particular I hope this will allow other grad students, who like me do not have many user privileges on their [&#8230;]</p>
+<p>The post <a rel="nofollow" href="http://www.lindonslog.com/linux-unix/compile-r-openblas-source-guide/">Compile R and OpenBLAS from Source Guide</a> appeared first on <a rel="nofollow" href="http://www.lindonslog.com">Lindons Log</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p><a href="#openblas">1. Get OpenBLAS</a><br />
+<a href="#R">2.1 Get R</a><br />
+<a href="#duke">2.2 Specific Instructions for DSS Users</a><br />
+<a href="#validation">3. Validation</a><br />
+<a href="#benchmark">4. Benchmark</a></p>
+<p>This guide is intended to aid any R and Linux user who desires a threaded version of BLAS. In particular I hope this will allow other grad students, who like me do not have many user privileges on their office computer, to follow suit and exploit multiple cores to speed up their linear algebra computations within R. The following will be performed on <strong>Scientific Linux 6.4</strong> but has should be completely general. If you are a <strong>Ubuntu</strong> user, then there is an elegant and streamlined process for changing BLAS libraries and a recommended post about it <a href="http://www.stat.cmu.edu/~nmv/2013/07/09/for-faster-r-use-openblas-instead-better-than-atlas-trivial-to-switch-to-on-ubuntu/" title="ubuntu blas">here</a>. I use <strong>Fedora</strong> on my laptop, and the following has also been tested thereupon. </p>
+<p>My office computer has a quadcore processor with two threads per core but I also have access to a departmental computer with 4 sockets and 12 cores per socket (1 thread per core), so it really makes sense to use a threaded version of BLAS. If you are curious about the hardware on your own computer you can run the command &#8220;cat /proc/cpuinfo&#8221; or &#8220;lscpu&#8221;.</p>
+<p>Unfortunately my office computer is part of a network upon which I do not have permissions to change &#8216;/usr/lib64/R/lib/libRblas.so&#8217;. Moreover R appears to be running serially: if you start up R and get the PID (process ID) from &#8216;top&#8217; or &#8216;ps aux | grep R&#8217; or something and then execute &#8216;cat /proc/PID/status | grep Threads&#8217; you can see there is only one thread available.</p>
+<pre class="brush: bash; title: ; notranslate">
+[msl33@cabbage ~]$ cat /proc/13605/status | grep Threads
+Threads:	1
+
+</pre>
+<p>(where 13605 was the process ID of my R process. That is using the default R on the network. One could appeal to the network administrator to change things for you but they probably won&#8217;t because a parallel BLAS implementation may cause problems for other users who require a serial BLAS, such as those that use the multicore environment to perform inherently parallel algorithms such as parallel tempering instead of using idle cores to speed up the linear algebra. There are also some known conflicts with the multicore package in R. There is, however, nothing stopping the user from compiling one&#8217;s own custom R build in one&#8217;s home directory and just changing the executable path thereto. In addition, you then have the power and freedom customize R to your needs &#8211; at the moment I have some very large matrices which would benefit from a threaded BLAS but at some point I may want to revert to a tuned serial BLAS such at ATLAS for certain parallel algorithms. </p>
+<p>Firstly, go ahead and create a directory in which to keep all your custom software.</p>
+<pre class="brush: bash; title: ; notranslate">
+[msl33@cabbage ~]$ pwd
+/home/grad/msl33
+[msl33@cabbage ~]$ mkdir software
+
+</pre>
+<p><a name="openblas"></a><br />
+<h1>Download OpenBLAS</h1>
+<p>Make a directory &#8220;openblas&#8221; in the &#8220;software directory.</p>
+<pre class="brush: bash; title: ; notranslate">
+[msl33@cabbage ~]$ cd software/
+[msl33@cabbage software]$ mkdir openblas
+
+</pre>
+<p>Next, grab the tarball from the <a href="http://www.openblas.net/" title="openblas homepage">OpenBLAS homepage</a>. Change directory into where you downloaded the tarball and extract the files from it.</p>
+<pre class="brush: bash; title: ; notranslate">
+[msl33@cabbage ~]$ cd Downloads/
+[msl33@cabbage Downloads]$ tar -xvf xianyi-OpenBLAS-v0.2.9-0-gf773f49.tar.gz 
+
+</pre>
+<p>While this is running, fill a kettle with some water and turn it on, this stage is very important.</p>
+<p>Change directory into where you extracted the files and verify that NO_AFFINITY=1 is uncommented in the Makefile.rule. If so proceed and run make.</p>
+<pre class="brush: bash; title: ; notranslate">
+[msl33@cabbage ~/Downloads]$ cd xianyi-OpenBLAS-347dded/
+[msl33@cabbage xianyi-OpenBLAS-347dded]$ cat Makefile.rule | grep NO_AFFINITY
+NO_AFFINITY = 1
+[msl33@cabbage xianyi-OpenBLAS-347dded]$ make
+
+</pre>
+<p>Now is a good time to &#8220;make&#8221; some tea with the water prepared earlier. When done successfully one will see<br />
+<a href="http://www.lindonslog.com/wp-content/uploads/2014/07/openblas_complete.png"><img src="http://www.lindonslog.com/wp-content/uploads/2014/07/openblas_complete.png" alt="openblas confirmation" width="656" height="255" class="size-full wp-image-1002" srcset="http://www.lindonslog.com/wp-content/uploads/2014/07/openblas_complete.png 656w, http://www.lindonslog.com/wp-content/uploads/2014/07/openblas_complete-300x116.png 300w" sizes="(max-width: 656px) 100vw, 656px" /></a><br />
+Now, as instructed above, install to the &#8220;software&#8221; directory made earlier.</p>
+<pre class="brush: bash; title: ; notranslate">
+[msl33@cabbage xianyi-OpenBLAS-347dded]$ make PREFIX=/home/grad/msl33/software/openblas install
+...
+Install OK!
+</pre>
+<p>In  openblas/lib there will be a file &#8220;libopenblas.so&#8221;, needed for later. That&#8217;s it for openblas, next we will do R.</p>
+<p><a name="R"></a><br />
+<h1>Download R</h1>
+<p>Let&#8217;s create an R directory in software. Go onto the R homepage, then download, then choose a <a href="http://mirrors.ebi.ac.uk/CRAN/">mirror</a> and grab the tarball of the latest version. Download it to your &#8220;software&#8221; directory and extract it as before with &#8220;tar -xvf R-3.1.1.tar.gz&#8221;. Once extracted, remove the tarball and change directory into R-3.1.1. Before running the configure script one might bring some customizations into consideration in the name of efficiency. One might consider upping the optimization level from 2 to 3 and adding march or mtune by editing &#8220;config.site&#8221; and changing &#8220;## CFLAGS=&#8221; on line 53 to &#8220;CFLAGS=&#8217;-O3 -march=native'&#8221; and making similar changes for FFLAGS and CXXFLAGS. It is noted in the <a href="http://cran.r-project.org/doc/manuals/r-release/R-admin.html#Compilation-flags">R Installation and Administration</a> documentation that these can produce worthwhile speedups but come with a warning that the build will be less reliable, with segfaults and numerical errors creeping in. It is safest to leave things <a href="http://www.youtube.com/watch?v=aYBkDxao3wg&#038;t=2m28s">regular</a> (reccommended link) but I&#8217;ll take the risk. Now, if you are not using a computer on the duke statistical science network, run the configure script, otherwise see the additional instructions before running configure.</p>
+<pre class="brush: bash; title: ; notranslate">
+[msl33@cabbage R-3.1.1]$ ./configure --prefix=/home/grad/msl33/software/R --enable-R-shlib --enable-BLAS-shlib --enable-memory-profiling --with-tcltk=no
+
+</pre>
+<p><a name="duke"></a><br />
+<h3>BEGIN ADDITIONAL INSTRUCTIONS FOR DUKE STATISTICAL SCIENCE STUDENTS</h3>
+<p>[On the DSS computers some further instructions are required to locate headers and libraries. The first time I tried to make on my office computer I encountered this <a href="http://stackoverflow.com/questions/17570586/unable-to-compile-jni-program-rjava">error</a>. &#8220;jni.h&#8221; could not be found. The error was resolved by locating it and then export the environment variable JAVA_HOME.</p>
+<pre class="brush: bash; title: ; notranslate">
+[msl33@cabbage software]$ locate jni.h
+/usr/lib/jvm/java-1.7.0-sun-1.7.0.11/include/jni.h
+[msl33@cabbage software]$ export JAVA_HOME=/usr/lib/jvm/java-1.7.0-sun-1.7.0.11/
+
+</pre>
+<p>In addition, when running the configure script the readline headers/libs could not be found. We&#8217;ll just borrow them from some other software. Add to CFLAGS, FFLAGS, CXXFLAGS &#8220;-I/opt/EPD_Free/include -L/opt/EPD_Free/lib&#8221; in addition to any other flags that you have set. Also make a lib directory and copy them in.</p>
+<pre class="brush: bash; title: ; notranslate">
+[msl33@cabbage R-3.1.1]$ mkdir lib
+[msl33@cabbage R-3.1.1]$ cp /opt/EPD_Free/lib/libreadline.* lib/
+[msl33@cabbage R-3.1.1]$ cp /opt/EPD_Free/lib/libncurses* lib/
+</pre>
+<p> Now run the configure line above.]</p>
+<h3>END ADDITIONAL INSTRUCTIONS FOR DUKE STATISTICAL SCIENCE STUDENTS</h3>
+<p>Once the configure has completed, you&#8217;ll see a summary below like<br />
+<a href="http://www.lindonslog.com/wp-content/uploads/2014/07/configure.png"><img src="http://www.lindonslog.com/wp-content/uploads/2014/07/configure-1024x383.png" alt="openblas configure" width="640" height="239" class="aligncenter size-large wp-image-1013" srcset="http://www.lindonslog.com/wp-content/uploads/2014/07/configure-1024x383.png 1024w, http://www.lindonslog.com/wp-content/uploads/2014/07/configure-300x112.png 300w, http://www.lindonslog.com/wp-content/uploads/2014/07/configure.png 1026w" sizes="(max-width: 640px) 100vw, 640px" /></a><br />
+Now issue the command &#8220;make&#8221;, it will take some time. Once make has finished, you can execute &#8220;make install&#8221; to populate the software/R directory created earlier but you don&#8217;t need to. Change directories to lib and make a backup of libRblas.so and create a symbolic link to the openblas library that was made earlier.</p>
+<pre class="brush: bash; title: ; notranslate">
+[msl33@cabbage ~]$ cd software/R-3.1.1/lib
+[msl33@cabbage lib]$ pwd
+/home/grad/msl33/software/R-3.1.1/lib
+[msl33@cabbage lib]$ mv libRblas.so libRblas.so.keep
+[msl33@cabbage lib]$ ln -s /home/grad/msl33/software/openblas/lib/libopenblas.so libRblas.so
+
+</pre>
+<p>That was the last step. </p>
+<p><a name="validation"></a><br />
+<h2>Setup Validation</h2>
+<p>The R executable in the bin directory should now use openblas. Note this is the R executable you now need to run in order to use the custom built R with openblas. Just typing R in terminal will load the old /usr/lib64&#8230; which we students didn&#8217;t have the permissions to alter. You can, however, create an alias in your .bashrc file by inserting the line &#8216;alias R=&#8221;/home/grad/msl33/software/R-3.1.1/bin/./R&#8221;&#8216;. Now when you type R in a terminal it will load the new R and not the old one.  One can check that R executable depends on the correct linked shared blas library with the &#8220;ldd&#8221; command.</p>
+<pre class="brush: bash; title: ; notranslate">
+[msl33@cabbage bin]$ pwd
+/home/grad/msl33/software/R-3.1.1/bin
+[msl33@cabbage bin]$ ./R CMD ldd exec/./R | grep blas
+	libRblas.so =&gt; /home/grad/msl33/software/R-3.1.1/lib/libRblas.so (0x00007f62e3fb7000)
+[msl33@cabbage bin]$ ls -lt ../lib | grep openblas
+lrwxrwxrwx  1 msl33 grad      53 Jul 16 15:35 libRblas.so -&gt; /home/grad/msl33/software/openblas/lib/libopenblas.so
+
+</pre>
+<p>In addition, execute &#8220;./R&#8221; from the &#8220;bin&#8221; directory  (or just R if you set up the alias) and grab the process id. </p>
+<pre class="brush: bash; title: ; notranslate">
+[msl33@cabbage bin]$ ps aux | grep R | grep software | awk '{print $2}'
+2412
+[msl33@cabbage bin]$ cat /proc/`ps aux | grep R | grep software | awk '{print $2}'`/status | grep Threads
+Threads:	8
+[msl33@cabbage bin]$ 
+
+</pre>
+<p>Evidently the R session now has 8 threads available. Finally, lets perform an eigen-decomposition and look at the cpu usage using top. You&#8217;ll see it light up all of your cores.<br />
+<a href="http://www.lindonslog.com/wp-content/uploads/2014/07/openblas_cpu.png"><img src="http://www.lindonslog.com/wp-content/uploads/2014/07/openblas_cpu-1024x358.png" alt="openblas cpu usage" width="640" height="223" class="aligncenter size-large wp-image-1012" srcset="http://www.lindonslog.com/wp-content/uploads/2014/07/openblas_cpu-1024x358.png 1024w, http://www.lindonslog.com/wp-content/uploads/2014/07/openblas_cpu-300x105.png 300w, http://www.lindonslog.com/wp-content/uploads/2014/07/openblas_cpu.png 1321w" sizes="(max-width: 640px) 100vw, 640px" /></a></p>
+<p><a name="benchmark"></a><br />
+<h2>Benchmark</h2>
+<p>Using this <a href="http://r.research.att.com/benchmarks/R-benchmark-25.R">benchmark</a> the reference BLAS took 32.1 seconds whilst openBLAS took 7.1 seconds.</p>
+<p>The post <a rel="nofollow" href="http://www.lindonslog.com/linux-unix/compile-r-openblas-source-guide/">Compile R and OpenBLAS from Source Guide</a> appeared first on <a rel="nofollow" href="http://www.lindonslog.com">Lindons Log</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://www.lindonslog.com/linux-unix/compile-r-openblas-source-guide/feed/</wfw:commentRss>
+		<slash:comments>3</slash:comments>
+		</item>
+		<item>
+		<title>C++11 versus R Standalone Random Number Generation Performance Comparison</title>
+		<link>http://www.lindonslog.com/linux-unix/c11-r-standalone-random-number-generation-performance-comparison/</link>
+		<comments>http://www.lindonslog.com/linux-unix/c11-r-standalone-random-number-generation-performance-comparison/#respond</comments>
+		<pubDate>Sat, 01 Mar 2014 20:00:25 +0000</pubDate>
+		<dc:creator><![CDATA[admin]]></dc:creator>
+				<category><![CDATA[Linux/Unix]]></category>
+		<category><![CDATA[Programming]]></category>
+		<category><![CDATA[R]]></category>
+		<category><![CDATA[Statistics]]></category>
+		<category><![CDATA[C++11]]></category>
+		<category><![CDATA[PRNG]]></category>
+		<category><![CDATA[pseudo random number generation]]></category>
+		<category><![CDATA[RNG]]></category>
+		<category><![CDATA[standalone]]></category>
+
+		<guid isPermaLink="false">http://www.lindonslog.com/?p=960</guid>
+		<description><![CDATA[<p>If you are writing some C++ code with the intent of calling it from R or even developing it into a package you might wonder whether it is better to use the pseudo random number library native to C++11 or the R standalone library. On the one hand users of your package might have an [&#8230;]</p>
+<p>The post <a rel="nofollow" href="http://www.lindonslog.com/linux-unix/c11-r-standalone-random-number-generation-performance-comparison/">C++11 versus R Standalone Random Number Generation Performance Comparison</a> appeared first on <a rel="nofollow" href="http://www.lindonslog.com">Lindons Log</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p>If you are writing some C++ code with the intent of calling it from R or even developing it into a package you might wonder whether it is better to use the pseudo random number library native to C++11 or the R standalone library. On the one hand users of your package might have an outdated compiler which doesn&#8217;t support C++11 but on the other hand perhaps there are potential speedups to be won by using the <random> library native to C++11. I decided to compare the performance of these two libraries.</p>
+<pre class="brush: cpp; title: ; notranslate">
+#define MATHLIB_STANDALONE
+#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;random&gt;
+#include &lt;chrono&gt;
+#include &quot;Rmath.h&quot;
+
+int main(int argc, char *argv[])
+{
+        int ndraws=100000000;
+        std::vector&lt;double&gt; Z(ndraws);
+        std::mt19937 engine;
+        std::normal_distribution&lt;double&gt; N(0,1);
+
+        auto start = std::chrono::steady_clock::now();
+        for(auto &amp; z : Z ) {
+                z=N(engine);
+        }
+        auto end = std::chrono::steady_clock::now();
+        std::chrono::duration&lt;double&gt; elapsed=end-start;
+
+        std::cout &lt;&lt;  elapsed.count() &lt;&lt; &quot; seconds - C++11&quot; &lt;&lt; std::endl;
+
+        start = std::chrono::steady_clock::now();
+        GetRNGstate();
+        for(auto &amp; z : Z ) {
+                z=rnorm(0,1);
+        }
+        PutRNGstate();
+        end = std::chrono::steady_clock::now();
+        elapsed=end-start;
+
+        std::cout &lt;&lt;  elapsed.count() &lt;&lt; &quot; seconds - R Standalone&quot; &lt;&lt; std::endl;
+
+        return 0;
+}
+</pre>
+<p>Compiling and run with:</p>
+<pre class="brush: bash; title: ; notranslate">
+[michael@michael coda]$ g++ normal.cpp -o normal -std=c++11 -O3 -lRmath
+[michael@michael coda]$ ./normal 
+</pre>
+<h2>Normal Generation</h2>
+<pre class="brush: bash; title: ; notranslate">
+5.2252 seconds - C++11
+6.0679 seconds - R Standalone
+</pre>
+<h2>Gamma Generation</h2>
+<pre class="brush: bash; title: ; notranslate">
+11.2132 seconds - C++11
+12.4486 seconds - R Standalone
+</pre>
+<h2>Cauchy</h2>
+<pre class="brush: bash; title: ; notranslate">
+6.31157 seconds - C++11
+6.35053 seconds - R Standalone
+</pre>
+<p>As expected the C++11 implementation is faster but not by a huge amount. As the computational cost of my code is dominated by other linear algebra procedures of O(n^3) I&#8217;d actually be willing to use the R standalone library because the syntax is more user friendly.</p>
+<p>The post <a rel="nofollow" href="http://www.lindonslog.com/linux-unix/c11-r-standalone-random-number-generation-performance-comparison/">C++11 versus R Standalone Random Number Generation Performance Comparison</a> appeared first on <a rel="nofollow" href="http://www.lindonslog.com">Lindons Log</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://www.lindonslog.com/linux-unix/c11-r-standalone-random-number-generation-performance-comparison/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>Recursive Search Within Files in Terminal</title>
+		<link>http://www.lindonslog.com/linux-unix/recursive-search-within-files-in-terminal/</link>
+		<comments>http://www.lindonslog.com/linux-unix/recursive-search-within-files-in-terminal/#comments</comments>
+		<pubDate>Mon, 08 Jul 2013 18:54:54 +0000</pubDate>
+		<dc:creator><![CDATA[admin]]></dc:creator>
+				<category><![CDATA[Linux/Unix]]></category>
+
+		<guid isPermaLink="false">http://www.lindonslog.com/?p=560</guid>
+		<description><![CDATA[<p>When I inherit load of code from people, often I like to see what files call certain functions. A way to do this is to use grep recursively by using the -R option. Say I want to find all the files in which &#8216;rgamma&#8217; appears. This will look recursively within files to find appearances of [&#8230;]</p>
+<p>The post <a rel="nofollow" href="http://www.lindonslog.com/linux-unix/recursive-search-within-files-in-terminal/">Recursive Search Within Files in Terminal</a> appeared first on <a rel="nofollow" href="http://www.lindonslog.com">Lindons Log</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p>When I inherit load of code from people, often I like to see what files call certain functions. A way to do this is to use grep recursively by using the -R option. Say I want to find all the files in which &#8216;rgamma&#8217; appears.</p>
+<pre class="brush: bash; title: ; notranslate">
+msl33@hotel Documents]$ grep -R 'rgamma' *
+601/lab/4/script4.R:lamda=rgamma(n,shape=5,rate=6)
+601/lab/9/9.R:#  X[i,]=rgamma
+601/lab/9/9.R:#   X=matrix(rgamma(length(a)*k,a,1),k,length(a),byrow=T)
+601/lab/9/9.R:# theta=rgamma(10000,7,1000)
+msl33@hotel Documents]$
+</pre>
+<p>This will look recursively within files to find appearances of &#8216;rgamma&#8217;. As it turns out rgamma appears once in &#8220;script4.R&#8221; and thrice in &#8220;9.R&#8221;. </p>
+<p>The post <a rel="nofollow" href="http://www.lindonslog.com/linux-unix/recursive-search-within-files-in-terminal/">Recursive Search Within Files in Terminal</a> appeared first on <a rel="nofollow" href="http://www.lindonslog.com">Lindons Log</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://www.lindonslog.com/linux-unix/recursive-search-within-files-in-terminal/feed/</wfw:commentRss>
+		<slash:comments>2</slash:comments>
+		</item>
+		<item>
+		<title>Mustang Vim Colourscheme</title>
+		<link>http://www.lindonslog.com/linux-unix/mustang-vim-colourscheme/</link>
+		<comments>http://www.lindonslog.com/linux-unix/mustang-vim-colourscheme/#respond</comments>
+		<pubDate>Thu, 27 Jun 2013 01:27:41 +0000</pubDate>
+		<dc:creator><![CDATA[admin]]></dc:creator>
+				<category><![CDATA[Linux/Unix]]></category>
+
+		<guid isPermaLink="false">http://www.lindonslog.com/?p=536</guid>
+		<description><![CDATA[<p>I just came across this awesome vim colourscheme called mustang. The author&#8217;s deviantArt page is here but a slightly modified version is found here, which provides colouring for NERDTree.</p>
+<p>The post <a rel="nofollow" href="http://www.lindonslog.com/linux-unix/mustang-vim-colourscheme/">Mustang Vim Colourscheme</a> appeared first on <a rel="nofollow" href="http://www.lindonslog.com">Lindons Log</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p>I just came across this awesome vim colourscheme called mustang. The author&#8217;s deviantArt page is <a href="http://hcalves.deviantart.com/art/Mustang-Vim-Colorscheme-98974484" rel="nofollow">here</a> but a slightly modified version is found <a href="https://github.com/croaker/mustang-vim" rel="nofollow">here</a>, which provides colouring for NERDTree.<br />
+<div id="attachment_537" style="width: 650px" class="wp-caption aligncenter"><a href="http://www.lindonslog.com/wp-content/uploads/2013/06/Screenshot-from-2013-06-26-212247.png"><img src="http://www.lindonslog.com/wp-content/uploads/2013/06/Screenshot-from-2013-06-26-212247-1024x576.png" alt="vim colorscheme" width="640" height="360" class="size-large wp-image-537" srcset="http://www.lindonslog.com/wp-content/uploads/2013/06/Screenshot-from-2013-06-26-212247-1024x576.png 1024w, http://www.lindonslog.com/wp-content/uploads/2013/06/Screenshot-from-2013-06-26-212247-300x168.png 300w" sizes="(max-width: 640px) 100vw, 640px" /></a><p class="wp-caption-text">vim colorscheme</p></div></p>
+<p>The post <a rel="nofollow" href="http://www.lindonslog.com/linux-unix/mustang-vim-colourscheme/">Mustang Vim Colourscheme</a> appeared first on <a rel="nofollow" href="http://www.lindonslog.com">Lindons Log</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://www.lindonslog.com/linux-unix/mustang-vim-colourscheme/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>R snippets for vim-SnipMate</title>
+		<link>http://www.lindonslog.com/linux-unix/r-snippets-vim-snipmate/</link>
+		<comments>http://www.lindonslog.com/linux-unix/r-snippets-vim-snipmate/#respond</comments>
+		<pubDate>Wed, 26 Jun 2013 22:37:16 +0000</pubDate>
+		<dc:creator><![CDATA[admin]]></dc:creator>
+				<category><![CDATA[Linux/Unix]]></category>
+		<category><![CDATA[R]]></category>
+
+		<guid isPermaLink="false">http://www.lindonslog.com/?p=527</guid>
+		<description><![CDATA[<p>Vim is my editor of choice, reasonable so, whether it be for coding C++, LaTeX or even R. I&#8217;ve used RStudio, which even has a Vim-Mode, but I still prefer to use Vim. Vim has it&#8217;s own R plugin, namely Vim-R-plugin, but this post is about snippets. SnipMate is an awesome auto-completion plugin for Vim [&#8230;]</p>
+<p>The post <a rel="nofollow" href="http://www.lindonslog.com/linux-unix/r-snippets-vim-snipmate/">R snippets for vim-SnipMate</a> appeared first on <a rel="nofollow" href="http://www.lindonslog.com">Lindons Log</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p>Vim is my editor of choice, reasonable so, whether it be for coding C++, LaTeX or even R. I&#8217;ve used RStudio, which even has a Vim-Mode, but I still prefer to use Vim. Vim has it&#8217;s own R plugin, namely Vim-R-plugin, but this post is about snippets. SnipMate is an awesome auto-completion plugin for Vim which is fully customizable. One simply writes a string, rnorm for example, and presses tab to autocomplete the code to rnorm(n=,mean=,sd=), where repeated press of tab cycles through the placeholders at the function parameters. The strings to recognize, referred to as snippets, are stored in a snippets file &#8220;languagetype.snippets&#8221; along with the corresponding code to auto-complete. These can be user defined for any language, not just R. It&#8217;s usually not necessary to write these snippets files yourself, as there are already existing snippets files within the vim community, including one for R.  <a href="https://github.com/honza/vim-snippets/tree/master/snippets" rel="nofollow" title="Vim R snippets">Here</a> is a github repository containing snippets files for a great many languages, including R. Simply put this into your vim-SnipMate snippets directory. The last thing to do is to tell Vim to recognize an r filetype. If you open an R file and type,</p>
+<pre class="brush: bash; title: ; notranslate">
+:set ft=r
+</pre>
+<p>then this will tell Vim that the file is an R file. Obviously you don&#8217;t want to do this all the time, so to get Vim to automatically recognize &#8220;.r&#8221; and &#8220;.R&#8221; extensions as R files simply append your .vimrc file with:</p>
+<pre class="brush: bash; title: ; notranslate">
+au BufNewFile,BufRead *.r set filetype=r
+au BufNewFile,BufRead *.R set filetype=r
+</pre>
+<h2>Writing Custom Snippets</h2>
+<p>This is an example of how to complete a for loop having written only &#8220;for&#8221;. Append the r.snippets file with the following code.</p>
+<pre class="brush: bash; title: ; notranslate">
+snippet for
+    for(${1:i} in ${2:begin}:${3:end}){
+    ${4}
+    }${5}
+</pre>
+<p>This defines &#8220;for&#8221; as the snippet, the string after which we will want to press tab. The dollar signs define the place holders. &#8220;${x:text}&#8221; defines the x&#8217;th placeholder and the highlighted text which will be replaced.</p>
+<pre class="brush: r; title: ; notranslate">
+for&lt;tab&gt;
+</pre>
+<p>becomes</p>
+<pre class="brush: r; title: ; notranslate">
+for(i in begin:end){
+
+}
+</pre>
+<p>.</p>
+<p>Repeated pressing of tab cycles between i, begin, end, body of foor loop and then breaks out of the for loop.</p>
+<p>The post <a rel="nofollow" href="http://www.lindonslog.com/linux-unix/r-snippets-vim-snipmate/">R snippets for vim-SnipMate</a> appeared first on <a rel="nofollow" href="http://www.lindonslog.com">Lindons Log</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://www.lindonslog.com/linux-unix/r-snippets-vim-snipmate/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>AWK Remove Lines of Multiple Files</title>
+		<link>http://www.lindonslog.com/linux-unix/awk-remove-lines-of-multiple-files/</link>
+		<comments>http://www.lindonslog.com/linux-unix/awk-remove-lines-of-multiple-files/#respond</comments>
+		<pubDate>Sat, 16 Mar 2013 19:22:34 +0000</pubDate>
+		<dc:creator><![CDATA[admin]]></dc:creator>
+				<category><![CDATA[Linux/Unix]]></category>
+
+		<guid isPermaLink="false">http://www.lindonslog.com/?p=133</guid>
+		<description><![CDATA[<p>My girlfriend is a statistician and acquired some data in the form of 200 text files. The problem is that each file had two lines of non-informative description which needed removing. The goal was to process the data to remove the descriptive header. Instead of removing the lines from every file, I wrote this for [&#8230;]</p>
+<p>The post <a rel="nofollow" href="http://www.lindonslog.com/linux-unix/awk-remove-lines-of-multiple-files/">AWK Remove Lines of Multiple Files</a> appeared first on <a rel="nofollow" href="http://www.lindonslog.com">Lindons Log</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p>My girlfriend is a statistician and acquired some data in the form of 200 text files. The problem is that each file had two lines of non-informative description which needed removing. The goal was to process the data to remove the descriptive header. Instead of removing the lines from every file, I wrote this for her</p>
+<p><code><br />
+mkdir news<br />
+for file in *;<br />
+do awk '{if (NR!=1 && NR!=2) {print}}' "$file" > new_"$file";<br />
+mv new_"$file" news/"$file";<br />
+done </p>
+<p>cd news;<br />
+rm script;<br />
+rm news;<br />
+</code></p>
+<p>This uses awk to remove lines 1 and 2 from all of the files in the current directory and store the reduced files in the newly created directory &#8220;news&#8221;. Just run the shell script in the directory containing all the files.</p>
+<p>The post <a rel="nofollow" href="http://www.lindonslog.com/linux-unix/awk-remove-lines-of-multiple-files/">AWK Remove Lines of Multiple Files</a> appeared first on <a rel="nofollow" href="http://www.lindonslog.com">Lindons Log</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://www.lindonslog.com/linux-unix/awk-remove-lines-of-multiple-files/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>rsync Tutorial and Help with Examples</title>
+		<link>http://www.lindonslog.com/linux-unix/rsync-tutorial-and-help-with-examples/</link>
+		<comments>http://www.lindonslog.com/linux-unix/rsync-tutorial-and-help-with-examples/#respond</comments>
+		<pubDate>Sat, 19 Jan 2013 16:11:57 +0000</pubDate>
+		<dc:creator><![CDATA[admin]]></dc:creator>
+				<category><![CDATA[Linux/Unix]]></category>
+
+		<guid isPermaLink="false">http://www.lindonslog.com/?p=103</guid>
+		<description><![CDATA[<p>rsync is what people used to use before Dropbox. It is used to sync remote folders with local ones. Say for example tha I have some work on my office computer in folder &#8216;foo&#8217;. It is the weekend and I need to work on this project but I don&#8217;t want to go into the office. [&#8230;]</p>
+<p>The post <a rel="nofollow" href="http://www.lindonslog.com/linux-unix/rsync-tutorial-and-help-with-examples/">rsync Tutorial and Help with Examples</a> appeared first on <a rel="nofollow" href="http://www.lindonslog.com">Lindons Log</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p>rsync is what people used to use before Dropbox. It is used to sync remote folders with local ones. Say for example tha I have some work on my office computer in folder &#8216;foo&#8217;. It is the weekend and I need to work on this project but I don&#8217;t want to go into the office. rsync can be used to pull the folder from the remote (office) machine onto my local (home) computer. Then, when I am done with the changes, rsync can push all the modified files back to the office computer. rsync has some really great features so that it will only transfer the files which have been modified. </p>
+<pre class="brush: bash; title: ; notranslate">
+Home$ rsync -avzu office:.matlab/myfunctions/figs/ .
+receiving incremental file list
+./
+1_a_0_neg.eps
+1_a_0_pos.eps
+1_a_10_neg.eps
+1_a_10_pos.eps
+
+sent 90 bytes  received 12464 bytes  2789.78 bytes/sec
+total size is 36238  speedup is 2.89
+</pre>
+<p><strong>-a &#8211;archive</strong><br />
+Stands for archive mode. Basically this means that the structure from the office machine is kept on the local machine (i.e. same symbolic links etc.)</p>
+<p><strong>-v, &#8211;verbose</strong><br />
+Increases verbosity</p>
+<p><strong>-z, &#8211;compress</strong><br />
+Compresses the files for transfer purposes and then uncompresses them on the local machine. Really great if transferring massive data.</p>
+<p><strong>-u, &#8211;update</strong><br />
+This means that if the destination folder has files with a timestamp which is newer than the files in the source folder, then the files in the destination folder will not be overwritten with the older source ones.</p>
+<p>These are just a few most common arguments. Lastly, a good argument to remember</p>
+<p><strong>-n, &#8211;dry-run</strong><br />
+This won&#8217;t actually do any transfer of data, it merely shows you what rsync WOULD do if you removed this argument. A good choice if you want to be careful.</p>
+<p>The post <a rel="nofollow" href="http://www.lindonslog.com/linux-unix/rsync-tutorial-and-help-with-examples/">rsync Tutorial and Help with Examples</a> appeared first on <a rel="nofollow" href="http://www.lindonslog.com">Lindons Log</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://www.lindonslog.com/linux-unix/rsync-tutorial-and-help-with-examples/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>How to crop a pdf when using the ps2pdf converter via -dEPSCrop</title>
+		<link>http://www.lindonslog.com/linux-unix/ps2pdf-how-to-crop-the-white-border/</link>
+		<comments>http://www.lindonslog.com/linux-unix/ps2pdf-how-to-crop-the-white-border/#comments</comments>
+		<pubDate>Sat, 19 Jan 2013 14:48:49 +0000</pubDate>
+		<dc:creator><![CDATA[admin]]></dc:creator>
+				<category><![CDATA[Linux/Unix]]></category>
+
+		<guid isPermaLink="false">http://www.lindonslog.com/?p=97</guid>
+		<description><![CDATA[<p>Often I find myself converting eps or ps to pdf files for inclusion in a latex document using the ps2pdf converter. The problem is that often when using ps2pdf I get a large white border around the figure of interest in my pdf file which was not included in the eps file. Obviously this is [&#8230;]</p>
+<p>The post <a rel="nofollow" href="http://www.lindonslog.com/linux-unix/ps2pdf-how-to-crop-the-white-border/">How to crop a pdf when using the ps2pdf converter via -dEPSCrop</a> appeared first on <a rel="nofollow" href="http://www.lindonslog.com">Lindons Log</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p>Often I find myself converting eps or ps to pdf files for inclusion in a latex document using the ps2pdf converter. The problem is that often when using ps2pdf I get a large white border around the figure of interest in my pdf file which was not included in the eps file. Obviously this is annoying when trying to include the graphic in a latex file surrounded by text. The solution comes with using the -dEPSCrop option. </p>
+<p>The following flags will remedy the problem.</p>
+<pre class="brush: bash; title: ; notranslate">
+lindon$ ps2pdf -dPDFSETTINGS=/prepress -dEPSCrop test.eps
+</pre>
+<p>Now the pdf doesn&#8217;t included the unnecessary white space border.</p>
+<p>The post <a rel="nofollow" href="http://www.lindonslog.com/linux-unix/ps2pdf-how-to-crop-the-white-border/">How to crop a pdf when using the ps2pdf converter via -dEPSCrop</a> appeared first on <a rel="nofollow" href="http://www.lindonslog.com">Lindons Log</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://www.lindonslog.com/linux-unix/ps2pdf-how-to-crop-the-white-border/feed/</wfw:commentRss>
+		<slash:comments>1</slash:comments>
+		</item>
+	</channel>
+</rss>

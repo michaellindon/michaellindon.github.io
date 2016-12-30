@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	
+	>
+<channel>
+	<title>Comments on: Getting started with ATLAS, BLAS and LAPACK</title>
+	<atom:link href="http://www.lindonslog.com/programming/atlas-blas-lapack-linear-algebra-libraries/feed/" rel="self" type="application/rss+xml" />
+	<link>http://www.lindonslog.com/programming/atlas-blas-lapack-linear-algebra-libraries/</link>
+	<description></description>
+	<lastBuildDate>Sun, 27 Nov 2016 15:23:00 +0000</lastBuildDate>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=4.6.1</generator>
+	<item>
+		<title>By: FoadSF</title>
+		<link>http://www.lindonslog.com/programming/atlas-blas-lapack-linear-algebra-libraries/#comment-1289</link>
+		<dc:creator><![CDATA[FoadSF]]></dc:creator>
+		<pubDate>Sun, 27 Nov 2016 15:23:00 +0000</pubDate>
+		<guid isPermaLink="false">http://www.lindonslog.com/?p=539#comment-1289</guid>
+		<description><![CDATA[I used you example here and also collected dozens of other examples in this repository: :
+https://github.com/Foadsf/Cmathtuts
+with complete instructions for compiling and using BLAS, CBLAS, LAPACK, LAPACKE, CLAPACK...
+hope it will be usefull]]></description>
+		<content:encoded><![CDATA[<p>I used you example here and also collected dozens of other examples in this repository: :<br />
+<a href="https://github.com/Foadsf/Cmathtuts" rel="nofollow">https://github.com/Foadsf/Cmathtuts</a><br />
+with complete instructions for compiling and using BLAS, CBLAS, LAPACK, LAPACKE, CLAPACK&#8230;<br />
+hope it will be usefull</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: daemondave</title>
+		<link>http://www.lindonslog.com/programming/atlas-blas-lapack-linear-algebra-libraries/#comment-1236</link>
+		<dc:creator><![CDATA[daemondave]]></dc:creator>
+		<pubDate>Thu, 03 Dec 2015 19:56:20 +0000</pubDate>
+		<guid isPermaLink="false">http://www.lindonslog.com/?p=539#comment-1236</guid>
+		<description><![CDATA[Only on Ubuntu, on Fedora  
+-lsatlas 
+
+Best to use pkg-config to find options:
+
+ATLAS_CFLAGS=$(pkg-config --cflags atlas)
+ATLAS_CFLAGS+=$(pkg-config --cflags blas-atlas)
+ATLAS_CFLAGS+=$(pkg-config --cflags lapack-atlas)
+ATLAS_LDFLAGS=$(pkg-config --libs atlas)
+ATLAS_LDFLAGS+=$(pkg-config --libs blas-atlas)
+ATLAS_LDFLAGS+=$(pkg-config --libs lapack-atlas)
+
+that gets them on Debian and Redhat distro variants.]]></description>
+		<content:encoded><![CDATA[<p>Only on Ubuntu, on Fedora<br />
+-lsatlas </p>
+<p>Best to use pkg-config to find options:</p>
+<p>ATLAS_CFLAGS=$(pkg-config &#8211;cflags atlas)<br />
+ATLAS_CFLAGS+=$(pkg-config &#8211;cflags blas-atlas)<br />
+ATLAS_CFLAGS+=$(pkg-config &#8211;cflags lapack-atlas)<br />
+ATLAS_LDFLAGS=$(pkg-config &#8211;libs atlas)<br />
+ATLAS_LDFLAGS+=$(pkg-config &#8211;libs blas-atlas)<br />
+ATLAS_LDFLAGS+=$(pkg-config &#8211;libs lapack-atlas)</p>
+<p>that gets them on Debian and Redhat distro variants.</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: admin</title>
+		<link>http://www.lindonslog.com/programming/atlas-blas-lapack-linear-algebra-libraries/#comment-58</link>
+		<dc:creator><![CDATA[admin]]></dc:creator>
+		<pubDate>Wed, 28 Aug 2013 14:04:59 +0000</pubDate>
+		<guid isPermaLink="false">http://www.lindonslog.com/?p=539#comment-58</guid>
+		<description><![CDATA[Thanks :)]]></description>
+		<content:encoded><![CDATA[<p>Thanks 🙂</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: mano</title>
+		<link>http://www.lindonslog.com/programming/atlas-blas-lapack-linear-algebra-libraries/#comment-56</link>
+		<dc:creator><![CDATA[mano]]></dc:creator>
+		<pubDate>Tue, 27 Aug 2013 17:58:52 +0000</pubDate>
+		<guid isPermaLink="false">http://www.lindonslog.com/?p=539#comment-56</guid>
+		<description><![CDATA[$ gcc testblasc.c -o testblas -L /usr/lib64/atlas -lcblas 
+should read 
+$ gcc testblasc.c -o testblas -L /usr/lib64/atlas -lcblas -latlas 
+or 
+$ gcc testblasc.c -o testblas -L /usr/lib64/atlas -lblas]]></description>
+		<content:encoded><![CDATA[<p>$ gcc testblasc.c -o testblas -L /usr/lib64/atlas -lcblas<br />
+should read<br />
+$ gcc testblasc.c -o testblas -L /usr/lib64/atlas -lcblas -latlas<br />
+or<br />
+$ gcc testblasc.c -o testblas -L /usr/lib64/atlas -lblas</p>
+]]></content:encoded>
+	</item>
+</channel>
+</rss>
