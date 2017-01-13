@@ -8,68 +8,488 @@
 
 <url>
   <loc>https://michaellindon.github.io/</loc>
-  <lastmod>2017-01-08T23:25:14+00:00</lastmod>
+  <lastmod>2017-01-13T05:01:35+00:00</lastmod>
   <changefreq>weekly</changefreq>
   <priority>1.00</priority>
 </url>
 <url>
   <loc>https://michaellindon.github.io/about/</loc>
-  <lastmod>2017-01-08T23:25:14+00:00</lastmod>
+  <lastmod>2017-01-13T05:01:35+00:00</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://michaellindon.github.io/year-archive/</loc>
-  <lastmod>2017-01-08T23:25:14+00:00</lastmod>
+  <lastmod>2017-01-13T05:01:35+00:00</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://michaellindon.github.io/julia/slice-sampling/</loc>
-  <lastmod>2017-01-08T23:25:14+00:00</lastmod>
+  <lastmod>2017-01-13T05:01:35+00:00</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://michaellindon.github.io/julia/dirichlet-process/</loc>
-  <lastmod>2017-01-08T23:25:14+00:00</lastmod>
+  <lastmod>2017-01-13T05:01:35+00:00</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://michaellindon.github.io/julia/mala-metropolis-adjusted-langevin-algorithm-julia/</loc>
-  <lastmod>2017-01-08T23:25:14+00:00</lastmod>
+  <lastmod>2017-01-13T05:01:35+00:00</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.80</priority>
 </url>
 <url>
+  <loc>https://michaellindon.github.io/lindonslog/</loc>
+  <lastmod>2017-01-13T05:01:27+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.64</priority>
+</url>
+<url>
   <loc>https://michaellindon.github.io/clojure/clojure-workflow/</loc>
-  <lastmod>2017-01-08T23:25:14+00:00</lastmod>
+  <lastmod>2017-01-13T05:01:35+00:00</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.64</priority>
 </url>
 <url>
   <loc>https://michaellindon.github.io/programming/partial-application-functions-julia/</loc>
-  <lastmod>2017-01-08T23:25:14+00:00</lastmod>
+  <lastmod>2017-01-13T05:01:35+00:00</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.64</priority>
 </url>
 <url>
   <loc>https://michaellindon.github.io/programming/newtons-iteration-scala-clojure-haskell/</loc>
-  <lastmod>2017-01-08T23:25:14+00:00</lastmod>
+  <lastmod>2017-01-13T05:01:35+00:00</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.64</priority>
 </url>
 <url>
   <loc>https://michaellindon.github.io/tags/</loc>
-  <lastmod>2017-01-08T23:25:14+00:00</lastmod>
+  <lastmod>2017-01-13T05:01:35+00:00</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.64</priority>
 </url>
 <url>
   <loc>https://michaellindon.github.io/categories/</loc>
-  <lastmod>2017-01-08T23:25:14+00:00</lastmod>
+  <lastmod>2017-01-13T05:01:35+00:00</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://michaellindon.github.io/lindonslog/index.html</loc>
+  <lastmod>2017-01-13T05:01:27+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://michaellindon.github.io/lindonslog/category/mathematics/index.html</loc>
+  <lastmod>2017-01-13T05:01:27+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://michaellindon.github.io/lindonslog/category/mathematics/linear-algebra/index.html</loc>
+  <lastmod>2017-01-13T05:01:27+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://michaellindon.github.io/lindonslog/category/mathematics/statistics/index.html</loc>
+  <lastmod>2017-01-13T05:01:27+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://michaellindon.github.io/lindonslog/category/linux-unix/index.html</loc>
+  <lastmod>2017-01-13T05:01:27+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://michaellindon.github.io/lindonslog/category/programming/index.html</loc>
+  <lastmod>2017-01-13T05:01:27+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://michaellindon.github.io/lindonslog/category/programming/openmp/index.html</loc>
+  <lastmod>2017-01-13T05:01:27+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://michaellindon.github.io/lindonslog/category/programming/r/index.html</loc>
+  <lastmod>2017-01-13T05:01:27+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://michaellindon.github.io/lindonslog/links/index.html</loc>
+  <lastmod>2017-01-13T05:01:27+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://michaellindon.github.io/lindonslog/category/programming/clojure/index.html</loc>
+  <lastmod>2017-01-13T05:01:27+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://michaellindon.github.io/lindonslog/category/programming/functional-programming/index.html</loc>
+  <lastmod>2017-01-13T05:01:27+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://michaellindon.github.io/lindonslog/category/programming/haskell-programming/index.html</loc>
+  <lastmod>2017-01-13T05:01:27+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://michaellindon.github.io/lindonslog/category/programming/julia/index.html</loc>
+  <lastmod>2017-01-13T05:01:27+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://michaellindon.github.io/lindonslog/category/programming/scala/index.html</loc>
+  <lastmod>2017-01-13T05:01:27+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://michaellindon.github.io/lindonslog/programming/partial-application-functions-julia/index.html</loc>
+  <lastmod>2017-01-13T05:01:27+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://michaellindon.github.io/lindonslog/programming/newtons-iteration-scala-clojure-haskell/index.html</loc>
+  <lastmod>2017-01-13T05:01:27+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://michaellindon.github.io/lindonslog/mathematics/statistics/mala-metropolis-adjusted-langevin-algorithm-julia/index.html</loc>
+  <lastmod>2017-01-13T05:01:27+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://michaellindon.github.io/lindonslog/programming/passing-julia-type-to-c-function-as-struct/index.html</loc>
+  <lastmod>2017-01-13T05:01:27+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://michaellindon.github.io/lindonslog/linux-unix/send-lines-code-vim-r-julia-python-repl-slime/index.html</loc>
+  <lastmod>2017-01-13T05:01:27+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://michaellindon.github.io/lindonslog/linux-unix/c-merge-sort-algorithm/index.html</loc>
+  <lastmod>2017-01-13T05:01:27+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://michaellindon.github.io/lindonslog/programming/generate-random-inverse-gaussian-r/index.html</loc>
+  <lastmod>2017-01-13T05:01:27+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://michaellindon.github.io/lindonslog/mathematics/statistics/generalized-double-pareto-shrinkage-priors-sparse-estimation-regression/index.html</loc>
+  <lastmod>2017-01-13T05:01:27+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://michaellindon.github.io/lindonslog/mathematics/em-algorithm-bayesian-lasso-r-cpp-code/index.html</loc>
+  <lastmod>2017-01-13T05:01:27+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://michaellindon.github.io/lindonslog/linux-unix/compile-r-openblas-source-guide/index.html</loc>
+  <lastmod>2017-01-13T05:01:27+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.41</priority>
+</url>
+<url>
+  <loc>https://michaellindon.github.io/lindonslog/mathematics/monotonicity-em-algorithm-proof/index.html</loc>
+  <lastmod>2017-01-13T05:01:27+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.41</priority>
+</url>
+<url>
+  <loc>https://michaellindon.github.io/lindonslog/linux-unix/c11-r-standalone-random-number-generation-performance-comparison/index.html</loc>
+  <lastmod>2017-01-13T05:01:27+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.41</priority>
+</url>
+<url>
+  <loc>https://michaellindon.github.io/lindonslog/programming/stochastic-optimization-r-rmpi-parallel-tempering/index.html</loc>
+  <lastmod>2017-01-13T05:01:27+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.41</priority>
+</url>
+<url>
+  <loc>https://michaellindon.github.io/lindonslog/programming/openmp/parallel-tempering-algorithm-c/index.html</loc>
+  <lastmod>2017-01-13T05:01:27+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.41</priority>
+</url>
+<url>
+  <loc>https://michaellindon.github.io/lindonslog/mathematics/parallel-tempering-r-rmpi/index.html</loc>
+  <lastmod>2017-01-13T05:01:27+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.41</priority>
+</url>
+<url>
+  <loc>https://michaellindon.github.io/lindonslog/programming/apply-parallel-distributed-grid-cluster-r/index.html</loc>
+  <lastmod>2017-01-13T05:01:27+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.41</priority>
+</url>
+<url>
+  <loc>https://michaellindon.github.io/lindonslog/linux-unix/ssh-keygen-keys/index.html</loc>
+  <lastmod>2017-01-13T05:01:27+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.41</priority>
+</url>
+<url>
+  <loc>https://michaellindon.github.io/lindonslog/category/mathematics/page/2/index.html</loc>
+  <lastmod>2017-01-13T05:01:27+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.41</priority>
+</url>
+<url>
+  <loc>https://michaellindon.github.io/lindonslog/category/mathematics/page/3/index.html</loc>
+  <lastmod>2017-01-13T05:01:27+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.41</priority>
+</url>
+<url>
+  <loc>https://michaellindon.github.io/lindonslog/mathematics/woodbury-matrix-inverse-multivariate-normal/index.html</loc>
+  <lastmod>2017-01-13T05:01:27+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.41</priority>
+</url>
+<url>
+  <loc>https://michaellindon.github.io/lindonslog/mathematics/invert-a-matrix-using-the-woodbury-matrix-inverse-formula-identity/index.html</loc>
+  <lastmod>2017-01-13T05:01:27+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.41</priority>
+</url>
+<url>
+  <loc>https://michaellindon.github.io/lindonslog/mathematics/block-matrix-inverse/index.html</loc>
+  <lastmod>2017-01-13T05:01:27+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.41</priority>
+</url>
+<url>
+  <loc>https://michaellindon.github.io/lindonslog/mathematics/diagonalize-positive-definite-symmetric-matrix-schur-complement-ldu-decomposition/index.html</loc>
+  <lastmod>2017-01-13T05:01:27+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.41</priority>
+</url>
+<url>
+  <loc>https://michaellindon.github.io/lindonslog/mathematics/multivariate-normal-conditional-distribution/index.html</loc>
+  <lastmod>2017-01-13T05:01:27+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.41</priority>
+</url>
+<url>
+  <loc>https://michaellindon.github.io/lindonslog/category/mathematics/statistics/page/2/index.html</loc>
+  <lastmod>2017-01-13T05:01:27+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.41</priority>
+</url>
+<url>
+  <loc>https://michaellindon.github.io/lindonslog/linux-unix/recursive-search-within-files-in-terminal/index.html</loc>
+  <lastmod>2017-01-13T05:01:27+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.41</priority>
+</url>
+<url>
+  <loc>https://michaellindon.github.io/lindonslog/linux-unix/mustang-vim-colourscheme/index.html</loc>
+  <lastmod>2017-01-13T05:01:27+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.41</priority>
+</url>
+<url>
+  <loc>https://michaellindon.github.io/lindonslog/linux-unix/r-snippets-vim-snipmate/index.html</loc>
+  <lastmod>2017-01-13T05:01:27+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.41</priority>
+</url>
+<url>
+  <loc>https://michaellindon.github.io/lindonslog/linux-unix/awk-remove-lines-of-multiple-files/index.html</loc>
+  <lastmod>2017-01-13T05:01:27+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.41</priority>
+</url>
+<url>
+  <loc>https://michaellindon.github.io/lindonslog/linux-unix/rsync-tutorial-and-help-with-examples/index.html</loc>
+  <lastmod>2017-01-13T05:01:27+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.41</priority>
+</url>
+<url>
+  <loc>https://michaellindon.github.io/lindonslog/linux-unix/ps2pdf-how-to-crop-the-white-border/index.html</loc>
+  <lastmod>2017-01-13T05:01:27+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.41</priority>
+</url>
+<url>
+  <loc>https://michaellindon.github.io/lindonslog/category/linux-unix/page/2/index.html</loc>
+  <lastmod>2017-01-13T05:01:27+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.41</priority>
+</url>
+<url>
+  <loc>https://michaellindon.github.io/lindonslog/category/programming/page/2/index.html</loc>
+  <lastmod>2017-01-13T05:01:27+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.41</priority>
+</url>
+<url>
+  <loc>https://michaellindon.github.io/lindonslog/category/programming/page/3/index.html</loc>
+  <lastmod>2017-01-13T05:01:27+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.41</priority>
+</url>
+<url>
+  <loc>https://michaellindon.github.io/lindonslog/programming/parallel-random-number-generation-trng/index.html</loc>
+  <lastmod>2017-01-13T05:01:27+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.41</priority>
+</url>
+<url>
+  <loc>https://michaellindon.github.io/lindonslog/programming/openmp/openmp-tutorial-firstprivate-and-lastprivate/index.html</loc>
+  <lastmod>2017-01-13T05:01:27+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.41</priority>
+</url>
+<url>
+  <loc>https://michaellindon.github.io/lindonslog/programming/openmp/openmp-tutorial-critical-atomic-and-reduction/index.html</loc>
+  <lastmod>2017-01-13T05:01:27+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.41</priority>
+</url>
+<url>
+  <loc>https://michaellindon.github.io/lindonslog/programming/openmp/openmp-tutorial-work-sharing/index.html</loc>
+  <lastmod>2017-01-13T05:01:27+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.41</priority>
+</url>
+<url>
+  <loc>https://michaellindon.github.io/lindonslog/programming/openmp/openmp-tutorial-thinking-parallel/index.html</loc>
+  <lastmod>2017-01-13T05:01:27+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.41</priority>
+</url>
+<url>
+  <loc>https://michaellindon.github.io/lindonslog/mathematics/mcmc-interweaving-parameterization-efficiency/index.html</loc>
+  <lastmod>2017-01-13T05:01:27+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.41</priority>
+</url>
+<url>
+  <loc>https://michaellindon.github.io/lindonslog/programming/r/rcpp/index.html</loc>
+  <lastmod>2017-01-13T05:01:27+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.41</priority>
+</url>
+<url>
+  <loc>https://michaellindon.github.io/lindonslog/category/programming/r/page/2/index.html</loc>
+  <lastmod>2017-01-13T05:01:27+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.41</priority>
+</url>
+<url>
+  <loc>https://michaellindon.github.io/lindonslog/mathematics/statistics/marginal-likelihood-model-evidence-bayesian-regression/index.html</loc>
+  <lastmod>2017-01-13T05:01:27+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.33</priority>
+</url>
+<url>
+  <loc>https://michaellindon.github.io/lindonslog/mathematics/polynomial-regression-linear-model-in-r/index.html</loc>
+  <lastmod>2017-01-13T05:01:27+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.33</priority>
+</url>
+<url>
+  <loc>https://michaellindon.github.io/lindonslog/mathematics/statistics/ages-10-12-toy-exoplanet-detection/index.html</loc>
+  <lastmod>2017-01-13T05:01:27+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.33</priority>
+</url>
+<url>
+  <loc>https://michaellindon.github.io/lindonslog/mathematics/statistics/toy-exoplanet-change-point-detection/index.html</loc>
+  <lastmod>2017-01-13T05:01:27+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.33</priority>
+</url>
+<url>
+  <loc>https://michaellindon.github.io/lindonslog/mathematics/statistics/an-introduction-to-importance-sampling/index.html</loc>
+  <lastmod>2017-01-13T05:01:27+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.33</priority>
+</url>
+<url>
+  <loc>https://michaellindon.github.io/lindonslog/linux-unix/gnu-wget-tutorial/index.html</loc>
+  <lastmod>2017-01-13T05:01:27+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.33</priority>
+</url>
+<url>
+  <loc>https://michaellindon.github.io/lindonslog/linux-unix/libraries/index.html</loc>
+  <lastmod>2017-01-13T05:01:27+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.33</priority>
+</url>
+<url>
+  <loc>https://michaellindon.github.io/lindonslog/linux-unix/at-command/index.html</loc>
+  <lastmod>2017-01-13T05:01:27+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.33</priority>
+</url>
+<url>
+  <loc>https://michaellindon.github.io/lindonslog/2011/09/13/kill-killing-processes-and-the-top-command/index.html</loc>
+  <lastmod>2017-01-13T05:01:27+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.33</priority>
+</url>
+<url>
+  <loc>https://michaellindon.github.io/lindonslog/linux-unix/background-processes-with-nohup/index.html</loc>
+  <lastmod>2017-01-13T05:01:27+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.33</priority>
+</url>
+<url>
+  <loc>https://michaellindon.github.io/lindonslog/programming/error-in-c-c-symbol-name-not-in-load-table/index.html</loc>
+  <lastmod>2017-01-13T05:01:27+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.33</priority>
+</url>
+<url>
+  <loc>https://michaellindon.github.io/lindonslog/programming/atlas-blas-lapack-linear-algebra-libraries/index.html</loc>
+  <lastmod>2017-01-13T05:01:27+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.33</priority>
+</url>
+<url>
+  <loc>https://michaellindon.github.io/lindonslog/programming/struct-stat-and-stat/index.html</loc>
+  <lastmod>2017-01-13T05:01:27+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.33</priority>
 </url>
 </urlset>
