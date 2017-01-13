@@ -15,4 +15,7 @@ I'm a PhD candidate in the department of Statistical Science at Duke University.
 found useful to write down for future reference.
 
 
+[Old Website](https://michaellindon.github.io/lindonslog/)
+
+
 
