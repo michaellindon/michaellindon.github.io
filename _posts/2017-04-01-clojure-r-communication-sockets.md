@@ -1,6 +1,6 @@
 ---
 title: Clojure/Java and R Communication via Sockets
-date: 2016-11-09T13:07:09+00:00
+date: 2017-04-01T13:07:09+00:00
 author: admin
 categories:
   - clojure
