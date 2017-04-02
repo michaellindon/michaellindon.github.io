@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="None">
+  
+  <link rel="shortcut icon" href="./img/favicon.ico">
+  <title>Home - sss4clj Documentation</title>
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="./css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="./css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="./css/highlight.css">
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Home";
+    var mkdocs_page_input_path = "index.md";
+    var mkdocs_page_url = "/";
+  </script>
+  
+  <script src="./js/jquery-2.1.1.min.js"></script>
+  <script src="./js/modernizr-2.8.3.min.js"></script>
+  <script type="text/javascript" src="./js/highlight.pack.js"></script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href="." class="icon icon-home"> sss4clj Documentation</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="./search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	<ul class="current">
+          
+            <li>
+    <li class="toctree-l1 current">
+        <a class="current" href=".">Home</a>
+        
+            <ul>
+            
+                <li class="toctree-l3"><a href="#introduction-to-sss4clj">Introduction to sss4clj</a></li>
+                
+                    <li><a class="toctree-l4" href="#installation">Installation</a></li>
+                
+                    <li><a class="toctree-l4" href="#base-usage">Base Usage</a></li>
+                
+                    <li><a class="toctree-l4" href="#license">License</a></li>
+                
+            
+            </ul>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="kl/">Kullback Leibler Divergence</a>
+        
+    </li>
+<li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href=".">sss4clj Documentation</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>Home</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <p><img alt="sss4clj" src="./images/sss4clj.svg" title="Shotgun Stocahstic Search for Clojure" /></p>
+<h1 id="introduction-to-sss4clj">Introduction to sss4clj</h1>
+<p>Shotgun Stochastic Search is an algorithm for maximizing functions {0,1}ᴾ → ℝ described in <a href="http://www.tandfonline.com/doi/abs/10.1198/016214507000000121">Shotgun Stochastic Search for “Large p” Regression</a>.
+The philosophy of sss4clj is "less is more". Rather than provide a monolithic library catering to all possible optimization problems, sss4clj provides a minimal set of very general composable functions which the user can combine to apply to any specific case. Each element a ∈ {0,1}ᴾ can be uniquely identified by an "active set" i.e. {i ∈ ℕ| aᵢ = 1}. This project makes the design choice to work with the latter.</p>
+<h2 id="installation">Installation</h2>
+<p>Add the following dependency in your project.clj file</p>
+<p><a href="http://clojars.org/sss4clj"><img alt="Clojars Project" src="https://clojars.org/sss4clj/latest-version.svg" /></a></p>
+<h2 id="base-usage">Base Usage</h2>
+<p>An example.clj file can be found in the source directory which one can experiment with in the repl.</p>
+<pre><code class="clojure">
+(ns sss4clj.example
+  (:require [sss4clj.core :refer :all]
+            [clojure.math.combinatorics :as combo]))
+
+;; Let A ⊆ Ω ⊂ ℕ
+(def A #{0 3 4})
+(def Omega #{0 1 2 3 4})
+
+;; use drop-1 to get all sets formed by removing 1 element
+(drop-1 A)
+=&gt; (#{4 3} #{0 3} #{0 4})
+
+;; drop-1 of empty set is considered empty
+(drop-1 #{})
+=&gt; ()
+
+;; use add-1 to get all sets formed from the union of A
+;; with one element of Ω\A.
+(add-1 Omega A)
+=&gt; (#{0 1 4 3} #{0 4 3 2})
+
+;; add-1 of Omega is considered empty
+(add-1 Omega Omega)
+=&gt; ()
+
+;; use swap-1 to get all sets formed from exchanging one element
+;; of A with one element of its Ω\A
+(swap-1 Omega A)
+=&gt; (#{1 4 3} #{0 1 3} #{0 1 4} #{4 3 2} #{0 3 2} #{0 4 2})
+
+;; use neighbours to obtain all such sets formed form drop-1
+;; add-1 and swap-1 operations
+(neighbours Omega A)
+=&gt; [(#{4 3} #{0 3} #{0 4}) (#{0 1 4 3} #{0 4 3 2}) (#{1 4 3} #{0 1 3} #{0 1 4} #{4 3 2} #{0 3 2} #{0 4 2})]
+
+;;; To illustrate the next sss4clj functions we need a
+;; mathematical objective function that maps sets A ⊆ Ω to R.
+
+;; To do this lets just zip all sets in the power set of Ω
+;; with a random uniform and convert to a function
+(def subvalues (into (hash-map) (map vector (map #(set %) (combo/subsets (into (vector) Omega))) (repeatedly #(rand)))))
+(defn objective [x] (subvalues x))
+
+;; objective is now the function which we will try to maximize
+(objective #{})
+=&gt; 0.5809422699383645
+(objective Omega)
+=&gt; 0.37949346847568177
+(objective A)
+=&gt; 0.1971199058962515
+
+;; add-priority-map returns a new function that on the surface
+;; is identical to objective
+(def max-count 2)
+(def score (add-priority-map objective max-count))
+(score #{})
+=&gt; 0.5809422699383645
+
+;; but score has a priority-map appended to its meta-data for
+;; the purposes of recording and tracking the best values so far
+(deref (:scoreboard (meta score)))
+=&gt; {#{} 0.5809422699383645}
+
+;; sss may run for a long time and so optionally the user may
+;; only want to keep track of the top `max-count` vals in memory.
+;; This is the purpose of the priority map.
+(objective A)
+=&gt; 0.1971199058962515
+(deref (:scoreboard (meta score)))
+=&gt; {#{0 4 3} 0.1971199058962515, #{} 0.5809422699383645}
+(score Omega)
+=&gt; 0.37949346847568177
+(deref (:scoreboard (meta score)))
+=&gt; {#{0 1 4 3 2} 0.37949346847568177, #{} 0.5809422699383645}
+
+;; Once the size of the priority-map becomes large than max-count
+;; it drops the key-value pair with the smallest value. In the
+;; previous example the key-value pair with key A was dropped.
+
+;; Given a score function, an initial set A, and Ω, the user
+;; can perform one iteration of sss
+(next-model score Omega A)
+=&gt; #{0 4 2}
+
+;; The output is a new model, but one can check the sets visited
+;; within the iteration by dereferencing the meta-data of score
+(deref (:scoreboard (meta score)))
+=&gt; {#{0 3 2} 0.8143170162925805, #{0 4} 0.8948151339032558}
+
+;; Alternatively, the user can abstract the fine-grained details
+;; of the implementation and call a one function do-all
+;; This returns the final scoreboard of sets visited after
+;; 100 iterations of sss with a max-count of 5
+(run-sss objective Omega 100 5)
+=&gt; {#{0 1 4 3} 0.8108222058800102, #{0 3 2} 0.8143170162925805, #{0 4} 0.8948151339032558, #{0} 0.951193987214408, #{1} 0.9658085016841405}
+
+</code></pre>
+
+<h2 id="license">License</h2>
+<p>Copyright © 2017 Michael Lindon</p>
+<p>Distributed under the Eclipse Public License either version 1.0</p>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="kl/" class="btn btn-neutral float-right" title="Kullback Leibler Divergence">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+	  
+        </div>
+      </div>
+
+    </section>
+    
+  </div>
+
+  <div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+      
+        <span style="margin-left: 15px"><a href="kl/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script src="./js/theme.js"></script>
+
+</body>
+</html>
+
+<!--
+MkDocs version : 0.16.1
+Build Date UTC : 2017-04-02 17:38:54
+-->
