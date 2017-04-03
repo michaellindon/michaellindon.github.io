@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>Kullback Leibler Divergence - sss4clj</title>
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="../css/highlight.css">
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Kullback Leibler Divergence";
+    var mkdocs_page_input_path = "kl.md";
+    var mkdocs_page_url = "/kl/";
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js"></script>
+  <script src="../js/modernizr-2.8.3.min.js"></script>
+  <script type="text/javascript" src="../js/highlight.pack.js"></script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> sss4clj</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	<ul class="current">
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="..">Home</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../subsets/">Best Subset Selection</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 current">
+        <a class="current" href="./">Kullback Leibler Divergence</a>
+        
+            <ul>
+            
+                <li class="toctree-l3"><a href="#example-kullback-leibler-divergence">Example: Kullback Leibler Divergence</a></li>
+                
+                    <li><a class="toctree-l4" href="#establishing-some-helper-functions">Establishing some helper functions</a></li>
+                
+                    <li><a class="toctree-l4" href="#simulating-model-parameters">Simulating model parameters</a></li>
+                
+                    <li><a class="toctree-l4" href="#obtain-objective-function">Obtain objective function</a></li>
+                
+                    <li><a class="toctree-l4" href="#run-sss">Run-sss</a></li>
+                
+                    <li><a class="toctree-l4" href="#license">License</a></li>
+                
+            
+            </ul>
+        
+    </li>
+<li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">sss4clj</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>Kullback Leibler Divergence</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="example-kullback-leibler-divergence">Example: Kullback Leibler Divergence</h1>
+<p>In the context of Bayesian variable selection suppose we have a generative
+model for our data which is fully parameterized by an active set A ∈ 2ᴺ.
+In some cases, given an active set A, we would like to find alternative
+models, parameterized by an differenct active set B, which have similar
+predictive properties. To establish an optimization problem, lets try
+to find models which minimize the Kullback-Leibler divergence from
+the model under consideration A.</p>
+<h2 id="establishing-some-helper-functions">Establishing some helper functions</h2>
+<p>Lets assume the generative model is a non standard t-distribution. To
+work with this we need to write a few functions </p>
+<pre><code class="clojure">(defn logpdf-nst
+  &quot;Unnormalized logpdf of non standard t&quot;
+  [x mu sigma df]
+  (let [z (/ (- x mu) sigma)]
+    (negate (+ (log sigma) (* (/ (inc df) 2) (log (inc (/ (square z) df))))))))
+
+(defn sample-nst
+  &quot;Generate non standard t random variate&quot;
+  [n mu sigma df]
+  (add mu (mul sigma (sample-t n :df df))))
+</code></pre>
+
+<p>Now lets write a function KL which maps a number of arguments which define
+the generative model to a function 2ᴺ -&gt; R.</p>
+<pre><code class="clojure">(defn KL
+  &quot;Returns an objective function defined by prior parameters&quot;
+  [p-set X prior-mu prior-sigma scaler df]
+  (let [p (into [] p-set)
+        Xp (select X p)
+        p-mean (dot Xp (select prior-mu p))
+        p-sigma (if (empty? p)
+                  (square scaler)
+                  (* (square scaler) (inc (dot Xp (mmul (inverse (select prior-sigma p p)) Xp)))))
+        draws (sample-nst 10000 p-mean (sqrt p-sigma) df)
+        p-logpdf (fn [x] (logpdf-nst x p-mean (sqrt p-sigma) df))]
+    (fn [n-set]
+      (let [n (into [] n-set)
+            Xn (select X n)
+            n-mean (dot Xn (select prior-mu n))
+            n-sigma (if (empty? n)
+                      (square scaler)
+                      (* (square scaler) (inc (dot Xn (mmul (inverse (select prior-sigma n n)) Xn)))))
+            n-logpdf (fn [x] (logpdf-nst x n-mean (sqrt n-sigma) df))
+            difference (fn [x] (- (p-logpdf x) (n-logpdf x)))]
+        (mean (map difference draws))))))
+
+</code></pre>
+
+<h2 id="simulating-model-parameters">Simulating model parameters</h2>
+<pre><code class="clojure">(def dim 10)
+(def L (reshape (matrix (sample-normal (* dim dim))) [dim dim]))
+(def prior-sigma (mmul (transpose L) L))
+(def prior-mu (sample-normal dim))
+(def previous-model #{0 1 4})
+(def X (sample-normal dim))
+</code></pre>
+
+<h2 id="obtain-objective-function">Obtain objective function</h2>
+<p>Note the current formulation is a minimization problem, namely, trying to minimize the KL
+divergence from the previous model, whilst sss4clj expects a maximization problem. Note
+inserting a minus sign is not quite enough because the objective function values given
+a set of candidate active sets must be amenable to renormalization such that one can
+sample one of these candidates from a multinomial distribution. To this end one must
+compose the divergence (with an optional scaling factor) with negation and exponentiation.</p>
+<pre><code class="clojure">(def divergence (KL previous-model X prior-mu prior-sigma 1 1))
+(def obj-fn (comp exp negate (partial * 10) divergence))
+</code></pre>
+
+<h2 id="run-sss">Run-sss</h2>
+<p>Run for 100 iterations keeping track of the 10 best candidates</p>
+<pre><code class="clojure">(def Omega (range 0 dim))
+(run-sss obj-fn Omega 100 10)
+</code></pre>
+
+<h2 id="license">License</h2>
+<p>Copyright © 2017 Michael Lindon</p>
+<p>Distributed under the Eclipse Public License either version 1.0</p>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="../subsets/" class="btn btn-neutral" title="Best Subset Selection"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+	  
+        </div>
+      </div>
+
+    </section>
+    
+  </div>
+
+  <div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href="../subsets/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+    </span>
+</div>
+    <script src="../js/theme.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>Best Subset Selection - sss4clj</title>
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="../css/highlight.css">
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Best Subset Selection";
+    var mkdocs_page_input_path = "subsets.md";
+    var mkdocs_page_url = "/subsets/";
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js"></script>
+  <script src="../js/modernizr-2.8.3.min.js"></script>
+  <script type="text/javascript" src="../js/highlight.pack.js"></script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> sss4clj</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	<ul class="current">
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="..">Home</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 current">
+        <a class="current" href="./">Best Subset Selection</a>
+        
+            <ul>
+            
+                <li class="toctree-l3"><a href="#example-best-subset-selection">Example: Best Subset Selection</a></li>
+                
+                    <li><a class="toctree-l4" href="#generate-some-data">Generate Some Data</a></li>
+                
+                    <li><a class="toctree-l4" href="#running-shotgun-stochastic-search">Running Shotgun Stochastic Search</a></li>
+                
+            
+            </ul>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../kl/">Kullback Leibler Divergence</a>
+        
+    </li>
+<li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">sss4clj</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>Best Subset Selection</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="example-best-subset-selection">Example: Best Subset Selection</h1>
+<p>By way of introduction consider the best subset selection problem. By this
+I mean minimizing the residual sum of squares subject to a cardinality constraint
+on the support of the regression coefficients. Lets say that the zero norm
+of the regression coefficients must be less than an integer k, for which
+I will assign 5 for this problem.</p>
+<h2 id="generate-some-data">Generate Some Data</h2>
+<p>Lets generate some data with which to illustrate the application of sss to
+the best subset selection problem.</p>
+<pre><code class="clojure">(ns best-subset.core
+  (:require [clojure.core.matrix :refer :all]
+            [distributions.core :refer :all]
+            [sss4clj.core :refer :all]
+            [clojure.core.matrix.linear :as la]))
+
+
+(def n 200)
+(def p 20)
+(def X (reshape (sample (normal 0 1) (* n p)) [n p]))
+(def B (matrix (for [i (range 0 p)] (if (&lt; i 4) i 0))))
+(def Y (add (mmul X B) (sample (normal 0 1) n)))
+</code></pre>
+
+<h2 id="running-shotgun-stochastic-search">Running Shotgun Stochastic Search</h2>
+<p>Note that sss requires that we sample a new state, for which the probability
+of being sampled is some function of the objective function. In this context
+we want models with a low residual sum of squares to have a high probability
+of being sampled. For this reason we take the objective function to the 
+exponential of the negative RSS with sum scaling. We also set the probability
+to zero if the cardinality constraint is broken.</p>
+<pre><code class="clojure">(defn RSS [g]
+  (if (empty? g)
+    (dot Y Y)
+    (let [p-g (count g)
+          X-g (transpose (reshape (flatten (map #(mget (columns X) %) g)) [p-g n]))
+          proj (mmul X-g (la/solve (mmul (transpose X-g) X-g)) (transpose X-g))
+          orth-proj (sub (identity-matrix n) proj)]
+      (dot Y (mmul orth-proj Y)))))
+
+(def k 5)
+
+(defn objective [g]
+  (if (&gt; (count g) k) 0 (exp (negate (/ (RSS g) n)))))
+
+
+(def Omega (into #{} (range 0 p)))
+(def top-subsets (run-sss objective #{} Omega 10 5))
+</code></pre>
+
+<p>Note Omega is the the set containing integers from 0 to p-1 corresponding
+to all possible values of the active subset of regression coefficients.
+In order to run sss we specify the previously defined objective, an initial
+set (the emtpy set in this example), Omega, the number of iterations to run
+and the top number of models discovered. The latter is only really an issue
+for long runs with memory constraints. If you want to see all the models visited,
+then just set this to be a really large interger.</p>
+<pre><code class="clojure">{#{1 4 3 2 16} 0.36936833972859484, #{1 3 12 2 9} 0.36940132623186667, #{1 6 3 12 2} 0.37143277613460907, #{1 3 12 2 5} 0.3772822611159165, #{1 3 12 2 16} 0.37729521913614006}
+</code></pre>
+
+<p>Copyright © 2017 Michael Lindon</p>
+<p>Distributed under the Eclipse Public License either version 1.0</p>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../kl/" class="btn btn-neutral float-right" title="Kullback Leibler Divergence">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href=".." class="btn btn-neutral" title="Home"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+	  
+        </div>
+      </div>
+
+    </section>
+    
+  </div>
+
+  <div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href=".." style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../kl/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script src="../js/theme.js"></script>
+
+</body>
+</html>
