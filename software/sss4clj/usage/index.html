@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>Base Usage - sss4clj</title>
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="../css/highlight.css">
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Base Usage";
+    var mkdocs_page_input_path = "usage.md";
+    var mkdocs_page_url = "/usage/";
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js"></script>
+  <script src="../js/modernizr-2.8.3.min.js"></script>
+  <script type="text/javascript" src="../js/highlight.pack.js"></script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> sss4clj</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	<ul class="current">
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="..">Home</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 current">
+        <a class="current" href="./">Base Usage</a>
+        
+            <ul>
+            
+                <li class="toctree-l3"><a href="#base-usage">Base Usage</a></li>
+                
+                    <li><a class="toctree-l4" href="#leiningen-dependency">Leiningen Dependency</a></li>
+                
+                    <li><a class="toctree-l4" href="#namespaces">Namespaces</a></li>
+                
+                    <li><a class="toctree-l4" href="#visiting-neighbours">Visiting Neighbours</a></li>
+                
+                    <li><a class="toctree-l4" href="#objective-function">Objective Function</a></li>
+                
+                    <li><a class="toctree-l4" href="#priority-map">Priority Map</a></li>
+                
+                    <li><a class="toctree-l4" href="#iterating-sss">Iterating SSS</a></li>
+                
+                    <li><a class="toctree-l4" href="#run-sss">run-sss</a></li>
+                
+            
+            </ul>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../subsets/">Best Subset Selection</a>
+        
+    </li>
+<li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">sss4clj</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>Base Usage</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="base-usage">Base Usage</h1>
+<p>A single one-function-does-all is provided with "run-sss". However,
+in order to get the most from this package, the reader may be interested
+in the idividual functions that are composed to create run-sss. If not,
+the user can skip down to the end of this page to run-sss. A minimal set of information
+that the user must provide are </p>
+<ol>
+<li>
+<p>A function that maps a set of integers to a double (the objective).</p>
+</li>
+<li>
+<p>An initial set of integers to seed the algorithm (an empty set is also fine).</p>
+</li>
+<li>
+<p>A search space, namely, a set of all possible integers relevant to the problem (usually the set of integers from 1 to p where p is the dimension of the problem).</p>
+</li>
+<li>
+<p>Number of iterations to run sss.</p>
+</li>
+<li>
+<p>Number of top models to keep track (only an issue for long runs with memory constraints. In order
+to receive all visited models and their objective values, simply set this value large).</p>
+</li>
+</ol>
+<p>Worked examples can also be found using the sidebar to the left.</p>
+<h2 id="leiningen-dependency">Leiningen Dependency</h2>
+<p>Add the following dependency in your project.clj file</p>
+<p><a href="http://clojars.org/sss4clj"><img alt="Clojars Project" src="https://clojars.org/sss4clj/latest-version.svg" /></a></p>
+<h2 id="namespaces">Namespaces</h2>
+<p>One must import functions provided by this package to the relevant namespace i.e.</p>
+<pre><code class="clojure">(ns myproject.core
+  (:require [sss4clj.core :refer :all]))
+</code></pre>
+
+<h2 id="visiting-neighbours">Visiting Neighbours</h2>
+<p>Lets define an initial set A and a search space Ω such that Let A ⊆ Ω ⊂ ℕ.</p>
+<pre><code class="clojure">(def A #{0 3 4})
+(def Omega #{0 1 2 3 4})
+</code></pre>
+
+<p>Use <code>drop-1</code> to get all sets formed by removing 1 element.</p>
+<pre><code class="clojure">(drop-1 A)
+=&gt; (#{4 3} #{0 3} #{0 4})
+</code></pre>
+
+<p><code>drop-1</code> of empty set is considered empty.</p>
+<pre><code class="clojure">(drop-1 #{})
+=&gt; ()
+</code></pre>
+
+<p>Use <code>add-1</code> to get all sets formed from the union of A with one element of Ω\A.</p>
+<pre><code class="clojure">(add-1 Omega A)
+=&gt; (#{0 1 4 3} #{0 4 3 2})
+</code></pre>
+
+<p><code>add-1</code> of Omega is considered empty.</p>
+<pre><code class="clojure">(add-1 Omega Omega)
+=&gt; ()
+</code></pre>
+
+<p>Use <code>swap-1</code> to get all sets formed from exchanging one element of A with one element of its Ω\A.</p>
+<pre><code class="clojure">(swap-1 Omega A)
+=&gt; (#{1 4 3} #{0 1 3} #{0 1 4} #{4 3 2} #{0 3 2} #{0 4 2})
+</code></pre>
+
+<p>Use <code>neighbours</code> to obtain all such sets formed form <code>drop-1</code>, <code>add-1</code> and <code>swap-1</code> operations.</p>
+<pre><code class="clojure">(neighbours Omega A)
+=&gt; [(#{4 3} #{0 3} #{0 4}) (#{0 1 4 3} #{0 4 3 2}) (#{1 4 3} #{0 1 3} #{0 1 4} #{4 3 2} #{0 3 2} #{0 4 2})]
+</code></pre>
+
+<h2 id="objective-function">Objective Function</h2>
+<p>To illustrate the next sss4clj functions we need a mathematical objective function that maps sets A ⊆ Ω to R.
+To do this lets just zip all sets in the power set of Ω with a random uniform and convert to a function.</p>
+<pre><code class="clojure">(def subvalues (into (hash-map) (map vector (map #(set %) (combo/subsets (into (vector) Omega))) (repeatedly #(rand)))))
+(defn objective [x] (subvalues x))
+</code></pre>
+
+<p><code>objective</code> is now the function which we will try to maximize.</p>
+<pre><code class="clojure">(objective #{})
+=&gt; 0.5809422699383645
+(objective Omega)
+=&gt; 0.37949346847568177
+(objective A)
+=&gt; 0.1971199058962515
+</code></pre>
+
+<h2 id="priority-map">Priority Map</h2>
+<p><code>add-priority-map</code> returns a new function that on the surface is identical to objective,</p>
+<pre><code class="clojure">(def max-count 2)
+(def score (add-priority-map objective max-count))
+(score #{})
+=&gt; 0.5809422699383645
+</code></pre>
+
+<p>but <code>score</code> has a priority-map appended to its meta-data for the purposes of recording and tracking the best values so far.</p>
+<pre><code class="clojure">(deref (:scoreboard (meta score)))
+=&gt; {#{} 0.5809422699383645}
+</code></pre>
+
+<p>sss may run for a long time and so optionally the user may only want to keep track of the top <code>max-count</code> vals in memory.
+This is the purpose of the priority map.</p>
+<pre><code class="clojure">(objective A)
+=&gt; 0.1971199058962515
+(deref (:scoreboard (meta score)))
+=&gt; {#{0 4 3} 0.1971199058962515, #{} 0.5809422699383645}
+(score Omega)
+=&gt; 0.37949346847568177
+(deref (:scoreboard (meta score)))
+=&gt; {#{0 1 4 3 2} 0.37949346847568177, #{} 0.5809422699383645}
+</code></pre>
+
+<p>Once the size of the priority-map becomes large than max-count it drops the key-value pair with the smallest value. In the
+previous example the key-value pair with key A was dropped.</p>
+<h2 id="iterating-sss">Iterating SSS</h2>
+<p>Given a score function, an initial set A, and Ω, the user can perform one iteration of sss</p>
+<pre><code class="clojure">(next-model score Omega A)
+=&gt; #{0 4 2}
+</code></pre>
+
+<p>The output is a new model, but one can check the sets visited within the iteration by dereferencing the meta-data of score</p>
+<pre><code class="clojure">(deref (:scoreboard (meta score)))
+=&gt; {#{0 3 2} 0.8143170162925805, #{0 4} 0.8948151339032558}
+</code></pre>
+
+<h2 id="run-sss">run-sss</h2>
+<p>Alternatively, the user can abstract the fine-grained details
+of the implementation and call a one function do-all
+This returns the final scoreboard of sets visited after
+100 iterations of sss with a max-count of 5</p>
+<pre><code class="clojure">(run-sss objective Omega 100 5)
+=&gt; {#{0 1 4 3} 0.8108222058800102, #{0 3 2} 0.8143170162925805, #{0 4} 0.8948151339032558, #{0} 0.951193987214408, #{1} 0.9658085016841405}
+</code></pre>
+
+<p>Copyright © 2017 Michael Lindon</p>
+<p>Distributed under the Eclipse Public License either version 1.0</p>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../subsets/" class="btn btn-neutral float-right" title="Best Subset Selection">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href=".." class="btn btn-neutral" title="Home"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+	  
+        </div>
+      </div>
+
+    </section>
+    
+  </div>
+
+  <div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href=".." style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../subsets/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script src="../js/theme.js"></script>
+
+</body>
+</html>

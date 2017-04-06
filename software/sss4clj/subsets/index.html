@@ -54,6 +54,13 @@
 <li>
           
             <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../usage/">Base Usage</a>
+        
+    </li>
+<li>
+          
+            <li>
     <li class="toctree-l1 current">
         <a class="current" href="./">Best Subset Selection</a>
         
@@ -67,13 +74,6 @@
                 
             
             </ul>
-        
-    </li>
-<li>
-          
-            <li>
-    <li class="toctree-l1 ">
-        <a class="" href="../kl/">Kullback Leibler Divergence</a>
         
     </li>
 <li>
@@ -138,7 +138,7 @@ the best subset selection problem.</p>
 of being sampled is some function of the objective function. In this context
 we want models with a low residual sum of squares to have a high probability
 of being sampled. For this reason we take the objective function to the 
-exponential of the negative RSS with sum scaling. We also set the probability
+exponential of the negative RSS with some scaling. We also set the probability
 to zero if the cardinality constraint is broken.</p>
 <pre><code class="clojure">(defn RSS [g]
   (if (empty? g)
@@ -178,10 +178,8 @@ then just set this to be a really large interger.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../kl/" class="btn btn-neutral float-right" title="Kullback Leibler Divergence">Next <span class="icon icon-circle-arrow-right"></span></a>
       
-      
-        <a href=".." class="btn btn-neutral" title="Home"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../usage/" class="btn btn-neutral" title="Base Usage"><span class="icon icon-circle-arrow-left"></span> Previous</a>
       
     </div>
   
@@ -207,10 +205,8 @@ then just set this to be a really large interger.</p>
     <span class="rst-current-version" data-toggle="rst-current-version">
       
       
-        <span><a href=".." style="color: #fcfcfc;">&laquo; Previous</a></span>
+        <span><a href="../usage/" style="color: #fcfcfc;">&laquo; Previous</a></span>
       
-      
-        <span style="margin-left: 15px"><a href="../kl/" style="color: #fcfcfc">Next &raquo;</a></span>
       
     </span>
 </div>
