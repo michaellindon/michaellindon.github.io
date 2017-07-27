@@ -1,0 +1,246 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>reveal.js</title>
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/white.css">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+	<section data-background="logo.png" data-background-repeat="no-repeat" data-background-size="800px" data-background-position="bottom">
+					<h1>Distributions</h1>
+					<h3>(TriClojure Meetup 07/27/17)</h3>
+					<p>
+						<small>Created by <a href="https://www.linkedin.com/in/michael-lindon-056540103/">Michael Lindon</a> / <a href="https://twitter.com/michaelslindon">@michaelslindon</a></small>
+					</p>
+				</section>
+	<section data-background="duketrim.jpg" data-background-repeat="no-repeat" data-background-size="1200px" data-background-position="bottom">
+        <h3>Distributions</h3>
+            <ul>
+                <li>
+                    Fully featured probability distributions
+                </li>
+                <li>
+                    Product of research at Duke University Statistics
+                </li>
+                <li>
+                    Available on Clojars
+                </li>
+            </ul>
+                </section>
+                <section>
+                    <h3>Distributions</h3>
+                    <ul>
+                        <li>Idiomatic Clojure wrappers around ApacheCommonsMath-distributions</li>
+                        <li>Extra distributions</li>
+                        <li>Extra functionality</li>
+                        <li>Non-parametric distributions</li>
+                        <li>Sampling algorithms</li>
+                        <li>Integration and Expectation</li>
+                        <li>Documentation...</li>
+                    </ul>
+                </section>
+				<section data-background="documentation.png" data-background-repeat="no-repeat" data-background-size="1500px" data-background-position="center"></section>
+                <section><h3>Basic Examples</h3>
+                <pre><code data-trim data-noescape>
+> (normal 0 1)
+Normal{:mean 0, :variance 1}
+> (sample (normal 0 1) 3)
+(-0.219846038612241 -1.6304255588735215 -0.22084228267839426)
+> (pdf (normal 0 1) 1.5)
+0.12951759566589174
+> (log-pdf (normal 0 1) 1.5)
+-2.0439385332046727
+> (cdf (normal 0 1) 1.5)
+0.9331927987311419
+> (icdf (normal 0 1) 0.75)
+0.6744897501960816
+                </code></pre>
+      </section>
+                <section><h3>Basic Examples</h3>
+                    <pre><code data-trim data-noescape>
+> (mean (inverse-gamma 3 5))
+5/2
+> (variance (inverse-gamma 3 5))
+25/4
+> (standard-deviation (inverse-gamma 3 5))
+2.5
+                </code></pre>
+      </section>
+
+			<section><h3>Multiple Arities</h3>
+      <img src="basicfunctions.png" width="800"></section>
+
+			<section><h3>Truncated Distributions</h3>
+          Creating truncated distributions is easy,<br>
+          specify distribution and limits...
+          <pre><code data-trim data-noescape >
+> (truncated (normal 0 1) 1 2)
+TruncatedDistribution{:distribution Normal{:mean 0, :variance 1},
+                      :lower 1,
+                      :upper 2,
+                      :F-lower 0.841344746068543,
+                      :F-upper 0.9772498680518208}
+
+>(sample (truncated (normal 0 1) 1 2) 3)
+(1.094637655294669 1.4152676571782499 1.1343145958178653)
+          </code></pre>
+      </section>
+      <section>
+      <img src="truncated.png" width="800"></section>
+
+
+
+			<section><h3>Mixture Distributions</h3>
+          Mixture distributions also easy,<br>
+          specify components and probabilities
+          <pre><code data-trim data-noescape >
+> (mixture [(gamma 2 5) (normal 6 4)] [0.4 0.6])
+Mixture{:components [Gamma{:shape 2, :rate 5}
+                     Normal{:mean 6, :variance 4}],
+        :probabilities [0.4 0.6]}
+
+>(sample (mixture [(gamma 2 5) (normal 6 4)] [0.4 0.6]) 3)
+(7.540542631602463 7.495065337419773 6.383790389014847)
+          </code></pre>
+      </section>
+      <section>
+      <img src="mixtures.png" width="800"></section>
+
+      <section><h3>Marginalization</h3>
+          $$p(y)=\int p(y,\theta)d\theta$$
+          Denote parameter to be marginalized as a keyword
+          <pre><code data-trim data-noescape >
+> (marginal (normal :mu 3) (normal 1 2))
+Normal{:mean 1, :variance 5}
+
+> (marginal (poisson :rate) (gamma 3 2))
+NegativeBinomial{:failures 3, :probability 2/3}
+          </code></pre>
+      </section>
+      <section><h3>Posterior Distributions</h3>
+      $$p(\theta|y)=\frac{p(y|\theta)p(\theta)}{p(y)}$$
+          <pre><code data-trim data-noescape >
+> (def data (sample (poisson 5) 200))
+#'distributions.core/data
+> (posterior data (poisson :rate) (gamma 1 0.1))
+#distributions.core.Gamma{:shape 965, :rate 200.1}
+          </code></pre>
+Parameters denoted as keywords
+</section>
+<section><h3>Posterior Example</h3>
+      <img src="posterior.png" width="1000"></section>
+
+      <section><h3>Posterior-Predictive</h3>
+          $$p(y_{n+1}|y_{1:n})=\int p(y_{n+1}|\theta)p(\theta|y_{1:n})d\theta$$
+          Composition of marginal and posterior functions
+          <pre><code data-trim data-noescape >
+>(posterior-predictive data (poisson :rate) (gamma 1 0.1))
+NegativeBinomial{:failures 965, :probability 0.9950273495773247}
+          </code></pre>
+          <img src="predictive.png" width="800">
+      </section>
+
+      <section><h3>Sampling Algorithms </h3>
+
+      <ul>
+          <li>
+              Sampling from "non standard" distributions difficult
+          </li>
+          <li>So far 3 sampling algorithms available</li>
+          <li>Metropolis-Hastings</li>
+          <li>Slice-Sampling</li>
+          <li>Accept Reject</li>
+          <li>All return a lazy-list of draws</li>
+      </ul>
+      </section>
+      <section><h3>Accept-Reject</h3>
+      "target density:" $p(x)=1/3 \,\,x^2\mathbb{1}_{(0,1]}(x)$
+          <pre><code data-trim data-noescape >
+λ> (take 3 (accept-reject target-density (uniform 0 1) 1))
+(0.8297629001889286 0.778066797774964 0.28981042074043706)
+λ> (sample (accept-reject target-density (uniform 0 1) 1) 3)
+(0.8841717452838114 0.9360229665247679 0.923946004811828)
+
+          </code></pre>
+
+      </section>
+      <section><h3>Accept-Reject</h3>
+      "target density:" $p(x)=1/3 \,\,x^2\mathbb{1}_{(0,1]}(x)$
+
+          <img src="accept-reject.png" width="1000">
+      </section>
+      <section><h3>Metropolis Hastings</h3>
+      "target density:" $p(x)=1/3 \,\,x^2\mathbb{1}_{(0,1]}(x)$
+
+          <img src="metropolis-hastings.png" width="1000">
+          <pre><code data-trim data-noescape >
+λ> (take 5 (take-nth 10 mh-draws))
+(0.5 0.4425665105907383 0.5393113732753869 0.3961248334462656 0.890723381756662)
+          </code></pre>
+      </section>
+      <section><h3>Not Covered in Presentation...</h3>
+      <ul>
+          <li>Nonparametrics <br>(Dirichlet, Gaussian, Poisson processes)</li>
+          <li>Integration and Expectations</li>
+      </ul></section>
+      <section>
+          <h3>Future Work</h3>
+          <ul>
+              <li>Ready for use but still being developed</li>
+              <li>Automatic differentiation desired!</li>
+              <li>Integration with Expresso to match mathematical equivalence of expressions - Useful for dispatching
+              function of posterior multimethod</li>
+          </ul>
+      </section>
+      <section>
+          <h3>Also...</h3>
+          A local search algorithm for discrete optimization
+          <img src="sss4clj.png" width="1000">
+      </section>
+      <section><h3>Thank you!</h3>
+          
+https://github.com/michaellindon <br>
+https://www.linkedin.com/in/michael-lindon-056540103/<br>
+https://twitter.com/michaelslindon <br>
+      </section>
+			</div>
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+			// More info about config & dependencies:
+			// - https://github.com/hakimel/reveal.js#configuration
+			// - https://github.com/hakimel/reveal.js#dependencies
+			Reveal.initialize({
+				dependencies: [
+					{ src: 'plugin/markdown/marked.js' },
+         	{ src: 'plugin/math/math.js', async: true },
+					{ src: 'plugin/markdown/markdown.js' },
+					{ src: 'plugin/notes/notes.js', async: true },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+				]
+			});
+		</script>
+	</body>
+</html>
