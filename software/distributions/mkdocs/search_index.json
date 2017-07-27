@@ -1,0 +1,344 @@
+{
+    "docs": [
+        {
+            "location": "/",
+            "text": "Introduction to Distributions\n\uf0c1\n\n\nDistributions is a statistical computing environment for Clojure. It uses\nClojures protocols and multimethods to build a rich abstraction for interacting with\nand manipulating probability distributions, as well as extra functionality to make the lives\nof those working with probabilistic models little bit easier. Hopefully\nyou will be pleased by some of the design choices that were made in building the distributions API.\n\n\nMichael Lindon\n\n\nFeatures\n\uf0c1\n\n\n\n\nIdiomatic Clojure wrappers around Apache commons math distributions\n\n\nAdditional distributions not present in ACM\n\n\nTruncated Distributions\n\n\nMixture Distributions\n\n\nLocation-Scale Distributions\n\n\nMarginal Distributions\n\n\nPosterior Distributions\n\n\nPosterior Predictive Distributions\n\n\nSampling Algorithms\n\n\nGaussian Processes\n\n\nDirichlet Processes\n\n\nChinese Restaurant Process\n\n\nInhomogeneous Poisson Point Processes\n\n\nSpecial Mathematical Functions\n\n\n\n\nInstallation with Leiningen\n\uf0c1\n\n\nAdd the following dependency in your project.clj file",
+            "title": "Home"
+        },
+        {
+            "location": "/#introduction-to-distributions",
+            "text": "Distributions is a statistical computing environment for Clojure. It uses\nClojures protocols and multimethods to build a rich abstraction for interacting with\nand manipulating probability distributions, as well as extra functionality to make the lives\nof those working with probabilistic models little bit easier. Hopefully\nyou will be pleased by some of the design choices that were made in building the distributions API.  Michael Lindon",
+            "title": "Introduction to Distributions"
+        },
+        {
+            "location": "/#features",
+            "text": "Idiomatic Clojure wrappers around Apache commons math distributions  Additional distributions not present in ACM  Truncated Distributions  Mixture Distributions  Location-Scale Distributions  Marginal Distributions  Posterior Distributions  Posterior Predictive Distributions  Sampling Algorithms  Gaussian Processes  Dirichlet Processes  Chinese Restaurant Process  Inhomogeneous Poisson Point Processes  Special Mathematical Functions",
+            "title": "Features"
+        },
+        {
+            "location": "/#installation-with-leiningen",
+            "text": "Add the following dependency in your project.clj file",
+            "title": "Installation with Leiningen"
+        },
+        {
+            "location": "/getting-started/",
+            "text": "Geting Started\n\uf0c1\n\n\nCreating and Getting Parameters of Distributions\n\uf0c1\n\n\nLets start with an example. To create a Normal distribution with mean 1 and variance 2 we write\n\n\n\u03bb> (normal 1 2)\n#distributions.core.Normal{:mean 1, :variance 2}\n\n\n\n\nDistributions are implemented as records. As seen above, the \nnormal\n function called with arguments 1 and 2 returns a Normal record with mean parameter 1 and variance parameter 2. Parameters of the distribution can be accessed by using the appropriate keywords.\n\n\n\u03bb> (def mynormal (normal 0 1))\n#'\u03bb/mynormal\n\n\u03bb> mynormal\n#distributions.core.Normal{:mean 0, :variance 1}\n\n\u03bb> (:mean mynormal)\n0\n\n\u03bb> (:variance mynormal)\n1\n\n\n\n\n\n\n\nNormal Parameterization\n\n\nThe design choice has been made to parameterize the normal distribution by mean and variance instead of mean and stan dard deviation.\n\n\n\n\nSampling Distributions\n\uf0c1\n\n\nSampling from a distribution is achieved using the \nsample\n function\n\n\n\u03bb> (sample mynormal)\n0.26276240636941356\n\n\u03bb> (sample mynormal 3)\n(0.04801945336086195 0.8026957377916983 0.22748199289423185)\n\n\n\n\nNotice that \nsample\n has multiple arities. One can get a single draw using the 1-arity version, or many samples using the 2-arity version.\n\n\n\u03bb> (sample (poisson 4))\n2\n\n\u03bb> (sample (poisson 4) 3)\n(4 1 6)\n\n\n\n\nThe \nsample\n function dispatches against the distribution type (clojure record). This kind of polymorphism is achieved using Clojure protocols. Both arities of the \nsample\n function are implemented in the \nrandom\n protocol. A list of protocols can be found \nhere\n. \n\n\nMeans and Variances\n\uf0c1\n\n\nThe Poisson is parameterized by its rate.\n\n\n\u03bb> (poisson 4)\n#distributions.core.Poisson{:rate 4}\n\n\u03bb> (:rate (poisson 4))\n4\n\n\n\n\nWhilst the rate of a Poisson can be retrieved using the keyword \n:rate\n, other functions are required to get the mean and variance of this distribution. For this purpose there are the \nmean\n and \nvariance\n functions.\n\n\n\u03bb> (mean (poisson 4))\n4.0\n\n\u03bb> (variance (poisson 4))\n4.0\n\n\u03bb> (standard-deviation (poisson 4))\n2.0\n\n\n\n\nThese functions also work on \nclojure.lang.Sequential\n types.\n\n\n\u03bb> (mean '(1 5 3 2))\n11/4\n\n\u03bb> (variance [9 3 1 5])\n35/4\n\n\u03bb> (standard-deviation [4 3 1])\n1.2472191289246473\n\n\n\n\nDensity Evaluation\n\uf0c1\n\n\nProbabilistic algorithms often require evaluations of a density or mass function. For this there are the functions \npdf\n, \npmf\n, \nlog-pdf\n and \nlog-pmf\n. The log-functions are not merely the pdf/pmf function composed with the logarithm function, but instead are computed on the log-scale. This is useful for avoiding underflow and overflow in computations. These functions have two arities. \n(pdf d x)\n evaluates the pdf of d at x, whereas \n(pdf d)\n returns a function, namely the pdf of d.\n\n\n\u03bb> (pdf (gamma 3 2) 1)\n0.5413411329464509\n\n\u03bb> (log-pdf (gamma 3 2) 1)\n-0.6137056388801094\n\n\u03bb> (map (pdf (gamma 3 2)) [1 2 3])\n(0.5413411329464509 0.2930502222197469 0.08923507835998892)\n\n\u03bb> (map (log-pdf (gamma 3 2)) [1 2 3])\n(-0.6137056388801094 -1.2274112777602189 -2.41648106154389)\n\n\n\n\n\n\npdf or pmf\n\n\nWhilst discrete distributions implement both pdf and pmf, continuous distributions only implement pdf. If in doubt just use \npdf\n for all purposes. \n\n\n\n\nCumulative Distribution Function\n\uf0c1\n\n\nThe cumulative distribution function of a distribution d can be obtained using \n(cdf d)\n. Evaluating the cdf of a distribution d at x can be done directly with \n(cdf d x)\n.\n\n\n\u03bb> (cdf (exponential 1) 1)\n0.6321205588285577\n\n\u03bb> (cdf (exponential 1))\n#function[distributions.core/eval35150/fn--35151/fn--35152]\n\n\u03bb> ((cdf (exponential 1)) 1)\n0.6321205588285577\n\n\n\n\nThe inverse or \"quantile\" function is used similarly.\n\n\n\u03bb> (icdf (exponential 1) 0.6321205588285577)\n1.0\n\n\u03bb> (icdf (exponential 1))\n#function[distributions.core/eval35174/fn--35175/fn--35176]\n\n\n\n\nSupport\n\uf0c1\n\n\nThe support of the distribution can be obtained using \nsupprt-lower\n and \nsupport-upper\n\n\n\u03bb> (support-lower (exponential 3))\n0.0\n\n\u03bb> (support-upper (exponential 3))\nInfinity",
+            "title": "Getting Started"
+        },
+        {
+            "location": "/getting-started/#geting-started",
+            "text": "",
+            "title": "Geting Started"
+        },
+        {
+            "location": "/getting-started/#creating-and-getting-parameters-of-distributions",
+            "text": "Lets start with an example. To create a Normal distribution with mean 1 and variance 2 we write  \u03bb> (normal 1 2)\n#distributions.core.Normal{:mean 1, :variance 2}  Distributions are implemented as records. As seen above, the  normal  function called with arguments 1 and 2 returns a Normal record with mean parameter 1 and variance parameter 2. Parameters of the distribution can be accessed by using the appropriate keywords.  \u03bb> (def mynormal (normal 0 1))\n#'\u03bb/mynormal\n\n\u03bb> mynormal\n#distributions.core.Normal{:mean 0, :variance 1}\n\n\u03bb> (:mean mynormal)\n0\n\n\u03bb> (:variance mynormal)\n1   Normal Parameterization  The design choice has been made to parameterize the normal distribution by mean and variance instead of mean and stan dard deviation.",
+            "title": "Creating and Getting Parameters of Distributions"
+        },
+        {
+            "location": "/getting-started/#sampling-distributions",
+            "text": "Sampling from a distribution is achieved using the  sample  function  \u03bb> (sample mynormal)\n0.26276240636941356\n\n\u03bb> (sample mynormal 3)\n(0.04801945336086195 0.8026957377916983 0.22748199289423185)  Notice that  sample  has multiple arities. One can get a single draw using the 1-arity version, or many samples using the 2-arity version.  \u03bb> (sample (poisson 4))\n2\n\n\u03bb> (sample (poisson 4) 3)\n(4 1 6)  The  sample  function dispatches against the distribution type (clojure record). This kind of polymorphism is achieved using Clojure protocols. Both arities of the  sample  function are implemented in the  random  protocol. A list of protocols can be found  here .",
+            "title": "Sampling Distributions"
+        },
+        {
+            "location": "/getting-started/#means-and-variances",
+            "text": "The Poisson is parameterized by its rate.  \u03bb> (poisson 4)\n#distributions.core.Poisson{:rate 4}\n\n\u03bb> (:rate (poisson 4))\n4  Whilst the rate of a Poisson can be retrieved using the keyword  :rate , other functions are required to get the mean and variance of this distribution. For this purpose there are the  mean  and  variance  functions.  \u03bb> (mean (poisson 4))\n4.0\n\n\u03bb> (variance (poisson 4))\n4.0\n\n\u03bb> (standard-deviation (poisson 4))\n2.0  These functions also work on  clojure.lang.Sequential  types.  \u03bb> (mean '(1 5 3 2))\n11/4\n\n\u03bb> (variance [9 3 1 5])\n35/4\n\n\u03bb> (standard-deviation [4 3 1])\n1.2472191289246473",
+            "title": "Means and Variances"
+        },
+        {
+            "location": "/getting-started/#density-evaluation",
+            "text": "Probabilistic algorithms often require evaluations of a density or mass function. For this there are the functions  pdf ,  pmf ,  log-pdf  and  log-pmf . The log-functions are not merely the pdf/pmf function composed with the logarithm function, but instead are computed on the log-scale. This is useful for avoiding underflow and overflow in computations. These functions have two arities.  (pdf d x)  evaluates the pdf of d at x, whereas  (pdf d)  returns a function, namely the pdf of d.  \u03bb> (pdf (gamma 3 2) 1)\n0.5413411329464509\n\n\u03bb> (log-pdf (gamma 3 2) 1)\n-0.6137056388801094\n\n\u03bb> (map (pdf (gamma 3 2)) [1 2 3])\n(0.5413411329464509 0.2930502222197469 0.08923507835998892)\n\n\u03bb> (map (log-pdf (gamma 3 2)) [1 2 3])\n(-0.6137056388801094 -1.2274112777602189 -2.41648106154389)   pdf or pmf  Whilst discrete distributions implement both pdf and pmf, continuous distributions only implement pdf. If in doubt just use  pdf  for all purposes.",
+            "title": "Density Evaluation"
+        },
+        {
+            "location": "/getting-started/#cumulative-distribution-function",
+            "text": "The cumulative distribution function of a distribution d can be obtained using  (cdf d) . Evaluating the cdf of a distribution d at x can be done directly with  (cdf d x) .  \u03bb> (cdf (exponential 1) 1)\n0.6321205588285577\n\n\u03bb> (cdf (exponential 1))\n#function[distributions.core/eval35150/fn--35151/fn--35152]\n\n\u03bb> ((cdf (exponential 1)) 1)\n0.6321205588285577  The inverse or \"quantile\" function is used similarly.  \u03bb> (icdf (exponential 1) 0.6321205588285577)\n1.0\n\n\u03bb> (icdf (exponential 1))\n#function[distributions.core/eval35174/fn--35175/fn--35176]",
+            "title": "Cumulative Distribution Function"
+        },
+        {
+            "location": "/getting-started/#support",
+            "text": "The support of the distribution can be obtained using  supprt-lower  and  support-upper  \u03bb> (support-lower (exponential 3))\n0.0\n\n\u03bb> (support-upper (exponential 3))\nInfinity",
+            "title": "Support"
+        },
+        {
+            "location": "/univariate/",
+            "text": "Univariate Distributions\n\uf0c1\n\n\nThe following should implement \nsample\n, \npdf\n, \nlog-pdf\n, \nsupport-lower\n, \nsupport-upper\n, \ncdf\n, \nicdf\n, \nmean\n, \nvariance\n and \npmf\n and \nlog-pmf\n for discrete distributions.\n\n\nDirichlet\n\uf0c1\n\n\n(dirichlet concentration)\n\n\n\u03bb> (dirichlet [1 10 20])\n#distributions.core.DirichletDistribution{:alpha [1 10 20]}\n\n\n\n\nDiscrete (Integer)\n\uf0c1\n\n\nExpect better performance than using \ndiscrete-real\n with integers.\n\n(discrete-integer integers probabilities)\n\n\n\n\u03bb> (discrete-integer [3 4] [0.5 0.5])\n#distributions.core.DiscreteInteger{:integers [3 4], :probabilities (0.5 0.5)}\n\n\n\n\nDiscrete (Real)\n\uf0c1\n\n\n(discrete-real locations probabilities)\n\n\n\u03bb> (discrete-real [0.2 0.3] [0.5 0.5])\n#distributions.core.DiscreteReal{:locations [0.2 0.3], :probabilities (0.5 0.5)}\n\u03bb> \n\n\n\n\nEnumerated\n\uf0c1\n\n\nGeneralization of both Discrete-Real and Discrete-Integer\n\n(enumerated items probabilities)\n\n\n\u03bb> (enumerated [:a \"foo\" 5 [1 2] {:mykey \"mymap\"}] [0.2 0.2 0.2 0.2 0.2])\n#distributions.core.Enumerated{:items [:a \"foo\" 5 [1 2] {:mykey \"mymap\"}], :probabilities (0.2 0.2 0.2 0.2 0.2), :discrete #distributions.core.DiscreteInteger{:integers (0 1 2 3 4), :probabilities (0.2 0.2 0.2 0.2 0.2)}, :imap {:a 0, \"foo\" 1, 5 2, [1 2] 3, {:mykey \"mymap\"} 4}}\n\u03bb> (sample (enumerated [:a \"foo\" 5 [1 2] {:mykey \"mymap\"}] [0.2 0.2 0.2 0.2 0.2]))\n{:mykey \"mymap\"}\n\n\n\n\nGamma\n\uf0c1\n\n\n(gamma shape rate)\n\n\n\u03bb> (gamma 3 2)\n#distributions.core.Gamma{:shape 3, :rate 2}\n\n\n\n\nGeneralized Double Pareto\n\uf0c1\n\n\n(gdp scale shape)\n\n\n\u03bb> (gdp 4 3)\n#distributions.core.GeneralizedDoublePareto{:scale 4, :shape 3}\n\n\n\n\nInverse Gaussian\n\uf0c1\n\n\n(inverse-gaussian mean shape)\n\n\n\u03bb> (inverse-gaussian 3 4)\n#distributions.core.InverseGaussianDistribution{:mean 3, :shape 4}\n\n\n\n\nNegative Binomial\n\uf0c1\n\n\n(negative-binomial failues probabilities)\n\n\n\u03bb> (negative-binomial 10 0.4)\n#distributions.core.NegativeBinomial{:failures 10, :probability 0.4}\n\n\n\n\nNormal-Laplace\n\uf0c1\n\n\nThe density of this distribution is proportional to the product of a normal density with mean mu and variance gamma*s2 and a laplace density with rate tau. It is implemented as a mixture of truncated distributions. Useful in Bayesian computations involving normal observations and Laplace priors.\n\n\n(normal-laplace mu s2 gamma tau)\n\n\n\u03bb> (normal-laplace 0 1 1 1)\n#distributions.core.Mixture{:components [#distributions.core.TruncatedDistribution{:distribution #distributions.core.Normal{:mean 1.0, :variance 1.0}, :lower -Infinity, :upper 0, :F-lower 0.0, :F-upper 0.15865525393145702} #distributions.core.TruncatedDistribution{:distribution #distributions.core.Normal{:mean -1.0, :variance 1.0}, :lower 0, :upper Infinity, :F-lower 0.841344746068543, :F-upper 1.0}], :probabilities [0.5 0.5]}\n\n\n\n\nNormal/Gaussian\n\uf0c1\n\n\n(normal mean variance)\n\n\n\u03bb> (normal 3 2)\n#distributions.core.Normal{:mean 3, :variance 2}\n\n\n\n\nPoisson\n\uf0c1\n\n\n(poisson rate)\n\n\n\u03bb> (poisson 1)\n#distributions.core.Poisson{:rate 1}\n\n\n\n\nPolya-Gamma\n\uf0c1\n\n\n(polya-gamma z)\n\n\n\u03bb> (polya-gamma 3)\n#distributions.core.PolyaGammaDistribution{:z 3}\n\n\n\n\nStudents t\n\uf0c1\n\n\nStandard:\n\n(t-distribution df)\n\n\nLocation-Scale:\n\n(t-distribution df location scale)\n\n\n\u03bb> (t-distribution 1 2 3)\n#distributions.core.LocationScaleDistribution{:distribution #object[org.apache.commons.math3.distribution.TDistribution 0x38b1a404 \"org.apache.commons.math3.distribution.TDistribution@38b1a404\"], :location 2, :scale 3}",
+            "title": "Univariate Distributions"
+        },
+        {
+            "location": "/univariate/#univariate-distributions",
+            "text": "The following should implement  sample ,  pdf ,  log-pdf ,  support-lower ,  support-upper ,  cdf ,  icdf ,  mean ,  variance  and  pmf  and  log-pmf  for discrete distributions.",
+            "title": "Univariate Distributions"
+        },
+        {
+            "location": "/univariate/#dirichlet",
+            "text": "(dirichlet concentration)  \u03bb> (dirichlet [1 10 20])\n#distributions.core.DirichletDistribution{:alpha [1 10 20]}",
+            "title": "Dirichlet"
+        },
+        {
+            "location": "/univariate/#discrete-integer",
+            "text": "Expect better performance than using  discrete-real  with integers. (discrete-integer integers probabilities)  \n\u03bb> (discrete-integer [3 4] [0.5 0.5])\n#distributions.core.DiscreteInteger{:integers [3 4], :probabilities (0.5 0.5)}",
+            "title": "Discrete (Integer)"
+        },
+        {
+            "location": "/univariate/#discrete-real",
+            "text": "(discrete-real locations probabilities)  \u03bb> (discrete-real [0.2 0.3] [0.5 0.5])\n#distributions.core.DiscreteReal{:locations [0.2 0.3], :probabilities (0.5 0.5)}\n\u03bb>",
+            "title": "Discrete (Real)"
+        },
+        {
+            "location": "/univariate/#enumerated",
+            "text": "Generalization of both Discrete-Real and Discrete-Integer (enumerated items probabilities)  \u03bb> (enumerated [:a \"foo\" 5 [1 2] {:mykey \"mymap\"}] [0.2 0.2 0.2 0.2 0.2])\n#distributions.core.Enumerated{:items [:a \"foo\" 5 [1 2] {:mykey \"mymap\"}], :probabilities (0.2 0.2 0.2 0.2 0.2), :discrete #distributions.core.DiscreteInteger{:integers (0 1 2 3 4), :probabilities (0.2 0.2 0.2 0.2 0.2)}, :imap {:a 0, \"foo\" 1, 5 2, [1 2] 3, {:mykey \"mymap\"} 4}}\n\u03bb> (sample (enumerated [:a \"foo\" 5 [1 2] {:mykey \"mymap\"}] [0.2 0.2 0.2 0.2 0.2]))\n{:mykey \"mymap\"}",
+            "title": "Enumerated"
+        },
+        {
+            "location": "/univariate/#gamma",
+            "text": "(gamma shape rate)  \u03bb> (gamma 3 2)\n#distributions.core.Gamma{:shape 3, :rate 2}",
+            "title": "Gamma"
+        },
+        {
+            "location": "/univariate/#generalized-double-pareto",
+            "text": "(gdp scale shape)  \u03bb> (gdp 4 3)\n#distributions.core.GeneralizedDoublePareto{:scale 4, :shape 3}",
+            "title": "Generalized Double Pareto"
+        },
+        {
+            "location": "/univariate/#inverse-gaussian",
+            "text": "(inverse-gaussian mean shape)  \u03bb> (inverse-gaussian 3 4)\n#distributions.core.InverseGaussianDistribution{:mean 3, :shape 4}",
+            "title": "Inverse Gaussian"
+        },
+        {
+            "location": "/univariate/#negative-binomial",
+            "text": "(negative-binomial failues probabilities)  \u03bb> (negative-binomial 10 0.4)\n#distributions.core.NegativeBinomial{:failures 10, :probability 0.4}",
+            "title": "Negative Binomial"
+        },
+        {
+            "location": "/univariate/#normal-laplace",
+            "text": "The density of this distribution is proportional to the product of a normal density with mean mu and variance gamma*s2 and a laplace density with rate tau. It is implemented as a mixture of truncated distributions. Useful in Bayesian computations involving normal observations and Laplace priors.  (normal-laplace mu s2 gamma tau)  \u03bb> (normal-laplace 0 1 1 1)\n#distributions.core.Mixture{:components [#distributions.core.TruncatedDistribution{:distribution #distributions.core.Normal{:mean 1.0, :variance 1.0}, :lower -Infinity, :upper 0, :F-lower 0.0, :F-upper 0.15865525393145702} #distributions.core.TruncatedDistribution{:distribution #distributions.core.Normal{:mean -1.0, :variance 1.0}, :lower 0, :upper Infinity, :F-lower 0.841344746068543, :F-upper 1.0}], :probabilities [0.5 0.5]}",
+            "title": "Normal-Laplace"
+        },
+        {
+            "location": "/univariate/#normalgaussian",
+            "text": "(normal mean variance)  \u03bb> (normal 3 2)\n#distributions.core.Normal{:mean 3, :variance 2}",
+            "title": "Normal/Gaussian"
+        },
+        {
+            "location": "/univariate/#poisson",
+            "text": "(poisson rate)  \u03bb> (poisson 1)\n#distributions.core.Poisson{:rate 1}",
+            "title": "Poisson"
+        },
+        {
+            "location": "/univariate/#polya-gamma",
+            "text": "(polya-gamma z)  \u03bb> (polya-gamma 3)\n#distributions.core.PolyaGammaDistribution{:z 3}",
+            "title": "Polya-Gamma"
+        },
+        {
+            "location": "/univariate/#students-t",
+            "text": "Standard: (t-distribution df)  Location-Scale: (t-distribution df location scale)  \u03bb> (t-distribution 1 2 3)\n#distributions.core.LocationScaleDistribution{:distribution #object[org.apache.commons.math3.distribution.TDistribution 0x38b1a404 \"org.apache.commons.math3.distribution.TDistribution@38b1a404\"], :location 2, :scale 3}",
+            "title": "Students t"
+        },
+        {
+            "location": "/location-scale/",
+            "text": "Location-Scale Transformations\n\uf0c1\n\n\nLocation-Scale transformations are supported using the \nlocation-scale\n function. \n\n\n(location-scale distribution location scale)\n\n\nSpecifically, if a distribution d is assumed for a random variable Z and one applies the transformations\nY=a+bZ, then the distribution of Y is obtained via \n(location-scale d a b)\n. As an illustration, lets consider the actual implementation of the non-standard students-t distribution.\n\n\nMore Documentation Coming Soon!!",
+            "title": "Location-Scale Families"
+        },
+        {
+            "location": "/location-scale/#location-scale-transformations",
+            "text": "Location-Scale transformations are supported using the  location-scale  function.   (location-scale distribution location scale)  Specifically, if a distribution d is assumed for a random variable Z and one applies the transformations\nY=a+bZ, then the distribution of Y is obtained via  (location-scale d a b) . As an illustration, lets consider the actual implementation of the non-standard students-t distribution.  More Documentation Coming Soon!!",
+            "title": "Location-Scale Transformations"
+        },
+        {
+            "location": "/truncated/",
+            "text": "Truncated Distributions\n\uf0c1\n\n\n(truncated d a b)\n returns a distribution d truncated to the interval (a,b], which behaves like any other distribution.\n\n\n(truncated (normal 0 4) 1 2)\n#distributions.core.TruncatedDistribution{:distribution #distributions.core.Normal{:mean 0, :variance 4}, :lower 1, :upper 2, :F-lower 0.691462461274013, :F-upper 0.841344746068543}\n\n\n\n\nNotice that the truncated distribution is implemented as a record containing the original distribution, the lower and upper truncation limits, and the original cdf evaluated thereat as these values are frequently used in the pdf cdf and icdf functions.\n\n\n\u03bb> (cdf (truncated (normal 0 4) 1 2) 1)\n0.0\n\n\u03bb> (cdf (truncated (normal 0 3) 1 2) 1.4393822324537189)\n0.49999999999999967\n\n\u03bb> (cdf (truncated (normal 0 4) 1 2) 2)\n1.0\n\n\u03bb> (icdf (truncated (normal 0 3) 1 2) 0)\n0.9999999999999997\n\n\u03bb> (icdf (truncated (normal 0 3) 1 2) 0.5)\n1.4393822324537189\n\n\u03bb> (icdf (truncated (normal 0 3) 1 2) 1)\n2.0000000000000004\n\n\n\n\n\nSampling is achcieved through the inverse-cdf method.\n\n\n\u03bb> (sample (truncated (gamma 4 3) 5 6))\n5.424741741923803\n\n\u03bb> (sample (truncated (gamma 4 3) 5 6) 4)\n(5.0826669400151445 5.957356728304568 5.393586364632808 5.2298513236000135)\n\n\n\n\npdf and log-pdf are as follows\n\n\n\u03bb> (pdf (truncated (normal 0 4) 1 2) 1)\n0\n\n\u03bb> (pdf (truncated (normal 0 4) 1 2) 1.5)\n1.0045798026352024\n\n\u03bb> (pdf (truncated (normal 0 4) 1 2) 2)\n0.8072025484894866\n\n\u03bb> (log-pdf (truncated (normal 0 4) 1 2) 1)\n-Infinity\n\n\u03bb> (log-pdf (truncated (normal 0 4) 1 2) 2)\n-0.21418065275063713\n\n\n\n\n\n\npdf evaluated at lower limit\n\n\nNote that because the truncated interval is (a,b], the pdf evaluated at a is zero.\n\n\n\n\nThe support is now determined by the truncation interval\n\n\n\u03bb> (support-lower (truncated (gamma 1 2) 4 5))\n4\n\n\u03bb> (support-upper (truncated (gamma 1 2) 4 5))\n5",
+            "title": "Truncated Distributions"
+        },
+        {
+            "location": "/truncated/#truncated-distributions",
+            "text": "(truncated d a b)  returns a distribution d truncated to the interval (a,b], which behaves like any other distribution.  (truncated (normal 0 4) 1 2)\n#distributions.core.TruncatedDistribution{:distribution #distributions.core.Normal{:mean 0, :variance 4}, :lower 1, :upper 2, :F-lower 0.691462461274013, :F-upper 0.841344746068543}  Notice that the truncated distribution is implemented as a record containing the original distribution, the lower and upper truncation limits, and the original cdf evaluated thereat as these values are frequently used in the pdf cdf and icdf functions.  \u03bb> (cdf (truncated (normal 0 4) 1 2) 1)\n0.0\n\n\u03bb> (cdf (truncated (normal 0 3) 1 2) 1.4393822324537189)\n0.49999999999999967\n\n\u03bb> (cdf (truncated (normal 0 4) 1 2) 2)\n1.0\n\n\u03bb> (icdf (truncated (normal 0 3) 1 2) 0)\n0.9999999999999997\n\n\u03bb> (icdf (truncated (normal 0 3) 1 2) 0.5)\n1.4393822324537189\n\n\u03bb> (icdf (truncated (normal 0 3) 1 2) 1)\n2.0000000000000004  Sampling is achcieved through the inverse-cdf method.  \u03bb> (sample (truncated (gamma 4 3) 5 6))\n5.424741741923803\n\n\u03bb> (sample (truncated (gamma 4 3) 5 6) 4)\n(5.0826669400151445 5.957356728304568 5.393586364632808 5.2298513236000135)  pdf and log-pdf are as follows  \u03bb> (pdf (truncated (normal 0 4) 1 2) 1)\n0\n\n\u03bb> (pdf (truncated (normal 0 4) 1 2) 1.5)\n1.0045798026352024\n\n\u03bb> (pdf (truncated (normal 0 4) 1 2) 2)\n0.8072025484894866\n\n\u03bb> (log-pdf (truncated (normal 0 4) 1 2) 1)\n-Infinity\n\n\u03bb> (log-pdf (truncated (normal 0 4) 1 2) 2)\n-0.21418065275063713   pdf evaluated at lower limit  Note that because the truncated interval is (a,b], the pdf evaluated at a is zero.   The support is now determined by the truncation interval  \u03bb> (support-lower (truncated (gamma 1 2) 4 5))\n4\n\n\u03bb> (support-upper (truncated (gamma 1 2) 4 5))\n5",
+            "title": "Truncated Distributions"
+        },
+        {
+            "location": "/mixture/",
+            "text": "Mixture Distributions\n\uf0c1\n\n\nMixture distributions can be created by specifying a vector of mixture components and a vector of probabilities\n\n\n(mixture components probabilities)\n\n\n\u03bb> (mixture [(poisson 3) (gamma 2 5) (normal 0 4)] [0.1 0.3 0.6])\n#distributions.core.Mixture{:components [#distributions.core.Poisson{:rate 3} #distributions.core.Gamma{:shape 2, :rate 5} #distributions.core.Normal{:mean 0, :variance 4}], :probabilities [0.1 0.3 0.6]}\n\n\n\n\nThe pdf at x is computed as a summation over products of component pdfs evaluated at x with component probabilities\n\n\n(pdf (mixture [(poisson 3) (gamma 2 5) (normal 0 4)] [0.1 0.3 0.6]) 0.3)\n0.6203866596063337\n\n\n\n\nBecause the pdf involves a sum over components, the log-pdf is computed using the log-sum-exp identity, so that the pdf at x for each component is still computed on a log scale.\n\n\n\u03bb> (log-pdf (mixture [(poisson 3) (gamma 2 5) (normal 0 4)] [0.1 0.3 0.6]) 0.3)\n-0.47741235080208877\n\n\n\n\nThe cdf at x of a mixture is compted as a summation over products of component cdfs evaluated at x with component probabilities\n\n\n\u03bb> (cdf (mixture [(poisson 3) (gamma 2 5) (normal 0 4)] [0.1 0.3 0.6]) 0.3)\n0.47340170214760935\n\n\n\n\nThere is no closed form expression for the inverse cdf of a mixture. Instead a root finding algorithm is used.\n\n\n\u03bb> (icdf (mixture [(poisson 3) (gamma 2 5) (normal 0 4)] [0.1 0.3 0.6]) 0.47340170214760935)\n0.30000000000001137",
+            "title": "Mixture Distributions"
+        },
+        {
+            "location": "/mixture/#mixture-distributions",
+            "text": "Mixture distributions can be created by specifying a vector of mixture components and a vector of probabilities  (mixture components probabilities)  \u03bb> (mixture [(poisson 3) (gamma 2 5) (normal 0 4)] [0.1 0.3 0.6])\n#distributions.core.Mixture{:components [#distributions.core.Poisson{:rate 3} #distributions.core.Gamma{:shape 2, :rate 5} #distributions.core.Normal{:mean 0, :variance 4}], :probabilities [0.1 0.3 0.6]}  The pdf at x is computed as a summation over products of component pdfs evaluated at x with component probabilities  (pdf (mixture [(poisson 3) (gamma 2 5) (normal 0 4)] [0.1 0.3 0.6]) 0.3)\n0.6203866596063337  Because the pdf involves a sum over components, the log-pdf is computed using the log-sum-exp identity, so that the pdf at x for each component is still computed on a log scale.  \u03bb> (log-pdf (mixture [(poisson 3) (gamma 2 5) (normal 0 4)] [0.1 0.3 0.6]) 0.3)\n-0.47741235080208877  The cdf at x of a mixture is compted as a summation over products of component cdfs evaluated at x with component probabilities  \u03bb> (cdf (mixture [(poisson 3) (gamma 2 5) (normal 0 4)] [0.1 0.3 0.6]) 0.3)\n0.47340170214760935  There is no closed form expression for the inverse cdf of a mixture. Instead a root finding algorithm is used.  \u03bb> (icdf (mixture [(poisson 3) (gamma 2 5) (normal 0 4)] [0.1 0.3 0.6]) 0.47340170214760935)\n0.30000000000001137",
+            "title": "Mixture Distributions"
+        },
+        {
+            "location": "/marginal/",
+            "text": "Marginal Distributions\n\uf0c1\n\n\n(marginal likelihood prior)\n\n\nFor compound distibutions, it is possible to compute the marginal distribution from the corresponding joint.\nSuppose Y follows a (normal :mu 3) distribution and that mu follows a (normal 1 2) distribution.\nA keyword to express which parameter is to be marginalized. \n\n\nHere are some examples...\n\n\nNormal Normal\n\uf0c1\n\n\n\u03bb> (marginal (normal :mu 3) (normal 1 2))\n#distributions.core.Normal{:mean 1, :variance 5}\n\n\n\n\nPoisson Gamma\n\uf0c1\n\n\n\u03bb> (marginal (poisson :rate) (gamma 3 2))\n#distributions.core.NegativeBinomial{:failures 3, :probability 2/3}\n\n\n\n\nMixtures\n\uf0c1\n\n\nThis also works with mixture distributions\n\n\n\u03bb> (marginal (normal :mu 3) (mixture [(normal 1 2) (normal 3 4)] [0.1 0.9]))\n#distributions.core.Mixture{:components (#distributions.core.Normal{:mean 1, :variance 5} #distributions.core.Normal{:mean 3, :variance 7}), :probabilities [0.1 0.9]}\n\n\n\n\nDirichlet Process\n\uf0c1\n\n\nA Dirichlet process is informally a distribution over distributions and so, adhering to the convention of expressing the object over which marginalization is to be carried out using a keyword, the marginal can be computed as\n\n\n\u03bb> (marginal :G (dirichlet-process 10 (normal 0 1)))\n#distributions.core.Normal{:mean 0, :variance 1}\n\n\n\n\n\nTODO\n\uf0c1\n\n\nThe \nmarginal\n function is implemented as a Clojure multimethod which dispatches on the type of the likelihood, the type of the prior, and in which likelihood parameter(s) keyword(s) appear.\nThe dispatching function is currently not sophisticated enough to dispatch on mathematical expressions such as \n(normal (+ a (* c :mu)) 3)\n, yet this should be possible using \nexpresso\n and is on the TODO list.",
+            "title": "Marginal Distributions"
+        },
+        {
+            "location": "/marginal/#marginal-distributions",
+            "text": "(marginal likelihood prior)  For compound distibutions, it is possible to compute the marginal distribution from the corresponding joint.\nSuppose Y follows a (normal :mu 3) distribution and that mu follows a (normal 1 2) distribution.\nA keyword to express which parameter is to be marginalized.   Here are some examples...",
+            "title": "Marginal Distributions"
+        },
+        {
+            "location": "/marginal/#normal-normal",
+            "text": "\u03bb> (marginal (normal :mu 3) (normal 1 2))\n#distributions.core.Normal{:mean 1, :variance 5}",
+            "title": "Normal Normal"
+        },
+        {
+            "location": "/marginal/#poisson-gamma",
+            "text": "\u03bb> (marginal (poisson :rate) (gamma 3 2))\n#distributions.core.NegativeBinomial{:failures 3, :probability 2/3}",
+            "title": "Poisson Gamma"
+        },
+        {
+            "location": "/marginal/#mixtures",
+            "text": "This also works with mixture distributions  \u03bb> (marginal (normal :mu 3) (mixture [(normal 1 2) (normal 3 4)] [0.1 0.9]))\n#distributions.core.Mixture{:components (#distributions.core.Normal{:mean 1, :variance 5} #distributions.core.Normal{:mean 3, :variance 7}), :probabilities [0.1 0.9]}",
+            "title": "Mixtures"
+        },
+        {
+            "location": "/marginal/#dirichlet-process",
+            "text": "A Dirichlet process is informally a distribution over distributions and so, adhering to the convention of expressing the object over which marginalization is to be carried out using a keyword, the marginal can be computed as  \u03bb> (marginal :G (dirichlet-process 10 (normal 0 1)))\n#distributions.core.Normal{:mean 0, :variance 1}",
+            "title": "Dirichlet Process"
+        },
+        {
+            "location": "/marginal/#todo",
+            "text": "The  marginal  function is implemented as a Clojure multimethod which dispatches on the type of the likelihood, the type of the prior, and in which likelihood parameter(s) keyword(s) appear.\nThe dispatching function is currently not sophisticated enough to dispatch on mathematical expressions such as  (normal (+ a (* c :mu)) 3) , yet this should be possible using  expresso  and is on the TODO list.",
+            "title": "TODO"
+        },
+        {
+            "location": "/posterior/",
+            "text": "Posterior Distributions\n\uf0c1\n\n\n(posterior data likelihood prior)\n\n\nThe \nposterior\n function can be used to get the posterior distribution in cases where the prior is conjugate to the likelihood. A keyword is used to express upon which parameter the prior is placed.\n\n\nHere are some examples...\n\n\nNormal Normal\n\uf0c1\n\n\n\u03bb> (def data (sample (normal 3 1) 100))\n#'\u03bb/data\n\n\u03bb> (posterior data (normal :mu 1) (normal 0 5))\n#distributions.core.Normal{:mean 3.120829760129205, :variance 5/501}\n\n\n\n\nPoisson Gamma\n\uf0c1\n\n\n\u03bb> (def data (sample (poisson 10) 100))\n#'\u03bb/data\n\n\u03bb> (posterior data (poisson :rate) (gamma 2 0.1))\n#distributions.core.Gamma{:shape 992, :rate 100.1}\n\n\n\n\nDirichlet Process\n\uf0c1\n\n\n\u03bb> (posterior [1.1 2.2 2.2] :G (dirichlet-process 10 (normal 0 1)))\n#distributions.core.DirichletProcess{:concentration 13, :base-measure #distributions.core.Mixture{:components [#distributions.core.DiscreteReal{:locations (1.1 2.2), :probabilities (1/3 2/3)} #distributions.core.Normal{:mean 0, :variance 1}], :probabilities (1/11 10/11)}}\n\n\n\n\nTODO\n\uf0c1\n\n\nThe \nposterior\n function is implemented as a Clojure multimethod which dispatches on the type of the likelihood, the type of the prior, and in which likelihood parameter(s) keyword(s) appear.\nThe dispatching function is currently not sophisticated enough to dispatch on mathematical expressions such as \n(normal (+ a (* c :mu)) 3)\n, yet this should be possible using \nexpresso\n and is on the TODO list.",
+            "title": "Posterior Distributions"
+        },
+        {
+            "location": "/posterior/#posterior-distributions",
+            "text": "(posterior data likelihood prior)  The  posterior  function can be used to get the posterior distribution in cases where the prior is conjugate to the likelihood. A keyword is used to express upon which parameter the prior is placed.  Here are some examples...",
+            "title": "Posterior Distributions"
+        },
+        {
+            "location": "/posterior/#normal-normal",
+            "text": "\u03bb> (def data (sample (normal 3 1) 100))\n#'\u03bb/data\n\n\u03bb> (posterior data (normal :mu 1) (normal 0 5))\n#distributions.core.Normal{:mean 3.120829760129205, :variance 5/501}",
+            "title": "Normal Normal"
+        },
+        {
+            "location": "/posterior/#poisson-gamma",
+            "text": "\u03bb> (def data (sample (poisson 10) 100))\n#'\u03bb/data\n\n\u03bb> (posterior data (poisson :rate) (gamma 2 0.1))\n#distributions.core.Gamma{:shape 992, :rate 100.1}",
+            "title": "Poisson Gamma"
+        },
+        {
+            "location": "/posterior/#dirichlet-process",
+            "text": "\u03bb> (posterior [1.1 2.2 2.2] :G (dirichlet-process 10 (normal 0 1)))\n#distributions.core.DirichletProcess{:concentration 13, :base-measure #distributions.core.Mixture{:components [#distributions.core.DiscreteReal{:locations (1.1 2.2), :probabilities (1/3 2/3)} #distributions.core.Normal{:mean 0, :variance 1}], :probabilities (1/11 10/11)}}",
+            "title": "Dirichlet Process"
+        },
+        {
+            "location": "/posterior/#todo",
+            "text": "The  posterior  function is implemented as a Clojure multimethod which dispatches on the type of the likelihood, the type of the prior, and in which likelihood parameter(s) keyword(s) appear.\nThe dispatching function is currently not sophisticated enough to dispatch on mathematical expressions such as  (normal (+ a (* c :mu)) 3) , yet this should be possible using  expresso  and is on the TODO list.",
+            "title": "TODO"
+        },
+        {
+            "location": "/posterior-predictive/",
+            "text": "Posterior Predictive\n\uf0c1\n\n\nThe posterior predictive is implemented as the composition of posterior and marginalization operations. \n\n\nHere are some examples...\n\n\nNormal Normal\n\uf0c1\n\n\n\u03bb> (def data (sample (normal 3 1) 100))\n#'\u03bb/data\n\n\u03bb> (posterior-predictive data (normal :mu 1) (normal 0 5))\n#distributions.core.Normal{:mean 2.833833314407506, :variance 506/501}\n\n\n\n\nPoisson Gamma\n\uf0c1\n\n\n\u03bb> (def data (sample (poisson 10) 100))\n#'\u03bb/data\n\n\u03bb> (posterior-predictive data (poisson :rate) (gamma 2 0.1))\n#distributions.core.NegativeBinomial{:failures 962, :probability 0.990108803165183}\n\n\n\n\nDirichlet Process\n\uf0c1\n\n\n\u03bb> (posterior-predictive [1.1 2.2 2.2] :G (dirichlet-process 10 (normal 0 1)))\n#distributions.core.Mixture{:components [#distributions.core.DiscreteReal{:locations (1.1 2.2), :probabilities (1/3 2/3)} #distributions.core.Normal{:mean 0, :variance 1}], :probabilities (1/11 10/11)}",
+            "title": "Posterior Predictive"
+        },
+        {
+            "location": "/posterior-predictive/#posterior-predictive",
+            "text": "The posterior predictive is implemented as the composition of posterior and marginalization operations.   Here are some examples...",
+            "title": "Posterior Predictive"
+        },
+        {
+            "location": "/posterior-predictive/#normal-normal",
+            "text": "\u03bb> (def data (sample (normal 3 1) 100))\n#'\u03bb/data\n\n\u03bb> (posterior-predictive data (normal :mu 1) (normal 0 5))\n#distributions.core.Normal{:mean 2.833833314407506, :variance 506/501}",
+            "title": "Normal Normal"
+        },
+        {
+            "location": "/posterior-predictive/#poisson-gamma",
+            "text": "\u03bb> (def data (sample (poisson 10) 100))\n#'\u03bb/data\n\n\u03bb> (posterior-predictive data (poisson :rate) (gamma 2 0.1))\n#distributions.core.NegativeBinomial{:failures 962, :probability 0.990108803165183}",
+            "title": "Poisson Gamma"
+        },
+        {
+            "location": "/posterior-predictive/#dirichlet-process",
+            "text": "\u03bb> (posterior-predictive [1.1 2.2 2.2] :G (dirichlet-process 10 (normal 0 1)))\n#distributions.core.Mixture{:components [#distributions.core.DiscreteReal{:locations (1.1 2.2), :probabilities (1/3 2/3)} #distributions.core.Normal{:mean 0, :variance 1}], :probabilities (1/11 10/11)}",
+            "title": "Dirichlet Process"
+        },
+        {
+            "location": "/integration/",
+            "text": "Integration and Expectation\n\uf0c1\n\n\nExpectation\n\uf0c1\n\n\n(expectation d)\n\n\n(expectation d & options)\n\n\nOptions are \n:n\n, a positive integer (default 10000) and \n:method\n, either \"monte-carlo\" or \"quantile-integration\" (default \"monte-carlo\").\n\n\nTaking expectations of functions w.r.t. probability measure is decoupled into two parts for performance reasons.\n\n\n\u03bb> (expectation (normal 3 2))\n#function[distributions.core/expectation-mc/fn--35747]\n\n\u03bb> (def E_N32 (expectation (normal 3 2)))\n#'\u03bb/E_N32\n\n\u03bb> (E_N32 identity)\n2.9840497981514345\n\n\u03bb> (E_N23 (fn [x] (* (- x 3) (- x 3))))\n1.9547371857236546\n\n\n\n\nFirst note that \n(expectation (normal 3 2))\n returns a function. This can then be later applied to functions of which we wish to take the expectation w.r.t. a \n(normal 3 2)\n distribution.\n\n\nThe \nexpectation\n function accepts two optional keyword arguments, namely, \nn\n and \nmethod\n which default to 10000 and \"monte-carlo\". An alternative to monte carlo is \"quantile-integration\" which is more accurate than monte carlo, but limited to 1 dimensional distributions. The trade-off between speed and accuracy can be controlled by the keyword argument \nn\n. Internally when \nexpectation\n is called, a random sample (\"monte-carlo\") or grid (\"quantile-integration\") of size \nn\n is generated and stored so that it need not be recomputed when calling the resulting function multiple times.\n\n\n\u03bb> (def E_N32 (expectation (normal 3 2) :method \"quantile-integration\"))\n#'\u03bb/E_N32\n\n\u03bb> (E_N32 identity)\n3.0010404833273636\n\n\u03bb> (E_N32 (fn [x] (* (- x 3) (- x 3))))\n2.0073645213141385\n\n\n\n\n\u03bb> (def E_N32 (expectation (normal 3 2) :method \"quantile-integration\" :n 100000))\n#'\u03bb/E_N32\n\n\u03bb> (E_N32 identity)\n3.0000981920167717\n\n\u03bb> (E_N32 (fn [x] (* (- x 3) (- x 3))))\n2.0005300751367643\n\n\n\n\nKullback-Leibler Divergence\n\uf0c1\n\n\nComputing the KL-divergence between two probability distributions is implemented similarly\n\n\n\u03bb> (kullback-leibler (normal 3 2))\n#function[distributions.core/kullback-leibler/fn--35763]\n\n\u03bb> ((kullback-leibler (normal 3 2)) (normal 4 2))\n0.24797805571777043\n\n\u03bb> ((kullback-leibler (normal 3 2) :n 100 :method \"quantile-integration\") (normal 4 2))\n0.2499999999999989",
+            "title": "Integration & Expectation"
+        },
+        {
+            "location": "/integration/#integration-and-expectation",
+            "text": "",
+            "title": "Integration and Expectation"
+        },
+        {
+            "location": "/integration/#expectation",
+            "text": "(expectation d)  (expectation d & options)  Options are  :n , a positive integer (default 10000) and  :method , either \"monte-carlo\" or \"quantile-integration\" (default \"monte-carlo\").  Taking expectations of functions w.r.t. probability measure is decoupled into two parts for performance reasons.  \u03bb> (expectation (normal 3 2))\n#function[distributions.core/expectation-mc/fn--35747]\n\n\u03bb> (def E_N32 (expectation (normal 3 2)))\n#'\u03bb/E_N32\n\n\u03bb> (E_N32 identity)\n2.9840497981514345\n\n\u03bb> (E_N23 (fn [x] (* (- x 3) (- x 3))))\n1.9547371857236546  First note that  (expectation (normal 3 2))  returns a function. This can then be later applied to functions of which we wish to take the expectation w.r.t. a  (normal 3 2)  distribution.  The  expectation  function accepts two optional keyword arguments, namely,  n  and  method  which default to 10000 and \"monte-carlo\". An alternative to monte carlo is \"quantile-integration\" which is more accurate than monte carlo, but limited to 1 dimensional distributions. The trade-off between speed and accuracy can be controlled by the keyword argument  n . Internally when  expectation  is called, a random sample (\"monte-carlo\") or grid (\"quantile-integration\") of size  n  is generated and stored so that it need not be recomputed when calling the resulting function multiple times.  \u03bb> (def E_N32 (expectation (normal 3 2) :method \"quantile-integration\"))\n#'\u03bb/E_N32\n\n\u03bb> (E_N32 identity)\n3.0010404833273636\n\n\u03bb> (E_N32 (fn [x] (* (- x 3) (- x 3))))\n2.0073645213141385  \u03bb> (def E_N32 (expectation (normal 3 2) :method \"quantile-integration\" :n 100000))\n#'\u03bb/E_N32\n\n\u03bb> (E_N32 identity)\n3.0000981920167717\n\n\u03bb> (E_N32 (fn [x] (* (- x 3) (- x 3))))\n2.0005300751367643",
+            "title": "Expectation"
+        },
+        {
+            "location": "/integration/#kullback-leibler-divergence",
+            "text": "Computing the KL-divergence between two probability distributions is implemented similarly  \u03bb> (kullback-leibler (normal 3 2))\n#function[distributions.core/kullback-leibler/fn--35763]\n\n\u03bb> ((kullback-leibler (normal 3 2)) (normal 4 2))\n0.24797805571777043\n\n\u03bb> ((kullback-leibler (normal 3 2) :n 100 :method \"quantile-integration\") (normal 4 2))\n0.2499999999999989",
+            "title": "Kullback-Leibler Divergence"
+        },
+        {
+            "location": "/sampling/",
+            "text": "Sampling Algorithms\n\uf0c1\n\n\nFor univariate distributions which extend protocols implementing cdf and icdf, generating independent draws can be achieved using the inverse-cdf method. For those extending only the protocol implementing cdf, icdf can fall back onto its default root finding algorithm, and the inverse-cdf method can still be used.\n\n\nFor other more exotic distributions of interest other sampling algorithms may be needed.\n\n\nTo illustrate these algorithms lets assume a trivial distribution that has a density propotional to x^2 on the unit interval\n\n\n\u03bb> (defn target-density [x]\n     (cond\n       (> x 1) 0\n       (< x 0) 0\n       :else (/ (* x x) 3)))\n\n\n\n\nMetropolis-Hastings\n\uf0c1\n\n\n(metropolis-hastings target proposal seed)\n\n\n(metropolis-hastings target proposal seed log-target)\n\n\nThe \nmetropolis-hastings\n function has multiple arities. The function taing 3 arguments assumes that the target (a function) passed in the first argument is not computed on the log-scale. The function accepting 4 arguments accepts an additional boolean value, allowing the user to specify whether the target function passed in the first argument is specified on the log scale. The second argument, proposal, should be a function that maps a value in the domain to distribution, as to form the proposal distribution. Seed is a value in the domain at which the algorithm is started.\n\n\nLike other samples on this page, \nmetropolis-hastings\n returns a lazy list of draws.\n\n\n\u03bb> (def mh-draws (metropolis-hastings target-density #(normal % 0.3) 0.5))\n#'\u03bb/mh-draws\n\n\u03bb> (sample mh-draws 5)\n(0.5 0.5278844732151602 0.48958614718093274 0.48958614718093274 0.5880599159218269)\n\n\n\n\nHere \n#(normal % 0.3)\n is an anonymous function that maps a parameter x to a normal distribution centered around x.\nThe \nsample\n function dispatches on the lazy list in order to maintain continuity of the API. As a lazy list, however, using \ntake\n also works just fine.\n\n\n\u03bb> (take 5 mh-draws)\n(0.5 0.5278844732151602 0.48958614718093274 0.48958614718093274 0.5880599159218269)\n\n\n\n\nThe advantage of using \ntake\n, as the draws are no longer independent,\nis that one can thin the draws to reduce dependence.\n\n\n\u03bb> (take 5 (take-nth 10 mh-draws))\n(0.5 0.4425665105907383 0.5393113732753869 0.3961248334462656 0.890723381756662)\n\n\n\n\n\n\nSlice Sampling\n\uf0c1\n\n\n(slice-sampler target width seed)\n\n\n(slice-sampler target width seed log-target?)\n\n\nUsage same as \nmetropolis-hastings\n except width is a tuning parameter\ncorresponding to the width in the stepping out procedure.\n\n\n\n\nAccept Reject\n\uf0c1\n\n\n(accept-reject target proposal c)\n\n\nc is a constant such that target < c*proposal.\n\n\n\u03bb> (take 5 (accept-reject target-density (uniform 0 1) 1))\n(0.8297629001889286 0.778066797774964 0.28981042074043706 0.8582759266577196 0.8942679865725314)\n\u03bb> (sample (accept-reject target-density (uniform 0 1) 1) 5)\n(0.8841717452838114 0.9360229665247679 0.923946004811828 0.9770042699079926 0.5548516755781405)",
+            "title": "Sampling Algorithms"
+        },
+        {
+            "location": "/sampling/#sampling-algorithms",
+            "text": "For univariate distributions which extend protocols implementing cdf and icdf, generating independent draws can be achieved using the inverse-cdf method. For those extending only the protocol implementing cdf, icdf can fall back onto its default root finding algorithm, and the inverse-cdf method can still be used.  For other more exotic distributions of interest other sampling algorithms may be needed.  To illustrate these algorithms lets assume a trivial distribution that has a density propotional to x^2 on the unit interval  \u03bb> (defn target-density [x]\n     (cond\n       (> x 1) 0\n       (< x 0) 0\n       :else (/ (* x x) 3)))",
+            "title": "Sampling Algorithms"
+        },
+        {
+            "location": "/sampling/#metropolis-hastings",
+            "text": "(metropolis-hastings target proposal seed)  (metropolis-hastings target proposal seed log-target)  The  metropolis-hastings  function has multiple arities. The function taing 3 arguments assumes that the target (a function) passed in the first argument is not computed on the log-scale. The function accepting 4 arguments accepts an additional boolean value, allowing the user to specify whether the target function passed in the first argument is specified on the log scale. The second argument, proposal, should be a function that maps a value in the domain to distribution, as to form the proposal distribution. Seed is a value in the domain at which the algorithm is started.  Like other samples on this page,  metropolis-hastings  returns a lazy list of draws.  \u03bb> (def mh-draws (metropolis-hastings target-density #(normal % 0.3) 0.5))\n#'\u03bb/mh-draws\n\n\u03bb> (sample mh-draws 5)\n(0.5 0.5278844732151602 0.48958614718093274 0.48958614718093274 0.5880599159218269)  Here  #(normal % 0.3)  is an anonymous function that maps a parameter x to a normal distribution centered around x.\nThe  sample  function dispatches on the lazy list in order to maintain continuity of the API. As a lazy list, however, using  take  also works just fine.  \u03bb> (take 5 mh-draws)\n(0.5 0.5278844732151602 0.48958614718093274 0.48958614718093274 0.5880599159218269)  The advantage of using  take , as the draws are no longer independent,\nis that one can thin the draws to reduce dependence.  \u03bb> (take 5 (take-nth 10 mh-draws))\n(0.5 0.4425665105907383 0.5393113732753869 0.3961248334462656 0.890723381756662)",
+            "title": "Metropolis-Hastings"
+        },
+        {
+            "location": "/sampling/#slice-sampling",
+            "text": "(slice-sampler target width seed)  (slice-sampler target width seed log-target?)  Usage same as  metropolis-hastings  except width is a tuning parameter\ncorresponding to the width in the stepping out procedure.",
+            "title": "Slice Sampling"
+        },
+        {
+            "location": "/sampling/#accept-reject",
+            "text": "(accept-reject target proposal c)  c is a constant such that target < c*proposal.  \u03bb> (take 5 (accept-reject target-density (uniform 0 1) 1))\n(0.8297629001889286 0.778066797774964 0.28981042074043706 0.8582759266577196 0.8942679865725314)\n\u03bb> (sample (accept-reject target-density (uniform 0 1) 1) 5)\n(0.8841717452838114 0.9360229665247679 0.923946004811828 0.9770042699079926 0.5548516755781405)",
+            "title": "Accept Reject"
+        },
+        {
+            "location": "/dirichlet-process/",
+            "text": "Dirichlet Processes\n\uf0c1\n\n\nThe Dirichlet process can be created using \ndirichlet-process\n. It takes two arguments,\na concentration parameter and a base measure.\n\n\n\u03bb> (dirichlet-process 1 (normal 0 4))\n#distributions.core.DirichletProcess{:concentration 1, :base-measure #distributions.core.Normal{:mean 0, :variance 4}}\n\n\n\n\nIn the following we assume that the data is generated from G which is modelled as a Dirichlet process.\nAfter observing some data, one can get the posterior over G in the usual fashion\n\n\n\u03bb> (posterior [1.1 2.2 2.2] :G (dirichlet-process 1 (normal 0 4)))\n#distributions.core.DirichletProcess{:concentration 4, :base-measure #distributions.core.Mixture{:components [#distributions.core.DiscreteReal{:locations (1.1 2.2), :probabilities (1/3 2/3)} #distributions.core.Normal{:mean 0, :variance 4}], :probabilities (1/2 1/2)}}\n\n\n\n\nPrediction of a new observation can be obtained using the \nposterior-predictive\n function\n\n\n\u03bb> (posterior-predictive [1.1 2.2 2.2] :G (dirichlet-process 1 (normal 0 4)))\n#distributions.core.Mixture{:components [#distributions.core.DiscreteReal{:locations (1.1 2.2), :probabilities (1/3 2/3)} #distributions.core.Normal{:mean 0, :variance 4}], :probabilities (1/2 1/2)}\n\n\n\n\nWhen DP's are used as priors in larger models there is the \nrn-alg3\n function when conjugate base measures are used. There are plans to implement \nrn-alg8\n for non-conjugate priors soon. \n\n\n(rn-alg3 observations likelihood base-measure concentration niter)\n\n\nArguments are data, a model for the data depending on some parameters, a DP base measure for those parameters, a DP concentration parameter and number of iterations.\n \nrn-alg3\n returns a map with 3 keys\n\n:densities\n, \n:labels\n and \n:parameters\n, each are vectors of length equal to number of iterations. The former is a vector of functions corresponding to the predictive densities\nHere are some examples...\n\n\nNormal Mixtures\n\uf0c1\n\n\nThe data is generated from a two component normal mixture, with means -4 and 4, variances 1, and component probabilities 0.25 0.75. We shall use a DP to perform density estimation with\nlikelihood \n(normal :mu 1)\n, base measure \n(normal 0 4)\n and \nconcentration 0.1.\n\n\n(def proposal (mixture [(normal -4 1) (normal 4 1)] [(/ 1 4) (/ 3 4)]))\n(def observations (sample proposal 100))\n(def likelihood (normal :mu 1))\n(def base-measure (normal 0 4))\n(def concentration 0.1)\n(def draws (rn-alg3 observations likelihood base-measure concentration 100))\n(apply compose (map (fn [m] (plot m [-5 5] :colour \"#62B132\" :opacity 0.1 :plot-range [[-5 5] [0 0.3]])) (drop 10 (:densities draws))))\n\n\n\n\n\n\nPoisson Mixtures\n\uf0c1\n\n\nThe example here is the \u201cTraffic\u201d dataset from the \u201cMASS\u201d\nR library for which the description reads\n\n\n\"An experiment was performed in Sweden in 1961-2 to assess the effect of a speed limit on the motorway accident rate. The experiment was conducted on 92 days in each year, matched so that day j in 1962 was comparable to day j in 1961. On some days the speed limit was in effect and enforced, while on other days there was no speed limit and cars tended to be driven faster. The speed limit days tended to be in contiguous blocks.\"\n\n\nThe data for when the speed limit was enforced is\n\n\n\u03bb> yes\n(12 41 15 18 11 19 19 9 21 22 23 14 19 15 13 22 42 29 21 12 16 17 23 16 20 13 13 9 10 27 12 7 11 15 19 32 22 24 9 29 17 17 15 25 9 16 25 25 16 22 21 17 26 41 25 12 17 24 26 16 15 12 22 24 16 25 14 15 9)\n\n\n\n\nand when not\n\n\n\u03bb> no\n(9 11 9 20 31 26 18 19 18 13 29 40 28 17 15 21 24 15 32 22 24 11 27 17 27 37 32 25 20 40 21 18 35 21 25 34 42 27 34 47 36 15 26 27 18 16 32 28 17 16 19 18 22 37 29 18 14 14 18 21 39 39 21 15 17 20 24 30 25 8 21 9 20 15 14 30 23 15 14 16 20 10 14 18 26 38 31 12 8 22 17 31 49 23 14 25 24 18 19 21 19 24 44 31 21 20 19 20 29 48 36 15 16 29 12)\n\n\n\n\nEach dataset can be modelled as a DP mixture of Poissons.\nHere I use a Gamma 2 0.1 base measure, with concentration parameter 1.\n\n\n(def likelihood (poisson :rate))\n(def base-measure (gamma 2 0.1))\n(def concentration 1)\n(def yes-draws (rn-alg3 yes likelihood base-measure concentration 100))\n(def no-draws (rn-alg3 no likelihood base-measure concentration 100))\n\n\n\n\n(compose\n (apply compose (map (fn [m] (list-plot (map m (range 0 50)) :colour \"#62B132\" :opacity 0.1 :joined true :plot-range [[0 50] [0 0.1]])) (drop 10 (:densities yes-draws))))\n (apply compose (map (fn [m] (list-plot (map m (range 0 50)) :colour \"#5882D6\" :opacity 0.1 :joined true :plot-range [[0 50] [0 0.1]])) (drop 10 (:densities no-draws)))))",
+            "title": "Dirichlet Process"
+        },
+        {
+            "location": "/dirichlet-process/#dirichlet-processes",
+            "text": "The Dirichlet process can be created using  dirichlet-process . It takes two arguments,\na concentration parameter and a base measure.  \u03bb> (dirichlet-process 1 (normal 0 4))\n#distributions.core.DirichletProcess{:concentration 1, :base-measure #distributions.core.Normal{:mean 0, :variance 4}}  In the following we assume that the data is generated from G which is modelled as a Dirichlet process.\nAfter observing some data, one can get the posterior over G in the usual fashion  \u03bb> (posterior [1.1 2.2 2.2] :G (dirichlet-process 1 (normal 0 4)))\n#distributions.core.DirichletProcess{:concentration 4, :base-measure #distributions.core.Mixture{:components [#distributions.core.DiscreteReal{:locations (1.1 2.2), :probabilities (1/3 2/3)} #distributions.core.Normal{:mean 0, :variance 4}], :probabilities (1/2 1/2)}}  Prediction of a new observation can be obtained using the  posterior-predictive  function  \u03bb> (posterior-predictive [1.1 2.2 2.2] :G (dirichlet-process 1 (normal 0 4)))\n#distributions.core.Mixture{:components [#distributions.core.DiscreteReal{:locations (1.1 2.2), :probabilities (1/3 2/3)} #distributions.core.Normal{:mean 0, :variance 4}], :probabilities (1/2 1/2)}  When DP's are used as priors in larger models there is the  rn-alg3  function when conjugate base measures are used. There are plans to implement  rn-alg8  for non-conjugate priors soon.   (rn-alg3 observations likelihood base-measure concentration niter)  Arguments are data, a model for the data depending on some parameters, a DP base measure for those parameters, a DP concentration parameter and number of iterations.\n  rn-alg3  returns a map with 3 keys :densities ,  :labels  and  :parameters , each are vectors of length equal to number of iterations. The former is a vector of functions corresponding to the predictive densities\nHere are some examples...",
+            "title": "Dirichlet Processes"
+        },
+        {
+            "location": "/dirichlet-process/#normal-mixtures",
+            "text": "The data is generated from a two component normal mixture, with means -4 and 4, variances 1, and component probabilities 0.25 0.75. We shall use a DP to perform density estimation with\nlikelihood  (normal :mu 1) , base measure  (normal 0 4)  and \nconcentration 0.1.  (def proposal (mixture [(normal -4 1) (normal 4 1)] [(/ 1 4) (/ 3 4)]))\n(def observations (sample proposal 100))\n(def likelihood (normal :mu 1))\n(def base-measure (normal 0 4))\n(def concentration 0.1)\n(def draws (rn-alg3 observations likelihood base-measure concentration 100))\n(apply compose (map (fn [m] (plot m [-5 5] :colour \"#62B132\" :opacity 0.1 :plot-range [[-5 5] [0 0.3]])) (drop 10 (:densities draws))))",
+            "title": "Normal Mixtures"
+        },
+        {
+            "location": "/dirichlet-process/#poisson-mixtures",
+            "text": "The example here is the \u201cTraffic\u201d dataset from the \u201cMASS\u201d\nR library for which the description reads  \"An experiment was performed in Sweden in 1961-2 to assess the effect of a speed limit on the motorway accident rate. The experiment was conducted on 92 days in each year, matched so that day j in 1962 was comparable to day j in 1961. On some days the speed limit was in effect and enforced, while on other days there was no speed limit and cars tended to be driven faster. The speed limit days tended to be in contiguous blocks.\"  The data for when the speed limit was enforced is  \u03bb> yes\n(12 41 15 18 11 19 19 9 21 22 23 14 19 15 13 22 42 29 21 12 16 17 23 16 20 13 13 9 10 27 12 7 11 15 19 32 22 24 9 29 17 17 15 25 9 16 25 25 16 22 21 17 26 41 25 12 17 24 26 16 15 12 22 24 16 25 14 15 9)  and when not  \u03bb> no\n(9 11 9 20 31 26 18 19 18 13 29 40 28 17 15 21 24 15 32 22 24 11 27 17 27 37 32 25 20 40 21 18 35 21 25 34 42 27 34 47 36 15 26 27 18 16 32 28 17 16 19 18 22 37 29 18 14 14 18 21 39 39 21 15 17 20 24 30 25 8 21 9 20 15 14 30 23 15 14 16 20 10 14 18 26 38 31 12 8 22 17 31 49 23 14 25 24 18 19 21 19 24 44 31 21 20 19 20 29 48 36 15 16 29 12)  Each dataset can be modelled as a DP mixture of Poissons.\nHere I use a Gamma 2 0.1 base measure, with concentration parameter 1.  (def likelihood (poisson :rate))\n(def base-measure (gamma 2 0.1))\n(def concentration 1)\n(def yes-draws (rn-alg3 yes likelihood base-measure concentration 100))\n(def no-draws (rn-alg3 no likelihood base-measure concentration 100))  (compose\n (apply compose (map (fn [m] (list-plot (map m (range 0 50)) :colour \"#62B132\" :opacity 0.1 :joined true :plot-range [[0 50] [0 0.1]])) (drop 10 (:densities yes-draws))))\n (apply compose (map (fn [m] (list-plot (map m (range 0 50)) :colour \"#5882D6\" :opacity 0.1 :joined true :plot-range [[0 50] [0 0.1]])) (drop 10 (:densities no-draws)))))",
+            "title": "Poisson Mixtures"
+        },
+        {
+            "location": "/special/",
+            "text": "Gamma Family\n\uf0c1\n\n\n\u03bb> (gamma-fn 2.5)\n1.329340388179137\n\n\u03bb> (log-gamma-fn 2.5)\n0.2846828704729192\n\n\u03bb> (digamma-fn 2.5)\n0.7031566378697297\n\n\u03bb> (digamma-fn 2.5)\n0.7031566378697297\n\n\u03bb> (trigamma-fn 2.5)\n0.4903577561001695\n\n\n\n\n\nBeta\n\uf0c1\n\n\n\u03bb> (beta-fn 2.5 3.6)\n0.034686714625592335\n\n\u03bb> (log-beta-fn 2.5 3.6)\n-3.36139852915617\n\n\n\n\nError Functions\n\uf0c1\n\n\n\u03bb> (erf 1)\n0.8427007929497151\n\n\u03bb> (erf 0.5 1)\n0.3222009151366685\n\n\u03bb> (erfc 1)\n0.15729920705028488\n\n\u03bb> (inverse-erf 0.8427007929497151)\n1.0000000000000004\n\n\u03bb> (inverse-erfc 0.15729920705028488)\n1.0000000000000004",
+            "title": "Specical Functions"
+        },
+        {
+            "location": "/special/#gamma-family",
+            "text": "\u03bb> (gamma-fn 2.5)\n1.329340388179137\n\n\u03bb> (log-gamma-fn 2.5)\n0.2846828704729192\n\n\u03bb> (digamma-fn 2.5)\n0.7031566378697297\n\n\u03bb> (digamma-fn 2.5)\n0.7031566378697297\n\n\u03bb> (trigamma-fn 2.5)\n0.4903577561001695",
+            "title": "Gamma Family"
+        },
+        {
+            "location": "/special/#beta",
+            "text": "\u03bb> (beta-fn 2.5 3.6)\n0.034686714625592335\n\n\u03bb> (log-beta-fn 2.5 3.6)\n-3.36139852915617",
+            "title": "Beta"
+        },
+        {
+            "location": "/special/#error-functions",
+            "text": "\u03bb> (erf 1)\n0.8427007929497151\n\n\u03bb> (erf 0.5 1)\n0.3222009151366685\n\n\u03bb> (erfc 1)\n0.15729920705028488\n\n\u03bb> (inverse-erf 0.8427007929497151)\n1.0000000000000004\n\n\u03bb> (inverse-erfc 0.15729920705028488)\n1.0000000000000004",
+            "title": "Error Functions"
+        }
+    ]
+}

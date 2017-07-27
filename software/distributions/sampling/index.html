@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>Sampling Algorithms - Distributions for Clojure</title>
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="../css/highlight.css">
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Sampling Algorithms";
+    var mkdocs_page_input_path = "sampling.md";
+    var mkdocs_page_url = "/sampling/";
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js"></script>
+  <script src="../js/modernizr-2.8.3.min.js"></script>
+  <script type="text/javascript" src="../js/highlight.pack.js"></script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> Distributions for Clojure</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	<ul class="current">
+	  
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="..">Home</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../getting-started/">Getting Started</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../univariate/">Univariate Distributions</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../location-scale/">Location-Scale Families</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../truncated/">Truncated Distributions</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../mixture/">Mixture Distributions</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../marginal/">Marginal Distributions</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../posterior/">Posterior Distributions</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../posterior-predictive/">Posterior Predictive</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../integration/">Integration & Expectation</a>
+	    </li>
+          
+            <li class="toctree-l1 current">
+		
+    <a class="current" href="./">Sampling Algorithms</a>
+    <ul class="subnav">
+            
+    <li class="toctree-l2"><a href="#sampling-algorithms">Sampling Algorithms</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l3" href="#metropolis-hastings">Metropolis-Hastings</a></li>
+        
+            <li><a class="toctree-l3" href="#slice-sampling">Slice Sampling</a></li>
+        
+            <li><a class="toctree-l3" href="#accept-reject">Accept Reject</a></li>
+        
+        </ul>
+    
+
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../dirichlet-process/">Dirichlet Process</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../special/">Specical Functions</a>
+	    </li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">Distributions for Clojure</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>Sampling Algorithms</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="sampling-algorithms">Sampling Algorithms<a class="headerlink" href="#sampling-algorithms" title="Permanent link"></a></h1>
+<p>For univariate distributions which extend protocols implementing cdf and icdf, generating independent draws can be achieved using the inverse-cdf method. For those extending only the protocol implementing cdf, icdf can fall back onto its default root finding algorithm, and the inverse-cdf method can still be used.</p>
+<p>For other more exotic distributions of interest other sampling algorithms may be needed.</p>
+<p>To illustrate these algorithms lets assume a trivial distribution that has a density propotional to x^2 on the unit interval</p>
+<pre><code>λ&gt; (defn target-density [x]
+     (cond
+       (&gt; x 1) 0
+       (&lt; x 0) 0
+       :else (/ (* x x) 3)))
+</code></pre>
+
+<h2 id="metropolis-hastings">Metropolis-Hastings<a class="headerlink" href="#metropolis-hastings" title="Permanent link"></a></h2>
+<p><code>(metropolis-hastings target proposal seed)</code></p>
+<p><code>(metropolis-hastings target proposal seed log-target)</code></p>
+<p>The <code>metropolis-hastings</code> function has multiple arities. The function taing 3 arguments assumes that the target (a function) passed in the first argument is not computed on the log-scale. The function accepting 4 arguments accepts an additional boolean value, allowing the user to specify whether the target function passed in the first argument is specified on the log scale. The second argument, proposal, should be a function that maps a value in the domain to distribution, as to form the proposal distribution. Seed is a value in the domain at which the algorithm is started.</p>
+<p>Like other samples on this page, <code>metropolis-hastings</code> returns a lazy list of draws.</p>
+<pre><code>λ&gt; (def mh-draws (metropolis-hastings target-density #(normal % 0.3) 0.5))
+#'λ/mh-draws
+
+λ&gt; (sample mh-draws 5)
+(0.5 0.5278844732151602 0.48958614718093274 0.48958614718093274 0.5880599159218269)
+</code></pre>
+
+<p>Here <code>#(normal % 0.3)</code> is an anonymous function that maps a parameter x to a normal distribution centered around x.
+The <code>sample</code> function dispatches on the lazy list in order to maintain continuity of the API. As a lazy list, however, using <code>take</code> also works just fine.</p>
+<pre><code>λ&gt; (take 5 mh-draws)
+(0.5 0.5278844732151602 0.48958614718093274 0.48958614718093274 0.5880599159218269)
+</code></pre>
+
+<p>The advantage of using <code>take</code>, as the draws are no longer independent,
+is that one can thin the draws to reduce dependence.</p>
+<pre><code>λ&gt; (take 5 (take-nth 10 mh-draws))
+(0.5 0.4425665105907383 0.5393113732753869 0.3961248334462656 0.890723381756662)
+</code></pre>
+
+<p><img alt="metropolis-hastings" src="../images/metropolis-hastings.png" /></p>
+<h2 id="slice-sampling">Slice Sampling<a class="headerlink" href="#slice-sampling" title="Permanent link"></a></h2>
+<p><code>(slice-sampler target width seed)</code></p>
+<p><code>(slice-sampler target width seed log-target?)</code></p>
+<p>Usage same as <code>metropolis-hastings</code> except width is a tuning parameter
+corresponding to the width in the stepping out procedure.</p>
+<p><img alt="slice sampling" src="../images/slice-sampler.png" /></p>
+<h2 id="accept-reject">Accept Reject<a class="headerlink" href="#accept-reject" title="Permanent link"></a></h2>
+<p><code>(accept-reject target proposal c)</code></p>
+<p>c is a constant such that target &lt; c*proposal.</p>
+<pre><code>λ&gt; (take 5 (accept-reject target-density (uniform 0 1) 1))
+(0.8297629001889286 0.778066797774964 0.28981042074043706 0.8582759266577196 0.8942679865725314)
+λ&gt; (sample (accept-reject target-density (uniform 0 1) 1) 5)
+(0.8841717452838114 0.9360229665247679 0.923946004811828 0.9770042699079926 0.5548516755781405)
+</code></pre>
+
+<p><img alt="accept reject" src="../images/accept-reject.png" /></p>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../dirichlet-process/" class="btn btn-neutral float-right" title="Dirichlet Process">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../integration/" class="btn btn-neutral" title="Integration & Expectation"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+	  
+        </div>
+      </div>
+
+    </section>
+    
+  </div>
+
+  <div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href="../integration/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../dirichlet-process/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script src="../js/theme.js"></script>
+
+</body>
+</html>
